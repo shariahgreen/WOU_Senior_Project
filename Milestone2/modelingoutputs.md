@@ -1,1 +1,0 @@
-Modeling outputs. I would like to see some informal Use Case diagrams for your top features, sequence or flow diagrams and a preliminary database design or ER diagram. Identify Entities and Actions. Please do these on a whiteboard (preferred) or hand drawn on paper -- so you can erase and redraw many times. Afterwards, take a photo or scan to put in your repository.
