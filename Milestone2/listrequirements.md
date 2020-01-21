@@ -25,11 +25,13 @@ T: Task
 4. [U] As a visitor I want to be able to search for an athlete and then view their athlete page so I can find out more information about them
 5. [U] As a visitor I want to be able to view race results for an athlete so I can see how they have performed
 6. [U] As a visitor I want to be able to view PR's (personal records) for an athlete so I can see their best performances
-7. [E] 
-    1. [U]
-        1. [T]
-        2. [T]
-        3. [T]
-    2. [U]
-8. [U] As a robot I would like to be prevented from creating an account on your website so I don't ask millions of my friends to join your website and try to add comments about male enhancement drugs.
-7. 
+7. [U] As a coach I want to be able to view all athletes, so I can form up my team.
+8. [E] As a visitor I want to be able to view the stats for an athlete, so I can organize my team for best performance.
+    1. [U] As a visitor I want to be able to show PR's in each race event, so I know the best event for that athlete.
+    2. [U] As a visitor I want to be able to see past performance for an athlete on a picture/plot based on race type and distance, so I can track their performance.
+    3. [U] As a visitor I want to be able to show all athletes in ascending order based on their performance, so I can see who is the best athlete.
+9. [U] As a robot I would like to be prevented from creating an account on your website so I don't ask millions of my friends to join your website and try to add comments about male enhancement drugs.
+10. [E] As a coach I want to be able to track athlete interests in race event, so I can assign them based on race event.
+    1. [U] As coach I want to be able to show how often an athlete compete in each race event, so I can know which event they are comfortable in, and which one they need to be improved.
+
+
