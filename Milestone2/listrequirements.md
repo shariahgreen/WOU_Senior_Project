@@ -1,10 +1,12 @@
+## Identify Non-Functional Requirements ##
+
 1. User accounts and data must be stored indefinitely.  They don't want to delete; rather, mark items as "deleted" but don't actually delete them.  They also used the word "inactive" as a synonym for deleted.
 2. Passwords should not expire
 3. Site should never return debug error pages.  Web server should have a custom 404 page that is cute or funny and has a link to the main index page.
 4. All server errors must be logged so we can investigate what is going on in a page accessible only to Admins.
 5. English will be the default language.
 
-## Identify Functional Requirements (User Stories)
+## Identify Functional Requirements (User Stories) ##
 
 E: Epic  
 U: User Story  
@@ -33,5 +35,3 @@ T: Task
 9. [U] As a robot I would like to be prevented from creating an account on your website so I don't ask millions of my friends to join your website and try to add comments about male enhancement drugs.
 10. [E] As a coach I want to be able to track athlete interests in race event, so I can assign them based on race event.
     1. [U] As coach I want to be able to show how often an athlete compete in each race event, so I can know which event they are comfortable in, and which one they need to be improved.
-
-
