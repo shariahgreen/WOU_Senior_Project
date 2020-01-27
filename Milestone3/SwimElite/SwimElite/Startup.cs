@@ -2,6 +2,7 @@
 using Owin;
 
 [assembly: OwinStartupAttribute(typeof(SwimElite.Startup))]
+
 namespace SwimElite
 {
     public partial class Startup

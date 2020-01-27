@@ -14,8 +14,8 @@ body {
     padding-right: 15px;
 }
 
-/* Override the default bootstrap behavior where horizontal description lists 
-   will truncate terms that are too long to fit in the left column 
+/* Override the default bootstrap behavior where horizontal description lists
+   will truncate terms that are too long to fit in the left column
 */
 .dl-horizontal dt {
     white-space: normal;
@@ -27,3 +27,19 @@ select,
 textarea {
     max-width: 280px;
 }
+
+#logo {
+    height: 60px;
+}
+
+a {
+    color: darkblue;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    margin-top: 5px;
+}
+
+    .navbar-inverse .navbar-nav > li > a:hover {
+        color: darkblue;
+    }
