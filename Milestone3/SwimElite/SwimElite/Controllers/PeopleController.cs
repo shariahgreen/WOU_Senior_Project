@@ -20,6 +20,11 @@ namespace SwimElite.Controllers
             var people = db.People.Include(p => p.Login);
             return View(people.ToList());
         }
+        public ActionResult Search(string search)
+        {                    
+            IEnumerable<SwimElite.Models.Person> results = db.People.Where(p => p.FirstName.Contains(search)).ToList();
+            return View(results);           
+        }
 
         // GET: People/Details/5
         public ActionResult Details(int? id)
