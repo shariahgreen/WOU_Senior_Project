@@ -203,6 +203,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Properties\PublishProfiles\SwimElite - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -258,6 +259,7 @@
     <Content Include="Views\People\Details.cshtml" />
     <Content Include="Views\People\Edit.cshtml" />
     <Content Include="Views\People\Index.cshtml" />
+    <Content Include="Views\People\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
