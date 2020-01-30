@@ -20,7 +20,7 @@ namespace SwimElite.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("SwimEliteContext", throwIfV1Schema: false)
         {
         }
 
