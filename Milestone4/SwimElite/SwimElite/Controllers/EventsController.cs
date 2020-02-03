@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -17,6 +18,17 @@ namespace SwimElite.Controllers
             return View(events.ToList());
         }
 
+        public ActionResult Search(string search)
+        {
+            IEnumerable<SwimElite.Models.Event> results = db.Events.Where(p => p.EventList.Name.Contains(search)).ToList();
+            return View(results);
+        }
+
+        public ActionResult SearchDetails(string id)
+        {
+            IEnumerable<SwimElite.Models.Time> results = db.Times.Where(p => p.Event.EventList.Name.Contains(id)).ToList();
+            return View(results);
+        }
         // GET: Events/Details/5
         public ActionResult Details(int? id)
         {
