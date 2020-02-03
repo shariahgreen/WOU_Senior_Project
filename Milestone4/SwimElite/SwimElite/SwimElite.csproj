@@ -269,6 +269,8 @@
     <Content Include="Views\Times\Details.cshtml" />
     <Content Include="Views\Times\Edit.cshtml" />
     <Content Include="Views\Times\Index.cshtml" />
+    <Content Include="Views\Events\Search.cshtml" />
+    <Content Include="Views\Events\SearchDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
