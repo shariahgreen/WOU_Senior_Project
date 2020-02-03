@@ -43,18 +43,23 @@ namespace SwimElite.Controllers
             {
                 SwimElite.Models.Time PR = new SwimElite.Models.Time();
                 PR.Time1 = System.TimeSpan.MaxValue;
+                var check = false;
                 foreach(var time in times)
                 {
                     if (time.Time1 != null && time.Time1 < PR.Time1 && time.Event.ID == swimevent.ID)
                     {
                         PR = time;
+                        check = true;
                     }
                 }
-                prtimes.Add(PR);
+                if (check == true)
+                {
+                    prtimes.Add(PR);
+                }
+                
             }
             ViewBag.times = times;
             ViewBag.prtimes = prtimes;
-            //return View(athleteProfile);
             return View(person);
         }
 
