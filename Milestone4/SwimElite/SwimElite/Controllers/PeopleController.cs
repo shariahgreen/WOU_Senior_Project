@@ -27,7 +27,7 @@ namespace SwimElite.Controllers
 
         // GET: People/Details/5
         public ActionResult Details(int? id)
-        {
+        { 
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -37,6 +37,24 @@ namespace SwimElite.Controllers
             {
                 return HttpNotFound();
             }
+            IEnumerable<SwimElite.Models.Time> times = db.Times.Include(t => t.Event).Include(t => t.Person).Where(p => p.Person.ID == person.ID).ToList();
+            List<SwimElite.Models.Time> prtimes = new List<SwimElite.Models.Time>();
+            foreach(var swimevent in db.Events)
+            {
+                SwimElite.Models.Time PR = new SwimElite.Models.Time();
+                PR.Time1 = System.TimeSpan.MaxValue;
+                foreach(var time in times)
+                {
+                    if (time.Time1 != null && time.Time1 < PR.Time1 && time.Event.ID == swimevent.ID)
+                    {
+                        PR = time;
+                    }
+                }
+                prtimes.Add(PR);
+            }
+            ViewBag.times = times;
+            ViewBag.prtimes = prtimes;
+            //return View(athleteProfile);
             return View(person);
         }
 
