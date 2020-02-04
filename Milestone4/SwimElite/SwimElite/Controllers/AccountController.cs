@@ -138,8 +138,6 @@ namespace SwimElite.Controllers
             }
         }
 
-        //
-        // GET: /Account/Register
         [AllowAnonymous]
         public ActionResult Register()
         {
