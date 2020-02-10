@@ -56,13 +56,13 @@ The project <b>404 Not Found</b> has taken on for their senior capstone is the c
  > "For teams and coaches looking to bring their athletes' strength training performance to the next level Peak Performance is website designed to tailor lifting workouts to the athlete, encourage interactive community building, and help keeps athletes and their coaches on the same page about training. Peak Performance will provide continuous workout programs tailored to an athlete's specific needs and abilities, exercise tracking, and interfacing with social media to allow for a well-rounded strength training experience for all athletes. Unlike many other strength training apps that are bogged down with features and add-ons that are never used, our product strives to serve our customers in the simplest, but most effective ways; helping athletes achieve their goals and helping teams grow closer as they do it."
 
 ### How Do I Get Started?
-The <a href="">starting</a> file has information about how to clone and set up this project on your local machine and how to become a contributor. 
+The <a href="https://github.com/jmcworth/404notfoundproj/tree/master/Milestone5/GettingStarted.md">starting</a> file has information about how to clone and set up this project on your local machine and how to become a contributor. 
 
 ### Contributing
-For contributing and coding guidelines when working on this project, see these <a href="">Guidelines</a>. Here is a list of <a href="https://github.com/jmcworth/404notfoundproj/blob/dev/docs/contributing.md">contributors</a> to this project.
+For contributing and coding guidelines when working on this project, see these <a href="https://github.com/jmcworth/404notfoundproj/tree/master/Milestone5/ContributingToProject.md">Guidelines</a>. Here is a list of <a href="https://github.com/jmcworth/404notfoundproj/tree/master/docs/contributing.md">contributors</a> to this project.
 
 ### Software Construction Process
 For this project, we are following Agile methodologies, specifically Disciplined Agile Delivery process framework. We follow a two-week sprint cycle that involves daily SCRUM meeting, weekly sprint planning sessions, and an end of sprint review and retrospective. To contribute to this project, one will need to be involved in this process with the 404 Not Found team. 
 
 ### Tools, Configuration, and Packages
-<a href="">Tools</a> is a list of all the software, libraries, tools, packages, and versions used on this project. Make sure you are using the same ones to avoid any compatibility errors. 
+<a href="https://github.com/jmcworth/404notfoundproj/tree/master/Milestone5/ToolsNeeded.md">Tools</a> is a list of all the software, libraries, tools, packages, and versions used on this project. Make sure you are using the same ones to avoid any compatibility errors. 
