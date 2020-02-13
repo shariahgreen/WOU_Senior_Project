@@ -152,6 +152,7 @@ namespace Peak_Performance.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
@@ -160,6 +161,22 @@ namespace Peak_Performance.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    //Add roles to user before sign in async
+                    if (Request.Form["Coach"] == "true")
+                    {
+                        //add role for user to be coach
+                    }
+                    else if (Request.Form["Athlete"] == "true")
+                    {
+                        //add role for user as athlete
+                    }
+
+                    //if adding another admin
+                    if (User.IsInRole("Admin"))
+                    {
+                        //add role for user as admin
+                    }
+
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
@@ -167,7 +184,22 @@ namespace Peak_Performance.Controllers
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
+                    if (User.IsInRole("Admin"))
+                    {
+                        //return to admin homepage
+                    }
+                    else if (User.IsInRole("Coach"))
+                    {
+                        //return to coach homepage
+                    }
+                    else if (User.IsInRole("Athlete"))
+                    {
+                        //return to athlete homepage (their profile)
+                    }
+                    else
+                    {
+                        //return to error page (catch all)
+                    }
                     return RedirectToAction("About", "Home");
                 }
                 AddErrors(result);
