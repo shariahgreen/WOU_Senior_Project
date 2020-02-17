@@ -22,7 +22,7 @@ namespace Peak_Performance.Controllers
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "We're Here to Help, Contact Us";
 
             return View();
         }
