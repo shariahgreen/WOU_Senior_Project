@@ -181,6 +181,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\seedForAspNetRoles.sql" />
+    <Content Include="App_Data\seedForSportsTeamsAthletes.sql" />
     <Content Include="App_Data\up_Athlete.sql" />
     <Content Include="App_Data\up_Person.sql" />
     <Content Include="bin\Antlr3.Runtime.dll" />

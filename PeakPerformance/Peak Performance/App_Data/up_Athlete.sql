@@ -34,7 +34,7 @@ CREATE TABLE [dbo].[Athletes]
 	[UserId] NVARCHAR(max) NOT NULL,
 	[TeamId] INT NOT NULL,
 	
-	CONSTRAINT [FK.dbo.Persons_dbo.Users_UserId] FOREIGN KEY ([UserID]) REFERENCES [bdo].[AspNetUsers] ([Id]) ON DELETE CASCADE,
+	CONSTRAINT [FK.dbo.Persons_dbo.Users_UserId] FOREIGN KEY ([UserID]) REFERENCES [dbo].[AspNetUsers] ([Id]) ON DELETE CASCADE,
 	CONSTRAINT [FK_dbo.Persons_dbo.Teams_TeamId] FOREIGN KEY ([TeamId]) REFERENCES [dbo].[Teams] ([TeamId]) ON DELETE CASCADE,
 	CONSTRAINT [PK_dbo.Athletes] PRIMARY KEY CLUSTERED ([AthleteId] ASC)
 );
@@ -54,6 +54,6 @@ CREATE TABLE [dbo].[Coaches]
     [Weight] FLOAT,
 	[UserId] NVARCHAR(max) NOT NULL
 	
-	CONSTRAINT [FK.dbo.Persons_dbo.Users_UserId] FOREIGN KEY ([UserID]) REFERENCES [bdo].[AspNetUsers] ([Id]) ON DELETE CASCADE,
+	CONSTRAINT [FK.dbo.Persons_dbo.Users_UserId] FOREIGN KEY ([UserID]) REFERENCES [dbo].[AspNetUsers] ([Id]) ON DELETE CASCADE,
 	CONSTRAINT [PK_dbo.Coaches] PRIMARY KEY CLUSTERED ([CoachId] ASC)
 );
