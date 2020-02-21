@@ -8,6 +8,7 @@ namespace Peak_Performance.Controllers
 {
     public class HomeController : Controller
     {
+        [Authorize]
         public ActionResult Index()
         {
             return View();

@@ -30,3 +30,8 @@ textarea {
     .navbar-inverse .navbar-nav > li > a {
         color: black;
     }
+
+.carousel-inner img {
+    width: 100%;
+    height: 100%;
+}
