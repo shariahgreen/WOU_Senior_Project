@@ -190,6 +190,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\about_view.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -202,6 +203,7 @@
     <Content Include="Images\Compact_Circle_Backgorund.png" />
     <Content Include="Images\Compact_Dome_Background.png" />
     <Content Include="Images\Compact_No_Background.png" />
+    <Content Include="Images\dumbell.jpg" />
     <Content Include="Images\Header.png" />
     <Content Include="Images\Image_Only.png" />
     <Content Include="Images\lift.png" />
