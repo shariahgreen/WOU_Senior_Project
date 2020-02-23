@@ -31,6 +31,7 @@ namespace Peak_Performance.Models
         public bool Active { get; set; }
 
         [Column(TypeName = "date")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime DOB { get; set; }
 
         public double? Height { get; set; }
