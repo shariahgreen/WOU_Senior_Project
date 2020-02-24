@@ -2,7 +2,7 @@ CREATE TABLE [dbo].[MuscleGroups]
 (
     [ID] INT NOT NULL IDENTITY(1,1),
 	[Name] NVARCHAR(200),
-	CONSTRAINT [PK_dbo.MuscleList] PRIMARY KEY CLUSTERED ([ID] ASC)
+	CONSTRAINT [PK_dbo.MuscleGroups] PRIMARY KEY CLUSTERED ([ID] ASC)
 )
 
 CREATE TABLE [dbo].[Exercises]
@@ -10,7 +10,7 @@ CREATE TABLE [dbo].[Exercises]
     [ID] INT NOT NULL IDENTITY(1,1),
     [Name] NVARCHAR(128),
 	[URL] NVARCHAR(MAX),
-	CONSTRAINT [PK_dbo.Exercise] PRIMARY KEY CLUSTERED ([ID] ASC)
+	CONSTRAINT [PK_dbo.Exercises] PRIMARY KEY CLUSTERED ([ID] ASC)
 )
 
 CREATE TABLE [dbo].[ExcerciseMuscleGroups]
@@ -20,7 +20,7 @@ CREATE TABLE [dbo].[ExcerciseMuscleGroups]
 	[ExerciseID] INT NOT NULL,
     
 	CONSTRAINT [FK_dbo.ExerciseMuscleGroups_dbo.MuscleGroups_MuscleGroupsID] FOREIGN KEY ([MuscleGroupID]) REFERENCES [dbo].[MuscleGroups] ([ID]) ON DELETE CASCADE,
-	CONSTRAINT [FK_dbo.ExerciseMuscleGroups_dbo.Exercises_ExerciseID] FOREIGN KEY ([ExerciseID]) REFERENCES [dbo].[Exercise] ([ID]) ON DELETE CASCADE,
+	CONSTRAINT [FK_dbo.ExerciseMuscleGroups_dbo.Exercises_ExerciseID] FOREIGN KEY ([ExerciseID]) REFERENCES [dbo].[Exercises] ([ID]) ON DELETE CASCADE,
 	CONSTRAINT [PK_dbo.ExerciseMuscleGroups] PRIMARY KEY CLUSTERED ([ID] ASC)
 )
 
@@ -39,8 +39,8 @@ CREATE TABLE [dbo].[Complexes]
     [ID] INT NOT NULL IDENTITY(1,1),
 	[WorkoutID] INT,
 
-	CONSTRAINT [FK_dbo.Complex_dbo.Workouts_WorkoutID] FOREIGN KEY ([WorkoutID]) REFERENCES [dbo].[Workouts] ([ID]) ON DELETE CASCADE,
-	CONSTRAINT [PK_dbo.Complex] PRIMARY KEY CLUSTERED ([ID] ASC)
+	CONSTRAINT [FK_dbo.Complexes_dbo.Workouts_WorkoutID] FOREIGN KEY ([WorkoutID]) REFERENCES [dbo].[Workouts] ([ID]) ON DELETE CASCADE,
+	CONSTRAINT [PK_dbo.Complexes] PRIMARY KEY CLUSTERED ([ID] ASC)
 )
 
 CREATE TABLE [dbo].[ComplexItems]
@@ -52,8 +52,10 @@ CREATE TABLE [dbo].[ComplexItems]
 	[RunSpeed] FLOAT,
 	[RunTime] TIME,
 	[RunDistance] FLOAT,
-	[ExerciseID] INT,
+	[ExerciseID] INT NOT NULL,
+    [ComplexId] INT NOT NULL,
     
-	CONSTRAINT [FK_dbo.ComplexItems_dbo.Exercise_ExerciseID] FOREIGN KEY ([ExerciseID]) REFERENCES [dbo].[Exercise] ([ID]) ON DELETE CASCADE,
+	CONSTRAINT [FK_dbo.ComplexItems_dbo.Exercises_ExerciseID] FOREIGN KEY ([ExerciseID]) REFERENCES [dbo].[Exercises] ([ID]) ON DELETE CASCADE,
+    CONSTRAINT [FK_dbo.ComplexItems_dbo.Complexes_ComplexID] FOREIGN KEY ([ComplexId)] REFERENCES [dbo].[Complexes] ([ID]) ON DELETE CASCADE,
 	CONSTRAINT [PK_dbo.ComplexItems] PRIMARY KEY CLUSTERED ([ID] ASC)
 )
