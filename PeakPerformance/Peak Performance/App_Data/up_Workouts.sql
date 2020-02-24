@@ -8,6 +8,7 @@ CREATE TABLE [dbo].[MuscleGroups]
 CREATE TABLE [dbo].[Exercises]
 (
     [ID] INT NOT NULL IDENTITY(1,1),
+    [Name] NVARCHAR(128),
 	[URL] NVARCHAR(MAX),
 	CONSTRAINT [PK_dbo.Exercise] PRIMARY KEY CLUSTERED ([ID] ASC)
 )
@@ -26,7 +27,7 @@ CREATE TABLE [dbo].[ExcerciseMuscleGroups]
 CREATE TABLE [dbo].[Workouts]
 (
     [ID] INT NOT NULL IDENTITY(1,1),
-	[Date] DATE NOT NULL,
+	[WorkoutDate] DATE NOT NULL,
 	[TeamID] INT NOT NULL,
 
 	CONSTRAINT [FK_dbo.Workouts_dbo.Teams_TeamID] FOREIGN KEY ([TeamID]) REFERENCES [dbo].[Teams] ([ID]) ON DELETE CASCADE,
@@ -36,21 +37,21 @@ CREATE TABLE [dbo].[Workouts]
 CREATE TABLE [dbo].[Complexes]
 (
     [ID] INT NOT NULL IDENTITY(1,1),
-	[WorkOutID] INT,
+	[WorkoutID] INT,
 
-	CONSTRAINT [FK_dbo.Complex_dbo.WorkOuts_WorkOutID] FOREIGN KEY ([WorkOutID]) REFERENCES [dbo].[WorkOuts] ([ID]) ON DELETE CASCADE,
+	CONSTRAINT [FK_dbo.Complex_dbo.Workouts_WorkoutID] FOREIGN KEY ([WorkoutID]) REFERENCES [dbo].[Workouts] ([ID]) ON DELETE CASCADE,
 	CONSTRAINT [PK_dbo.Complex] PRIMARY KEY CLUSTERED ([ID] ASC)
 )
 
 CREATE TABLE [dbo].[ComplexItems]
 (
     [ID] INT NOT NULL IDENTITY(1,1),
-	[Reps] INT,
-	[Sets] INT,
-	[Weight] FLOAT,
-	[Speed] FLOAT,
-	[Time] TIME,
-	[Distance] FLOAT,
+	[ComplexReps] INT,
+	[ComplexSets] INT,
+	[LiftWeight] FLOAT,
+	[RunSpeed] FLOAT,
+	[RunTime] TIME,
+	[RunDistance] FLOAT,
 	[ExerciseID] INT,
     
 	CONSTRAINT [FK_dbo.ComplexItems_dbo.Exercise_ExerciseID] FOREIGN KEY ([ExerciseID]) REFERENCES [dbo].[Exercise] ([ID]) ON DELETE CASCADE,
