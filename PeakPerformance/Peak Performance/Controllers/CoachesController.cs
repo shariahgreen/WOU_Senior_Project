@@ -46,7 +46,7 @@ namespace Peak_Performance.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CoachId,FirstName,LastName,PreferredName,ProfilePic,Active,UserId")] Coach coach)
+        public ActionResult Create([Bind(Include = "CoachId,FirstName,LastName,PreferredName,ProfilePic,Active,UserId,Email")] Coach coach)
         {
             if (ModelState.IsValid)
             {

@@ -73,11 +73,15 @@ textarea {
     height: 100%;
 }
 
+#companyLogo {
+    width: 300px;
+}
+
 /*FOR TITLES, THEY HAVE THESE CHARACTERISTICS. ADD VIA ID TAGS FOR EXTRA CHARACTERISTICS*/
-h1, h2, h3, h4, h5, h6 {
+/*h1, h2, h3, h4, h5, h6 {
     font-family: "Times New Roman", Times, serif;
     text-align: center;
-}
+}*/
 
 /*-------------------------------------------------------------*/
 /*DEFAULT BUTTON STYLE. PLEASE ADD COLORING AND SUCH IN ID TAGS*/

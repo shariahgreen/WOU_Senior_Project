@@ -56,6 +56,9 @@
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="SendGrid, Version=9.12.7.0, Culture=neutral, PublicKeyToken=4f047e93159395ca, processorArchitecture=MSIL">
+      <HintPath>packages\SendGrid.9.12.7\lib\net452\SendGrid.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -184,7 +187,7 @@
     <Compile Include="Models\CoachProfileViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\PeakPerformance.cs" />
+    <Compile Include="DAL\PeakPerformanceContext.cs" />
     <Compile Include="Models\Sport.cs" />
     <Compile Include="Models\Team.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -204,6 +207,7 @@
     <Content Include="Images\Compact_Circle_Backgorund.png" />
     <Content Include="Images\Compact_Dome_Background.png" />
     <Content Include="Images\Compact_No_Background.png" />
+    <Content Include="Images\companyLogo.png" />
     <Content Include="Images\dumbell.jpg" />
     <Content Include="Images\Header.png" />
     <Content Include="Images\Image_Only.png" />
@@ -275,6 +279,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Athlete\Controllers\" />
+    <Folder Include="Areas\Athlete\Views\" />
+    <Folder Include="Areas\Coach\Controllers\" />
+    <Folder Include="Areas\Coach\Views\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

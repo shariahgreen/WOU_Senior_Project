@@ -16,13 +16,14 @@ namespace Peak_Performance.Models
 
         public int CoachId { get; set; }
 
+        [Required]
         [StringLength(100)]
         public string FirstName { get; set; }
 
+        [Required]
         [StringLength(100)]
         public string LastName { get; set; }
 
-        [Required]
         [StringLength(100)]
         public string PreferredName { get; set; }
 
@@ -30,9 +31,11 @@ namespace Peak_Performance.Models
 
         public bool Active { get; set; }
 
+        public string UserId { get; set; }
+
         [Required]
         [StringLength(128)]
-        public string UserId { get; set; }
+        public string Email { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Team> Teams { get; set; }
