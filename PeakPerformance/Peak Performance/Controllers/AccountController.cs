@@ -10,11 +10,15 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Peak_Performance.Models;
 
+//using Peak_Performance.DAL;
+
 namespace Peak_Performance.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
+        private PeakPerformanceContext db = new PeakPerformanceContext();
+
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -144,6 +148,7 @@ namespace Peak_Performance.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            ViewData["Roles"] = db.AspNetRoles.ToList();
             return View();
         }
 
@@ -159,23 +164,34 @@ namespace Peak_Performance.Controllers
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
+                //For Roles
+                var role = Request.Form["Roles"].ToString();
                 if (result.Succeeded)
                 {
+                    var currentUser = UserManager.FindByName(user.UserName);
+
                     //Add roles to user before sign in async
-                    if (Request.Form["Coach"] == "true")
+                    if (role == "Admin")
                     {
-                        //add role for user to be coach
+                        //add role for user to be admin
+                        var roleresult = UserManager.AddToRole(currentUser.Id, "Admin");
                     }
-                    else if (Request.Form["Athlete"] == "true")
+                    else if (role == "Coach")
+                    {
+                        //add role for user as coach
+                        var roleresult = UserManager.AddToRole(currentUser.Id, "Coach");
+                    }
+                    else if (role == "Athlete")
                     {
                         //add role for user as athlete
+                        var roleresult = UserManager.AddToRole(currentUser.Id, "Athlete");
                     }
 
                     //if adding another admin
-                    if (User.IsInRole("Admin"))
-                    {
-                        //add role for user as admin
-                    }
+                    //if (User.IsInRole("Admin"))
+                    //{
+                    //    //add role for user as admin
+                    //}
 
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
