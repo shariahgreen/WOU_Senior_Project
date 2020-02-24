@@ -24,6 +24,13 @@ namespace Peak_Performance.Controllers
                 ViewBag.Age = (Int32.Parse(DateTime.Today.ToString("yyyyMMdd")) - Int32.Parse(user.DOB.ToString("yyyyMMdd"))) / 10000;
                 return View("AthleteProfile", user);
             }
+            else if (User.Identity.IsAuthenticated && User.IsInRole("Coach"))
+            {
+                string id = User.Identity.GetUserId();
+                Coach temp = db.Coaches.FirstOrDefault(p => p.UserId == id);
+                CoachProfileViewModel coach = new CoachProfileViewModel(temp.CoachId);
+                return View("CoachProfile", coach);
+            }
             else
             {
                 return View();
