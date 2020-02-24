@@ -181,6 +181,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Athlete.cs" />
     <Compile Include="Models\Coach.cs" />
+    <Compile Include="Models\CoachProfileViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\PeakPerformance.cs" />
@@ -270,6 +271,7 @@
     <Content Include="Views\Coaches\Edit.cshtml" />
     <Content Include="Views\Coaches\Index.cshtml" />
     <Content Include="Views\Home\AthleteProfile.cshtml" />
+    <Content Include="Views\Home\CoachProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
