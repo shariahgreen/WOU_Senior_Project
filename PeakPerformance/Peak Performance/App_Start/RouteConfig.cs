@@ -18,7 +18,11 @@ namespace Peak_Performance
                 url: "Home/AthleteProfile",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
-
+            routes.MapRoute(
+                name: "Profile page",
+                url: "Home/CoachProfile",
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+            );
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
