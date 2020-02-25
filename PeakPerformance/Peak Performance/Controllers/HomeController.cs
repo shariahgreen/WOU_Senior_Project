@@ -12,11 +12,11 @@ namespace Peak_Performance.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly PeakPerformance db = new PeakPerformance();
+        private readonly PeakPerformanceContext db = new PeakPerformanceContext();
+
         [Authorize]
         public ActionResult Index()
         {
-
             if (User.Identity.IsAuthenticated && User.IsInRole("Athlete"))
             {
                 string id = User.Identity.GetUserId();
@@ -35,7 +35,6 @@ namespace Peak_Performance.Controllers
             {
                 return View();
             }
-
         }
 
         public ActionResult About()

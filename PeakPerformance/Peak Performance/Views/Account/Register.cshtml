@@ -30,6 +30,15 @@
         </div>
     </div>
     <div class="form-group">
+        <label class="col-md-2 control-label">Roles</label>
+        <select class="form-control" id="Roles" name="Roles">
+            @foreach (var item in ViewData["Roles"] as IEnumerable<Peak_Performance.Models.AspNetRole>)
+            {
+                <option value="@item.Name">@item.Name</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" class="btn btn-default" value="Register" />
         </div>
