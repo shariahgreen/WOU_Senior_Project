@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
+//using Peak_Performance.DAL;
+
 namespace Peak_Performance.Models
 {
     public class ExternalLoginConfirmationViewModel
@@ -31,6 +33,7 @@ namespace Peak_Performance.Models
         [Required]
         [Display(Name = "Code")]
         public string Code { get; set; }
+
         public string ReturnUrl { get; set; }
 
         [Display(Name = "Remember this browser?")]

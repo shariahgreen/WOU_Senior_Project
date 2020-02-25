@@ -6,17 +6,20 @@ namespace Peak_Performance.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
+    //using Peak_Performance.DAL;
+
     public partial class Athlete
     {
         public int AthleteId { get; set; }
 
+        [Required]
         [StringLength(100)]
         public string FirstName { get; set; }
 
+        [Required]
         [StringLength(100)]
         public string LastName { get; set; }
 
-        [Required]
         [StringLength(100)]
         public string PreferredName { get; set; }
 
@@ -31,18 +34,20 @@ namespace Peak_Performance.Models
         public bool Active { get; set; }
 
         [Column(TypeName = "date")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime DOB { get; set; }
 
         public double? Height { get; set; }
 
         public double? Weight { get; set; }
 
-        [Required]
         [StringLength(128)]
         public string UserId { get; set; }
 
-        public int? TeamId { get; set; }
+        public int TeamId { get; set; }
+
+        [Required]
+        [StringLength(128)]
+        public string Email { get; set; }
 
         public virtual Team Team { get; set; }
     }

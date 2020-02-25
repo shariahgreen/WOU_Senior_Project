@@ -6,6 +6,8 @@ namespace Peak_Performance.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
+    //using Peak_Performance.DAL;
+
     public partial class Coach
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -31,6 +33,7 @@ namespace Peak_Performance.Models
 
         public bool Active { get; set; }
 
+        [StringLength(128)]
         public string UserId { get; set; }
 
         [Required]

@@ -8,25 +8,21 @@ namespace Peak_Performance.Models
 
     //using Peak_Performance.DAL;
 
-    public partial class Sport
+    public partial class AspNetRole
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Sport()
+        public AspNetRole()
         {
-            Teams = new HashSet<Team>();
+            AspNetUsers = new HashSet<AspNetUser>();
         }
 
-        public int SportId { get; set; }
+        public string Id { get; set; }
 
         [Required]
-        [StringLength(100)]
-        public string SportName { get; set; }
-
-        [Required]
-        [StringLength(100)]
-        public string Season { get; set; }
+        [StringLength(256)]
+        public string Name { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Team> Teams { get; set; }
+        public virtual ICollection<AspNetUser> AspNetUsers { get; set; }
     }
 }
