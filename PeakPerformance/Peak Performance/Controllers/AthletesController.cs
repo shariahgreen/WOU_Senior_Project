@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Peak_Performance.Models;
+using Peak_Performance.DAL;
 
 namespace Peak_Performance.Controllers
 {

@@ -10,7 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Peak_Performance.Models;
 
-//using Peak_Performance.DAL;
+using Peak_Performance.DAL;
 
 namespace Peak_Performance.Controllers
 {

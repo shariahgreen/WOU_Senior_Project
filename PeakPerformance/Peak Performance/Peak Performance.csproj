@@ -178,6 +178,13 @@
     <Compile Include="Controllers\CoachesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Models\Complex.cs" />
+    <Compile Include="Models\ComplexItem.cs" />
+    <Compile Include="Models\ExcerciseMuscleGroup.cs" />
+    <Compile Include="Models\Exercis.cs" />
+    <Compile Include="Models\MuscleGroup.cs" />
+    <Compile Include="DAL\PeakPerformanceContext.cs" />
+    <Compile Include="Models\Workout.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -191,7 +198,6 @@
     <Compile Include="Models\CoachProfileViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="DAL\PeakPerformanceContext.cs" />
     <Compile Include="Models\Sport.cs" />
     <Compile Include="Models\Team.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
