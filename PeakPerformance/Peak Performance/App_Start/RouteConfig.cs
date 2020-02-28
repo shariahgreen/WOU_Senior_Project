@@ -14,11 +14,15 @@ namespace Peak_Performance
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                name: "Profile page",
+                name: "Athlete Profile page",
                 url: "Home/AthleteProfile",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
-
+            routes.MapRoute(
+                name: "Coach Profile page",
+                url: "Home/CoachProfile",
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+            );
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

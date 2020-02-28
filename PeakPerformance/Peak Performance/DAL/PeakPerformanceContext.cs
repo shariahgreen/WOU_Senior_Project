@@ -1,4 +1,4 @@
-namespace Peak_Performance.Models
+namespace Peak_Performance.DAL
 {
     using System;
     using System.Data.Entity;
@@ -19,8 +19,14 @@ namespace Peak_Performance.Models
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<Athlete> Athletes { get; set; }
         public virtual DbSet<Coach> Coaches { get; set; }
+        public virtual DbSet<Complex> Complexes { get; set; }
+        public virtual DbSet<ComplexItem> ComplexItems { get; set; }
+        public virtual DbSet<ExcerciseMuscleGroup> ExcerciseMuscleGroups { get; set; }
+        public virtual DbSet<Exercis> Exercises { get; set; }
+        public virtual DbSet<MuscleGroup> MuscleGroups { get; set; }
         public virtual DbSet<Sport> Sports { get; set; }
         public virtual DbSet<Team> Teams { get; set; }
+        public virtual DbSet<Workout> Workouts { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -49,10 +55,36 @@ namespace Peak_Performance.Models
                 .WithOptional(e => e.Coach)
                 .WillCascadeOnDelete();
 
+            modelBuilder.Entity<Complex>()
+                .HasMany(e => e.ComplexItems)
+                .WithRequired(e => e.Complex)
+                .HasForeignKey(e => e.ComplexId);
+
+            modelBuilder.Entity<Exercis>()
+                .HasMany(e => e.ComplexItems)
+                .WithRequired(e => e.Exercis)
+                .HasForeignKey(e => e.ExerciseID);
+
+            modelBuilder.Entity<Exercis>()
+                .HasMany(e => e.ExcerciseMuscleGroups)
+                .WithRequired(e => e.Exercis)
+                .HasForeignKey(e => e.ExerciseID);
+
+            modelBuilder.Entity<MuscleGroup>()
+                .HasMany(e => e.ExcerciseMuscleGroups)
+                .WithRequired(e => e.MuscleGroup)
+                .HasForeignKey(e => e.MuscleGroupID);
+
             modelBuilder.Entity<Team>()
                 .HasMany(e => e.Athletes)
                 .WithRequired(e => e.Team)
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Workout>()
+                .HasMany(e => e.Complexes)
+                .WithOptional(e => e.Workout)
+                .HasForeignKey(e => e.WorkoutID)
+                .WillCascadeOnDelete();
         }
     }
 }

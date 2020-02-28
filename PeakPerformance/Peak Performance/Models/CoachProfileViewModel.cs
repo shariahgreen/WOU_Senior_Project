@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-
-//using Peak_Performance.DAL;
+using Peak_Performance.DAL;
 
 namespace Peak_Performance.Models
 {
