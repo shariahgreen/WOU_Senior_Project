@@ -1,0 +1,48 @@
+﻿@{
+    ViewBag.Title = "Admin Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 align="center" style="font-variant-caps:small-caps;">Admin Home Page</h1>
+<hr />
+
+<div class="col-md-8">
+    <h2 align="center" style="font-variant-caps: small-caps;">Quick Access</h2>
+    <hr />
+</div>
+<div class="row">
+    <div class="col-md-8">
+        <div class="col-md-3" id="adminHomeItem">
+            <a href="~/Admin/AllAthletes">
+                <h3>Athlete</h3>
+                <div>
+                    <h5>For quick access to the list of all Athlete's</h5>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-3" id="adminHomeItem">
+            <a href="~/Admin/AllCoaches">
+                <h3>Coach</h3>
+                <div>
+                    <h5>For quick access to the list of all Coache's</h5>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-3" id="adminHomeItem">
+            <a href="~/Admin/AllTeams">
+                <h3>All Teams</h3>
+                <div>
+                    <h5>For quick access to the list of all Teams's</h5>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4" id="adminHomeItem">
+            <a href="~/Account/Register">
+                <h3>Add Admin <br /> (Not Functional)</h3>
+                <div>
+                    <h5>To Add New Administrators</h5>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

@@ -83,6 +83,12 @@ namespace Peak_Performance.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    //for admin's logging in, redirect to admin home page
+                    var role = db.AspNetUsers.Where(r => r.Email == model.Email).Select(r => r.AspNetRoles.Select(t => t.Name)).First().ToArray();
+                    if (role[0] == "Admin")
+                    {
+                        return RedirectToAction("Home", "Admin");
+                    }
                     return RedirectToLocal(returnUrl);
 
                 case SignInStatus.LockedOut:

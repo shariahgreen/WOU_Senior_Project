@@ -174,6 +174,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AthletesController.cs" />
     <Compile Include="Controllers\CoachesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -280,6 +281,10 @@
     <Content Include="Views\Coaches\Index.cshtml" />
     <Content Include="Views\Home\AthleteProfile.cshtml" />
     <Content Include="Views\Home\CoachProfile.cshtml" />
+    <Content Include="Views\Admin\Home.cshtml" />
+    <Content Include="Views\Admin\AllTeams.cshtml" />
+    <Content Include="Views\Admin\AllAthletes.cshtml" />
+    <Content Include="Views\Admin\AllCoaches.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
