@@ -166,29 +166,24 @@ namespace Peak_Performance.Controllers
         [Authorize]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
-            if (ModelState.IsValid)
-            {
+            if (ModelState.IsValid) {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 //For Roles
                 var role = Request.Form["Roles"].ToString();
-                if (result.Succeeded)
-                {
+                if (result.Succeeded) {
                     var currentUser = UserManager.FindByName(user.UserName);
 
                     //Add roles to user before sign in async
-                    if (role == "Admin")
-                    {
+                    if (role == "Admin") {
                         //add role for user to be admin
                         var roleresult = UserManager.AddToRole(currentUser.Id, "Admin");
                     }
-                    else if (role == "Coach")
-                    {
+                    else if (role == "Coach") {
                         //add role for user as coach
                         var roleresult = UserManager.AddToRole(currentUser.Id, "Coach");
                     }
-                    else if (role == "Athlete")
-                    {
+                    else if (role == "Athlete") {
                         //add role for user as athlete
                         var roleresult = UserManager.AddToRole(currentUser.Id, "Athlete");
                     }
@@ -206,27 +201,22 @@ namespace Peak_Performance.Controllers
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                    if (User.IsInRole("Admin"))
-                    {
+                    if (User.IsInRole("Admin")) {
                         //return to admin homepage
                     }
-                    else if (User.IsInRole("Coach"))
-                    {
+                    else if (User.IsInRole("Coach")) {
                         //return to coach homepage
                     }
-                    else if (User.IsInRole("Athlete"))
-                    {
+                    else if (User.IsInRole("Athlete")) {
                         //return to athlete homepage (their profile)
                     }
-                    else
-                    {
+                    else {
                         //return to error page (catch all)
                     }
                     return RedirectToAction("About", "Home");
                 }
                 AddErrors(result);
             }
-
             // If we got this far, something failed, redisplay form
             return View(model);
         }
