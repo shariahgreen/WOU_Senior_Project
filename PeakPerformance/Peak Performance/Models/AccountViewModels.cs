@@ -70,6 +70,7 @@ namespace Peak_Performance.Models
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
+        [RegularExpression(@"^[a-zA-Z0-9._%+-]+(@wou\.edu)$", ErrorMessage = "Registration is limited to the wou.edu domain.")]
         public string Email { get; set; }
 
         [Required]
