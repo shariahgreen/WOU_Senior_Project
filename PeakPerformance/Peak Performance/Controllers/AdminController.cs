@@ -35,5 +35,11 @@ namespace Peak_Performance.Controllers
             var coaches = db.Coaches.ToList();
             return View(coaches);
         }
+
+        public ActionResult AllAdmin()
+        {
+            var adminRoles = db.AspNetRoles.Where(r => r.Id == "1").Select(r => r.AspNetUsers).ToList()[0];
+            return View(adminRoles);
+        }
     }
 }

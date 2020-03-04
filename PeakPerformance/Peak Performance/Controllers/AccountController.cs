@@ -9,7 +9,6 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Peak_Performance.Models;
-
 using Peak_Performance.DAL;
 
 namespace Peak_Performance.Controllers
@@ -89,7 +88,7 @@ namespace Peak_Performance.Controllers
                     {
                         return RedirectToAction("Home", "Admin");
                     }
-                    return RedirectToLocal(returnUrl);
+                    return RedirectToAction(returnUrl);
 
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -137,7 +136,7 @@ namespace Peak_Performance.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(model.ReturnUrl);
+                //return RedirectToLocal(model.ReturnUrl);
 
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -166,24 +165,29 @@ namespace Peak_Performance.Controllers
         [Authorize]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
-            if (ModelState.IsValid) {
+            if (ModelState.IsValid)
+            {
                 var user = new ApplicationUser { UserName = model.Email.Split('@')[0], Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 //For Roles
                 var role = Request.Form["Roles"].ToString();
-                if (result.Succeeded) {
+                if (result.Succeeded)
+                {
                     var currentUser = UserManager.FindByName(user.UserName);
 
                     //Add roles to user before sign in async
-                    if (role == "Admin") {
+                    if (role == "Admin")
+                    {
                         //add role for user to be admin
                         var roleresult = UserManager.AddToRole(currentUser.Id, "Admin");
                     }
-                    else if (role == "Coach") {
+                    else if (role == "Coach")
+                    {
                         //add role for user as coach
                         var roleresult = UserManager.AddToRole(currentUser.Id, "Coach");
                     }
-                    else if (role == "Athlete") {
+                    else if (role == "Athlete")
+                    {
                         //add role for user as athlete
                         var roleresult = UserManager.AddToRole(currentUser.Id, "Athlete");
                     }
@@ -201,21 +205,25 @@ namespace Peak_Performance.Controllers
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                    if (User.IsInRole("Admin")) {
+                    if (User.IsInRole("Admin"))
+                    {
                         //return to admin homepage
                     }
-                    else if (User.IsInRole("Coach")) {
+                    else if (User.IsInRole("Coach"))
+                    {
                         //return to coach homepage
                     }
-                    else if (User.IsInRole("Athlete")) {
+                    else if (User.IsInRole("Athlete"))
+                    {
                         //return to athlete homepage (their profile)
                     }
-                    else {
+                    else
+                    {
                         //return to error page (catch all)
                     }
                     return RedirectToAction("About", "Home");
                 }
-                AddErrors(result);
+                //AddErrors(result);
             }
             // If we got this far, something failed, redisplay form
             return View(model);
@@ -308,7 +316,7 @@ namespace Peak_Performance.Controllers
             {
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
             }
-            AddErrors(result);
+            //AddErrors(result);
             return View();
         }
 
@@ -443,7 +451,7 @@ namespace Peak_Performance.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
-            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            //AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
         }
 
@@ -475,65 +483,45 @@ namespace Peak_Performance.Controllers
             base.Dispose(disposing);
         }
 
-        #region Helpers
-
-        // Used for XSRF protection when adding external logins
-        private const string XsrfKey = "XsrfId";
-
-        private IAuthenticationManager AuthenticationManager
+        [Authorize]
+        public ActionResult RegisterAdmin()
         {
-            get
-            {
-                return HttpContext.GetOwinContext().Authentication;
-            }
+            return View();
         }
 
-        private void AddErrors(IdentityResult result)
+        //
+        // POST: /Account/Register
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public async Task<ActionResult> RegisterAdmin(RegisterViewModel model)
         {
-            foreach (var error in result.Errors)
+            if (ModelState.IsValid)
             {
-                ModelState.AddModelError("", error);
-            }
-        }
+                var user = new ApplicationUser { UserName = model.Email.Split('@')[0], Email = model.Email };
+                var result = await UserManager.CreateAsync(user, model.Password);
 
-        private ActionResult RedirectToLocal(string returnUrl)
-        {
-            if (Url.IsLocalUrl(returnUrl))
-            {
-                return Redirect(returnUrl);
-            }
-            return RedirectToAction("Index", "Home");
-        }
-
-        internal class ChallengeResult : HttpUnauthorizedResult
-        {
-            public ChallengeResult(string provider, string redirectUri)
-                : this(provider, redirectUri, null)
-            {
-            }
-
-            public ChallengeResult(string provider, string redirectUri, string userId)
-            {
-                LoginProvider = provider;
-                RedirectUri = redirectUri;
-                UserId = userId;
-            }
-
-            public string LoginProvider { get; set; }
-            public string RedirectUri { get; set; }
-            public string UserId { get; set; }
-
-            public override void ExecuteResult(ControllerContext context)
-            {
-                var properties = new AuthenticationProperties { RedirectUri = RedirectUri };
-                if (UserId != null)
+                if (result.Succeeded)
                 {
-                    properties.Dictionary[XsrfKey] = UserId;
+                    var currentUser = UserManager.FindByName(user.UserName);
+
+                    var roleresult = UserManager.AddToRole(currentUser.Id, "Admin");
+
+                    return RedirectToAction("CreateAdminSuccess", "Account");
                 }
-                context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
             }
+            // If we got this far, something failed
+            return RedirectToAction("CreateAdminFail", "Account");
         }
 
-        #endregion Helpers
+        public ActionResult CreateAdminSuccess()
+        {
+            return View();
+        }
+
+        public ActionResult CreateAdminFail()
+        {
+            return View();
+        }
     }
 }
