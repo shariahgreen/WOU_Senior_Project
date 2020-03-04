@@ -6,13 +6,72 @@
 <h1 align="center" style="font-variant-caps:small-caps;">Admin Home Page</h1>
 <hr />
 
-<div class="col-md-8">
-    <h2 align="center" style="font-variant-caps: small-caps;">Quick Access</h2>
-    <hr />
-</div>
 <div class="row">
-    <div class="col-md-8">
-        <div class="col-md-3" id="adminHomeItem">
+    <div class="col-md-8" id="menuBorder">
+        <div style="padding: 20px; padding-bottom: 0px;">
+            <h2 id="adminHomeTitles">Athlete Links</h2>
+            <ul>
+                <li>
+                    <h5 id="menuItem"><a id="menuLink" href="~/Admin/AllAthletes">View All Athletes</a></h5>
+                    <h6 style="margin-top: 0px; text-indent: 5px;"><small>List of all Athletes in the database.</small></h6>
+                </li>
+                <li>
+                    <h5 id="menuItem"><a id="menuLink" href="">[Future Link]</a></h5>
+                    <h6 style="margin-top: 0px;text-indent: 5px;"><small>[Add a small description of what the link leads to.]</small></h6>
+                </li>
+                <li>
+                    <h5 id="menuItem"><a id="menuLink" href="">[Future Link]</a></h5>
+                    <h6 style="margin-top: 0px;text-indent: 5px;"><small>[Add a small description of what the link leads to.]</small></h6>
+                </li>
+            </ul>
+        </div>
+
+        <div style="padding-top: 5px; padding: 20px; padding-bottom: 0px;">
+            <h2 id="adminHomeTitles">Coach Links</h2>
+            <ul>
+                <li>
+                    <h5 id="menuItem"><a id="menuLink" href="~/Admin/AllCoaches">View All Coaches</a></h5>
+                    <h6 style="margin-top: 0px; text-indent: 5px;"><small>List of all Coaches in the database.</small></h6>
+                </li>
+                <li>
+                    <h5 id="menuItem"><a id="menuLink" href="">[Future Link]</a></h5>
+                    <h6 style="margin-top: 0px;text-indent: 5px;"><small>[Add a small description of what the link leads to.]</small></h6>
+                </li>
+                <li>
+                    <h5 id="menuItem"><a id="menuLink" href="">[Future Link]</a></h5>
+                    <h6 style="margin-top: 0px;text-indent: 5px;"><small>[Add a small description of what the link leads to.]</small></h6>
+                </li>
+            </ul>
+        </div>
+
+        <div style="padding-top: 5px; padding: 20px; padding-bottom: 0px;">
+            <h2 id="adminHomeTitles">Admin Links</h2>
+            <ul>
+                <li>
+                    <h5 id="menuItem"><a id="menuLink" href="~/Admin/AllTeams">View All Teams</a></h5>
+                    <h6 style="margin-top: 0px;text-indent: 5px;"><small>List of all Teams in the database.</small></h6>
+                </li>
+                <li>
+                    <h5 id="menuItem"><a id="menuLink" href="~/Account/RegisterAdmin">Add New Admin</a></h5>
+                    <h6 style="margin-top: 0px;text-indent: 5px;"><small>Add new admin to keep watch over all activities.</small></h6>
+                </li>
+                <li>
+                    <h5 id="menuItem"><a id="menuLink" href="">[Future Link]</a></h5>
+                    <h6 style="margin-top: 0px;text-indent: 5px;"><small>[Add a small description of what the link leads to.]</small></h6>
+                </li>
+                <li>
+                    <h5 id="menuItem"><a id="menuLink" href="">[Future Link]</a></h5>
+                    <h6 style="margin-top: 0px;text-indent: 5px;"><small>[Add a small description of what the link leads to.]</small></h6>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="col-md-12">
+            <h2 align="center" style="font-variant-caps: small-caps;">Quick Access</h2>
+            <hr />
+        </div>
+        <div class="col-md-12" id="adminHomeItem">
             <a href="~/Admin/AllAthletes">
                 <h3>Athlete</h3>
                 <div>
@@ -20,7 +79,7 @@
                 </div>
             </a>
         </div>
-        <div class="col-md-3" id="adminHomeItem">
+        <div class="col-md-12" id="adminHomeItem">
             <a href="~/Admin/AllCoaches">
                 <h3>Coach</h3>
                 <div>
@@ -28,7 +87,7 @@
                 </div>
             </a>
         </div>
-        <div class="col-md-3" id="adminHomeItem">
+        <div class="col-md-12" id="adminHomeItem">
             <a href="~/Admin/AllTeams">
                 <h3>All Teams</h3>
                 <div>
@@ -36,7 +95,7 @@
                 </div>
             </a>
         </div>
-        <div class="col-md-4" id="adminHomeItem">
+        <div class="col-md-12" id="adminHomeItem">
             <a href="~/Account/Register">
                 <h3>Add Admin <br /> (Not Functional)</h3>
                 <div>
