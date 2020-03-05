@@ -291,6 +291,10 @@
     <Content Include="Views\Admin\AllTeams.cshtml" />
     <Content Include="Views\Admin\AllAthletes.cshtml" />
     <Content Include="Views\Admin\AllCoaches.cshtml" />
+    <Content Include="Views\Account\RegisterAdmin.cshtml" />
+    <Content Include="Views\Account\CreateAdminSuccess.cshtml" />
+    <Content Include="Views\Account\CreateAdminFail.cshtml" />
+    <Content Include="Views\Admin\AllAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
