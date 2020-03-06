@@ -223,7 +223,7 @@ namespace Peak_Performance.Controllers
                     }
                     return RedirectToAction("About", "Home");
                 }
-                //AddErrors(result);
+                AddErrors(result);
             }
             // If we got this far, something failed, redisplay form
             return View(model);
@@ -316,7 +316,7 @@ namespace Peak_Performance.Controllers
             {
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
             }
-            //AddErrors(result);
+            AddErrors(result);
             return View();
         }
 
@@ -451,7 +451,7 @@ namespace Peak_Performance.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
-            //AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
         }
 
@@ -482,6 +482,23 @@ namespace Peak_Performance.Controllers
 
             base.Dispose(disposing);
         }
+
+        #region Helpers
+
+        private IAuthenticationManager AuthenticationManager {
+            get {
+                return HttpContext.GetOwinContext().Authentication;
+            }
+        }
+
+        private void AddErrors(IdentityResult result) {
+            foreach (var error in result.Errors) {
+                ModelState.AddModelError("", error);
+            }
+        }
+
+        #endregion Helpers
+
 
         [Authorize]
         public ActionResult RegisterAdmin()
