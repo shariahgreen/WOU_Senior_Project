@@ -113,4 +113,9 @@ namespace Peak_Performance.Models
         [Display(Name = "Email")]
         public string Email { get; set; }
     }
+
+    public enum AccountMessageId {
+        EmailSentSuccess,
+        EmailConfirmationNeeded
+    }
 }

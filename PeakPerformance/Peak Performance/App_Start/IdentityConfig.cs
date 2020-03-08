@@ -24,14 +24,14 @@ namespace Peak_Performance
         }
 
         private async Task ConfigSendGridasync(IdentityMessage message) {
+            string apiKey = "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";
+            var client = new SendGridClient(apiKey);
             var myMessage = new SendGridMessage();
             myMessage.AddTo(message.Destination);
-            myMessage.SetFrom(new EmailAddress("peakperformancewou@gmail.com", "Peak Performance"));
-            myMessage.SetSubject(message.Subject);
+            myMessage.SetFrom(new EmailAddress("woupeakperformance@gmail.com", "Peak Performance"));
+            myMessage.SetSubject (message.Subject);
             myMessage.AddContent(MimeType.Text, message.Body);
             myMessage.AddContent(MimeType.Html, message.Body);
-            string apiKey = "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";
-            var client = new SendGridClient(apiKey);
             var response = await client.SendEmailAsync(myMessage);
         }
     }

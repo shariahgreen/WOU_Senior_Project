@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Peak_Performance.Models;
 using Peak_Performance.DAL;
+using System.Web.Routing;
 
 namespace Peak_Performance.Controllers
 {
@@ -86,7 +87,13 @@ namespace Peak_Performance.Controllers
                     var role = db.AspNetUsers.Where(r => r.Email == model.Email).Select(r => r.AspNetRoles.Select(t => t.Name)).First().ToArray();
                     if (role[0] == "Admin")
                     {
-                        return RedirectToAction("Home", "Admin");
+                        return RedirectToAction("Index", "Home", new { area = "admin" });
+                    }
+                    else if(role[0] == "Coach") {
+                        return RedirectToAction("Index", "Home", new { area = "coach" });
+                    }
+                    else if (role[0] == "Athlete") {
+                        return RedirectToAction("Index", "Home", new { area = "athlete" });
                     }
                     return RedirectToAction(returnUrl);
 
@@ -162,7 +169,6 @@ namespace Peak_Performance.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        [Authorize]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
@@ -173,24 +179,31 @@ namespace Peak_Performance.Controllers
                 var role = Request.Form["Roles"].ToString();
                 if (result.Succeeded)
                 {
-                    var currentUser = UserManager.FindByName(user.UserName);
+                    var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    await UserManager.SendEmailAsync(user.Id,
+                        "Confirm your account",
+                        "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link<\a>");
+                    //ViewBag.Link = callbackUrl;
 
-                    //Add roles to user before sign in async
-                    if (role == "Admin")
-                    {
-                        //add role for user to be admin
-                        var roleresult = UserManager.AddToRole(currentUser.Id, "Admin");
-                    }
-                    else if (role == "Coach")
-                    {
-                        //add role for user as coach
-                        var roleresult = UserManager.AddToRole(currentUser.Id, "Coach");
-                    }
-                    else if (role == "Athlete")
-                    {
-                        //add role for user as athlete
-                        var roleresult = UserManager.AddToRole(currentUser.Id, "Athlete");
-                    }
+                    //var currentUser = UserManager.FindByName(user.UserName);
+
+                    ////Add roles to user before sign in async
+                    //if (role == "Admin")
+                    //{
+                    //    //add role for user to be admin
+                    //    var roleresult = UserManager.AddToRole(currentUser.Id, "Admin");
+                    //}
+                    //else if (role == "Coach")
+                    //{
+                    //    //add role for user as coach
+                    //    var roleresult = UserManager.AddToRole(currentUser.Id, "Coach");
+                    //}
+                    //else if (role == "Athlete")
+                    //{
+                    //    //add role for user as athlete
+                    //    var roleresult = UserManager.AddToRole(currentUser.Id, "Athlete");
+                    //}
 
                     //if adding another admin
                     //if (User.IsInRole("Admin"))
@@ -198,35 +211,50 @@ namespace Peak_Performance.Controllers
                     //    //add role for user as admin
                     //}
 
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                    if (User.IsInRole("Admin"))
-                    {
-                        //return to admin homepage
-                    }
-                    else if (User.IsInRole("Coach"))
-                    {
-                        //return to coach homepage
-                    }
-                    else if (User.IsInRole("Athlete"))
-                    {
-                        //return to athlete homepage (their profile)
-                    }
-                    else
-                    {
-                        //return to error page (catch all)
-                    }
-                    return RedirectToAction("About", "Home");
+                    //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    
+                    //if (User.IsInRole("Admin"))
+                    //{
+                    //    //return to admin homepage
+                    //}
+                    //else if (User.IsInRole("Coach"))
+                    //{
+                    //    //return to coach homepage
+                    //}
+                    //else if (User.IsInRole("Athlete"))
+                    //{
+                    //    //return to athlete homepage (their profile)
+                    //}
+                    //else
+                    //{
+                    //    //return to error page (catch all)
+                    //}
+                    return View("DisplayEmail");
                 }
                 AddErrors(result);
             }
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        private async Task<string> SendConfirmationTokenAsync(string userID, string subject, string name) {
+            string code = await UserManager.GenerateEmailConfirmationTokenAsync(userID);
+            var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = userID, code = code }, protocol: Request.Url.Scheme);
+            string emailBody = "Hello " + name + ", please follow <a href=\"" + callbackUrl + "\"> this link</a> to confirm your <i>Peak Performance</i> account";
+
+            await UserManager.SendEmailAsync(userID, subject, emailBody);
+
+            return callbackUrl;
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> SendConfirmationEmail(string urlOfReferrer) {
+            string id = User.Identity.GetUserId();
+            await SendConfirmationTokenAsync(id, "Confirm your account", ",");
+            ViewBag.EmailSent = true;
+            return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Home", action = "Index", message = AccountMessageId.EmailSentSuccess }));
         }
 
         //
@@ -268,10 +296,10 @@ namespace Peak_Performance.Controllers
 
                 // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                 // Send an email with this link
-                // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                // return RedirectToAction("ForgotPasswordConfirmation", "Account");
+                string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 
             // If we got this far, something failed, redisplay form
