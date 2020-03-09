@@ -178,6 +178,7 @@
     <Compile Include="Areas\Athlete\Controllers\HomeController.cs" />
     <Compile Include="Areas\Coach\CoachAreaRegistration.cs" />
     <Compile Include="Areas\Coach\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Coach\Controllers\WorkoutsController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Controllers\AthletesController.cs" />
@@ -249,6 +250,12 @@
     <Content Include="Areas\Coach\Views\Web.config" />
     <Content Include="Areas\Athlete\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Coach\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Coach\Views\Workouts\Create.cshtml" />
+    <Content Include="Areas\Coach\Views\Workouts\Delete.cshtml" />
+    <Content Include="Areas\Coach\Views\Workouts\Details.cshtml" />
+    <Content Include="Areas\Coach\Views\Workouts\Edit.cshtml" />
+    <Content Include="Areas\Coach\Views\Workouts\Index.cshtml" />
+    <Content Include="Areas\Coach\Views\Workouts\SearchMain.cshtml" />
     <None Include="Properties\PublishProfiles\PeakPerformance - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
