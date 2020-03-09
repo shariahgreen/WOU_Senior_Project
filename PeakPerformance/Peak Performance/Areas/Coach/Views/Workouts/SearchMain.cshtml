@@ -4,40 +4,48 @@
     Layout = "~/Areas/Coach/Views/Shared/_Layout.cshtml";
 }
 
-    <h2>Exercise Search Page</h2>
+<h2>Exercise Search Page</h2>
 <br />
-
-    <div class="row">
-
-
-
-        <div class="col-md-6">
-            @using (Html.BeginForm("SearchMain", "Workouts", FormMethod.Get))
-            {
-                <div class="form-group">
-                    <div class="search">
-                        @Html.TextBox("exercise", null, new { @class = "form-control", type = "text" })
-                        <br />
-                        <button class="btn btn-primary" type="submit">Search</button>
-                    </div>
+<div class="row">
+    <div class="col-md-6">
+        @using (Html.BeginForm("SearchMain", "Workouts", FormMethod.Get))
+        {
+            <div class="form-group">
+                <div class="search">
+                    @Html.TextBox("exercise", null, new { @class = "form-control", type = "text" })
+                    <br />
+                    <button class="btn btn-primary" type="submit">Search</button>
                 </div>
-            }
+            </div>
+        }
+        @if (Model != null && Request.QueryString["exercise"] != null)
+        {
+            <div class="container">
+                <p>Showing result for: "@Request.QueryString["exercise"]"</p>
+                @foreach (var Exercise in Model)
+                {
+                    <p>@Exercise.Name</p>
+                }
 
-            
-            @if (Model != null && Request.QueryString["exercise"] != null)
-            {
-                <div class="container">
-                    <p>Showing result for: "@Request.QueryString["exercise"]"</p>
-                    @foreach (var Exercise in Model)
-                    {
-                        <p>@Exercise.Name</p>
-                    }
+            </div>
+        }
+    </div>
+    <div class="col-md-6">
 
-                </div>
-            }
+        <div class="form-group">
+            <div class="search">
+                @Html.DropDownList("MuscleGroupsId", null, "Please select", htmlAttributes: new { @class = "form-control", @onchange = "GetSelectedSubject(this);", @runat = "server", @ClientIDMode = "Static" })
 
+            </div>
+            <br />
+
+            <div id="result"></div>
         </div>
-
-
-        </div>
+    </div>
+</div>
+@section scripts
+{
+    <script src="~/Scripts/main.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+}
 
