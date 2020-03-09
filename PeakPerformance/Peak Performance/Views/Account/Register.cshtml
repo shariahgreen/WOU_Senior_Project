@@ -1,4 +1,5 @@
 ﻿@model Peak_Performance.Models.RegisterViewModel
+@using reCAPTCHA.MVC
 @{
     ViewBag.Title = "Register";
 }
@@ -39,6 +40,9 @@
             }
         </select>
     </div>
+    @Html.Recaptcha()
+    @Html.ValidationMessage("ReCaptcha")
+    <br />
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" class="btn btn-default" value="Register" />

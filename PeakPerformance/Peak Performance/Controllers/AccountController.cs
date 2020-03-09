@@ -11,12 +11,18 @@ using Microsoft.Owin.Security;
 using Peak_Performance.Models;
 using Peak_Performance.DAL;
 using System.Web.Routing;
+using reCAPTCHA.MVC;
+using System.Collections.Generic;
+using Newtonsoft.Json;
+using System.Net;
 
 namespace Peak_Performance.Controllers
 {
+    
+
     [Authorize]
     public class AccountController : Controller
-    {
+    {        
         private PeakPerformanceContext db = new PeakPerformanceContext();
 
         private ApplicationSignInManager _signInManager;
@@ -169,8 +175,11 @@ namespace Peak_Performance.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        [CaptchaValidator]
+        public async Task<ActionResult> Register(RegisterViewModel model, bool captchaValid)
         {
+            ViewData["Roles"] = db.AspNetRoles.ToList();
+           
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email.Split('@')[0], Email = model.Email };
@@ -223,9 +232,11 @@ namespace Peak_Performance.Controllers
                 }
                 AddErrors(result);
             }
+            
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+        
 
         private async Task<string> SendConfirmationTokenAsync(string userID, string subject, string name) {
             string code = await UserManager.GenerateEmailConfirmationTokenAsync(userID);
