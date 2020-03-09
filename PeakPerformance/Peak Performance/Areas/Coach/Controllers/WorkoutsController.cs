@@ -26,8 +26,6 @@ namespace Peak_Performance.Areas.Coach
         public ActionResult SearchMain(string exercise)
         {
             ViewBag.MuscleGroupsId = new SelectList(db.MuscleGroups, "MuscleGroupsId", "Name");
-            IEnumerable<Peak_Performance.Models.Exercis> list = db.Exercises.Where(p => p.Name.Contains(exercise)).ToList();
-            return View(list);
         }
 
         public JsonResult SearchByMuscle(string MuscleGroupsId)
@@ -38,7 +36,7 @@ namespace Peak_Performance.Areas.Coach
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-
+        
         // GET: Coach/Workouts/Details/5
         public ActionResult Details(int? id)
         {
