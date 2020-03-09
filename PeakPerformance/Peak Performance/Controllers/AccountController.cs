@@ -179,31 +179,28 @@ namespace Peak_Performance.Controllers
                 var role = Request.Form["Roles"].ToString();
                 if (result.Succeeded)
                 {
-                    var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    await UserManager.SendEmailAsync(user.Id,
-                        "Confirm your account",
-                        "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link<\a>");
+                    //var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    //await UserManager.SendEmailAsync(user.Id,
+                    //    "Confirm your account",
+                    //    "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link<\a>");
                     //ViewBag.Link = callbackUrl;
 
-                    //var currentUser = UserManager.FindByName(user.UserName);
+                    var currentUser = UserManager.FindByName(user.UserName);
 
-                    ////Add roles to user before sign in async
-                    //if (role == "Admin")
-                    //{
-                    //    //add role for user to be admin
-                    //    var roleresult = UserManager.AddToRole(currentUser.Id, "Admin");
-                    //}
-                    //else if (role == "Coach")
-                    //{
-                    //    //add role for user as coach
-                    //    var roleresult = UserManager.AddToRole(currentUser.Id, "Coach");
-                    //}
-                    //else if (role == "Athlete")
-                    //{
-                    //    //add role for user as athlete
-                    //    var roleresult = UserManager.AddToRole(currentUser.Id, "Athlete");
-                    //}
+                    //Add roles to user before sign in async
+                    if (role == "Admin") {
+                        //add role for user to be admin
+                        var roleresult = UserManager.AddToRole(currentUser.Id, "Admin");
+                    }
+                    else if (role == "Coach") {
+                        //add role for user as coach
+                        var roleresult = UserManager.AddToRole(currentUser.Id, "Coach");
+                    }
+                    else if (role == "Athlete") {
+                        //add role for user as athlete
+                        var roleresult = UserManager.AddToRole(currentUser.Id, "Athlete");
+                    }
 
                     //if adding another admin
                     //if (User.IsInRole("Admin"))
@@ -211,25 +208,18 @@ namespace Peak_Performance.Controllers
                     //    //add role for user as admin
                     //}
 
-                    //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                    
-                    //if (User.IsInRole("Admin"))
-                    //{
-                    //    //return to admin homepage
-                    //}
-                    //else if (User.IsInRole("Coach"))
-                    //{
-                    //    //return to coach homepage
-                    //}
-                    //else if (User.IsInRole("Athlete"))
-                    //{
-                    //    //return to athlete homepage (their profile)
-                    //}
-                    //else
-                    //{
-                    //    //return to error page (catch all)
-                    //}
-                    return View("DisplayEmail");
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                    if (User.IsInRole("Admin")) {
+                        return RedirectToAction("Index", "Home", new { area = "admin" });
+                    }
+                    else if (User.IsInRole("Coach")) {
+                        return RedirectToAction("Index", "Home", new { area = "coach" });
+                    }
+                    else if (User.IsInRole("Athlete")) {
+                        return RedirectToAction("Index", "Home", new { area = "athlete" });
+                    }
+                    return RedirectToAction("About", "Home");
                 }
                 AddErrors(result);
             }
