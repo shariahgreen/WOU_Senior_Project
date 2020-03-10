@@ -6,7 +6,7 @@
     [PreferredName] NVARCHAR (100),
 	[ProfilePic] VARBINARY(max),
 	[Active] BIT NOT NULL,
-	[UserId] NVARCHAR(128),
+	[UserId] NVARCHAR(128) NOT NULL,
 	[Email] NVARCHAR(128) NOT NULL,
 
 	--CONSTRAINT [FK_dbo.Coaches_dbo.Users_UserId] FOREIGN KEY ([UserID]) REFERENCES [dbo].[AspNetUsers] ([Id]) ON DELETE CASCADE,
@@ -38,7 +38,7 @@ CREATE TABLE [dbo].[Athletes]
 	[DOB] DATE NOT NULL,
     [Height] FLOAT,
     [Weight] FLOAT,
-	[UserId] NVARCHAR(128),
+	[UserId] NVARCHAR(128) NOT NULL,
 	[TeamId] INT NOT NULL,
 	[Email] NVARCHAR(128) NOT NULL,
 	

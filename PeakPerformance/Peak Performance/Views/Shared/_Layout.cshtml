@@ -6,6 +6,7 @@
     <title>@ViewBag.Title - Peak Performance</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -34,9 +35,11 @@
         <br />
         <br />
         @RenderBody()
+        <br />
+        <br />
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Peak Performance</p>
+            <p align="center">&copy; @DateTime.Now.Year - Peak Performance</p>
         </footer>
     </div>
 

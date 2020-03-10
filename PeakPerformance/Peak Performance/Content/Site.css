@@ -104,3 +104,77 @@ input[type=button], input[type=submit], input[type=reset] {
         border-radius: 8px;
     }
 /*-------------------------------------------------------------*/
+
+.button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    border-radius: 12px;
+}
+
+#adminHomeItem {
+    border: 5px solid #3f7fbc;
+    border-radius: 12px;
+    text-align: center;
+    background-color: #129cca;
+    margin: 5px;
+}
+
+    #adminHomeItem:hover {
+        border: 5px solid #3f7fbc;
+        border-radius: 12px;
+        text-align: center;
+        background-color: cornflowerblue;
+        margin: 5px;
+    }
+
+    #adminHomeItem > a {
+        color: white;
+        text-decoration: none;
+    }
+
+        #adminHomeItem > a > h3 {
+            font-variant-caps: small-caps;
+        }
+
+table > thead > tr > th {
+    text-align: center;
+}
+
+#adminHomeTitles {
+    background-color: #3f7fbc;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    font-variant-caps: small-caps;
+    color: white;
+}
+
+#menuItem {
+    margin-bottom: 0px;
+}
+
+#menuBorder {
+    border-radius: 15px;
+    border: 2px solid #3f7fbc;
+}
+
+#menuLink {
+    color: #6d929b;
+    text-decoration: underline;
+    font-size: 18px;
+}
+
+    #menuLink:hover {
+        color: darkblue;
+    }
+
+h6 small {
+    font-size: 100%;
+}

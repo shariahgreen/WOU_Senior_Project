@@ -56,8 +56,11 @@
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="SendGrid, Version=9.12.7.0, Culture=neutral, PublicKeyToken=4f047e93159395ca, processorArchitecture=MSIL">
-      <HintPath>packages\SendGrid.9.12.7\lib\net452\SendGrid.dll</HintPath>
+    <Reference Include="reCAPTCHA.MVC, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\reCAPTCH.MVC.1.0.1\lib\net45\reCAPTCHA.MVC.dll</HintPath>
+    </Reference>
+    <Reference Include="SendGrid, Version=9.13.0.0, Culture=neutral, PublicKeyToken=4f047e93159395ca, processorArchitecture=MSIL">
+      <HintPath>packages\SendGrid.9.13.0\lib\net452\SendGrid.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -173,21 +176,39 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Athlete\AthleteAreaRegistration.cs" />
+    <Compile Include="Areas\Athlete\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Coach\CoachAreaRegistration.cs" />
+    <Compile Include="Areas\Coach\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Coach\Controllers\WorkoutsController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Controllers\AthletesController.cs" />
     <Compile Include="Controllers\CoachesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\TeamsController.cs" />
+    <Compile Include="Models\Complex.cs" />
+    <Compile Include="Models\ComplexItem.cs" />
+    <Compile Include="Models\ExcerciseMuscleGroup.cs" />
+    <Compile Include="Models\Exercis.cs" />
+    <Compile Include="Models\MuscleGroup.cs" />
+    <Compile Include="DAL\PeakPerformanceContext.cs" />
+    <Compile Include="Models\Workout.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AspNetRole.cs" />
+    <Compile Include="Models\AspNetUser.cs" />
+    <Compile Include="Models\AspNetUserClaim.cs" />
+    <Compile Include="Models\AspNetUserLogin.cs" />
     <Compile Include="Models\Athlete.cs" />
     <Compile Include="Models\Coach.cs" />
     <Compile Include="Models\CoachProfileViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="DAL\PeakPerformanceContext.cs" />
     <Compile Include="Models\Sport.cs" />
     <Compile Include="Models\Team.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -218,6 +239,26 @@
     <Content Include="Images\treadmill.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Areas\Admin\Views\Web.config" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\AllAdmin.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\AllAthletes.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\AllCoaches.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\AllTeams.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Athlete\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Athlete\Views\Web.config" />
+    <Content Include="Areas\Coach\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Coach\Views\Web.config" />
+    <Content Include="Areas\Athlete\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Coach\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Coach\Views\Workouts\Create.cshtml" />
+    <Content Include="Areas\Coach\Views\Workouts\Delete.cshtml" />
+    <Content Include="Areas\Coach\Views\Workouts\Details.cshtml" />
+    <Content Include="Areas\Coach\Views\Workouts\Edit.cshtml" />
+    <Content Include="Areas\Coach\Views\Workouts\Index.cshtml" />
+    <Content Include="Areas\Coach\Views\Workouts\SearchMain.cshtml" />
     <None Include="Properties\PublishProfiles\PeakPerformance - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -229,6 +270,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\main.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -274,15 +316,19 @@
     <Content Include="Views\Coaches\Details.cshtml" />
     <Content Include="Views\Coaches\Edit.cshtml" />
     <Content Include="Views\Coaches\Index.cshtml" />
-    <Content Include="Views\Home\AthleteProfile.cshtml" />
-    <Content Include="Views\Home\CoachProfile.cshtml" />
+    <Content Include="Areas\Athlete\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Coach\Views\Home\Index.cshtml" />
+    <Content Include="Views\Account\RegisterAdmin.cshtml" />
+    <Content Include="Views\Account\CreateAdminSuccess.cshtml" />
+    <Content Include="Views\Account\CreateAdminFail.cshtml" />
+    <Content Include="Views\Teams\Create.cshtml" />
+    <Content Include="Views\Teams\Delete.cshtml" />
+    <Content Include="Views\Teams\Details.cshtml" />
+    <Content Include="Views\Teams\Edit.cshtml" />
+    <Content Include="Views\Teams\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Athlete\Controllers\" />
-    <Folder Include="Areas\Athlete\Views\" />
-    <Folder Include="Areas\Coach\Controllers\" />
-    <Folder Include="Areas\Coach\Views\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

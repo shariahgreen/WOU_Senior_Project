@@ -9,12 +9,22 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Peak_Performance.Models;
+using Peak_Performance.DAL;
+using System.Web.Routing;
+using reCAPTCHA.MVC;
+using System.Collections.Generic;
+using Newtonsoft.Json;
+using System.Net;
 
 namespace Peak_Performance.Controllers
 {
+    
+
     [Authorize]
     public class AccountController : Controller
-    {
+    {        
+        private PeakPerformanceContext db = new PeakPerformanceContext();
+
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -79,7 +89,19 @@ namespace Peak_Performance.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    //for admin's logging in, redirect to admin home page
+                    var role = db.AspNetUsers.Where(r => r.Email == model.Email).Select(r => r.AspNetRoles.Select(t => t.Name)).First().ToArray();
+                    if (role[0] == "Admin")
+                    {
+                        return RedirectToAction("Index", "Home", new { area = "admin" });
+                    }
+                    else if(role[0] == "Coach") {
+                        return RedirectToAction("Index", "Home", new { area = "coach" });
+                    }
+                    else if (role[0] == "Athlete") {
+                        return RedirectToAction("Index", "Home", new { area = "athlete" });
+                    }
+                    return RedirectToAction(returnUrl);
 
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -127,7 +149,7 @@ namespace Peak_Performance.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(model.ReturnUrl);
+                //return RedirectToLocal(model.ReturnUrl);
 
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -144,6 +166,7 @@ namespace Peak_Performance.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            ViewData["Roles"] = db.AspNetRoles.ToList();
             return View();
         }
 
@@ -152,61 +175,87 @@ namespace Peak_Performance.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        [Authorize]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        [CaptchaValidator]
+        public async Task<ActionResult> Register(RegisterViewModel model, bool captchaValid)
         {
+            ViewData["Roles"] = db.AspNetRoles.ToList();
+           
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email.Split('@')[0], Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
+                //For Roles
+                var role = Request.Form["Roles"].ToString();
                 if (result.Succeeded)
                 {
+                    //var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    //await UserManager.SendEmailAsync(user.Id,
+                    //    "Confirm your account",
+                    //    "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link<\a>");
+                    //ViewBag.Link = callbackUrl;
+
+                    var currentUser = UserManager.FindByName(user.UserName);
+
                     //Add roles to user before sign in async
-                    if (Request.Form["Coach"] == "true")
-                    {
-                        //add role for user to be coach
+                    if (role == "Admin") {
+                        //add role for user to be admin
+                        var roleresult = UserManager.AddToRole(currentUser.Id, "Admin");
                     }
-                    else if (Request.Form["Athlete"] == "true")
-                    {
+                    else if (role == "Coach") {
+                        //add role for user as coach
+                        var roleresult = UserManager.AddToRole(currentUser.Id, "Coach");
+                    }
+                    else if (role == "Athlete") {
                         //add role for user as athlete
+                        var roleresult = UserManager.AddToRole(currentUser.Id, "Athlete");
                     }
 
                     //if adding another admin
-                    if (User.IsInRole("Admin"))
-                    {
-                        //add role for user as admin
-                    }
+                    //if (User.IsInRole("Admin"))
+                    //{
+                    //    //add role for user as admin
+                    //}
 
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                    if (User.IsInRole("Admin"))
-                    {
-                        //return to admin homepage
+                    if (User.IsInRole("Admin")) {
+                        return RedirectToAction("Index", "Home", new { area = "admin" });
                     }
-                    else if (User.IsInRole("Coach"))
-                    {
-                        //return to coach homepage
+                    else if (User.IsInRole("Coach")) {
+                        return RedirectToAction("Index", "Home", new { area = "coach" });
                     }
-                    else if (User.IsInRole("Athlete"))
-                    {
-                        //return to athlete homepage (their profile)
-                    }
-                    else
-                    {
-                        //return to error page (catch all)
+                    else if (User.IsInRole("Athlete")) {
+                        return RedirectToAction("Index", "Home", new { area = "athlete" });
                     }
                     return RedirectToAction("About", "Home");
                 }
                 AddErrors(result);
             }
-
+            
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+        
+
+        private async Task<string> SendConfirmationTokenAsync(string userID, string subject, string name) {
+            string code = await UserManager.GenerateEmailConfirmationTokenAsync(userID);
+            var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = userID, code = code }, protocol: Request.Url.Scheme);
+            string emailBody = "Hello " + name + ", please follow <a href=\"" + callbackUrl + "\"> this link</a> to confirm your <i>Peak Performance</i> account";
+
+            await UserManager.SendEmailAsync(userID, subject, emailBody);
+
+            return callbackUrl;
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> SendConfirmationEmail(string urlOfReferrer) {
+            string id = User.Identity.GetUserId();
+            await SendConfirmationTokenAsync(id, "Confirm your account", ",");
+            ViewBag.EmailSent = true;
+            return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Home", action = "Index", message = AccountMessageId.EmailSentSuccess }));
         }
 
         //
@@ -248,10 +297,10 @@ namespace Peak_Performance.Controllers
 
                 // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                 // Send an email with this link
-                // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                // return RedirectToAction("ForgotPasswordConfirmation", "Account");
+                string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 
             // If we got this far, something failed, redisplay form
@@ -465,63 +514,60 @@ namespace Peak_Performance.Controllers
 
         #region Helpers
 
-        // Used for XSRF protection when adding external logins
-        private const string XsrfKey = "XsrfId";
-
-        private IAuthenticationManager AuthenticationManager
-        {
-            get
-            {
+        private IAuthenticationManager AuthenticationManager {
+            get {
                 return HttpContext.GetOwinContext().Authentication;
             }
         }
 
-        private void AddErrors(IdentityResult result)
-        {
-            foreach (var error in result.Errors)
-            {
+        private void AddErrors(IdentityResult result) {
+            foreach (var error in result.Errors) {
                 ModelState.AddModelError("", error);
             }
         }
 
-        private ActionResult RedirectToLocal(string returnUrl)
-        {
-            if (Url.IsLocalUrl(returnUrl))
-            {
-                return Redirect(returnUrl);
-            }
-            return RedirectToAction("Index", "Home");
-        }
-
-        internal class ChallengeResult : HttpUnauthorizedResult
-        {
-            public ChallengeResult(string provider, string redirectUri)
-                : this(provider, redirectUri, null)
-            {
-            }
-
-            public ChallengeResult(string provider, string redirectUri, string userId)
-            {
-                LoginProvider = provider;
-                RedirectUri = redirectUri;
-                UserId = userId;
-            }
-
-            public string LoginProvider { get; set; }
-            public string RedirectUri { get; set; }
-            public string UserId { get; set; }
-
-            public override void ExecuteResult(ControllerContext context)
-            {
-                var properties = new AuthenticationProperties { RedirectUri = RedirectUri };
-                if (UserId != null)
-                {
-                    properties.Dictionary[XsrfKey] = UserId;
-                }
-                context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
-            }
-        }
-
         #endregion Helpers
+
+
+        [Authorize]
+        public ActionResult RegisterAdmin()
+        {
+            return View();
+        }
+
+        //
+        // POST: /Account/Register
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public async Task<ActionResult> RegisterAdmin(RegisterViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser { UserName = model.Email.Split('@')[0], Email = model.Email };
+                var result = await UserManager.CreateAsync(user, model.Password);
+
+                if (result.Succeeded)
+                {
+                    var currentUser = UserManager.FindByName(user.UserName);
+
+                    var roleresult = UserManager.AddToRole(currentUser.Id, "Admin");
+
+                    return RedirectToAction("CreateAdminSuccess", "Account");
+                }
+            }
+            // If we got this far, something failed
+            return RedirectToAction("CreateAdminFail", "Account");
+        }
+
+        public ActionResult CreateAdminSuccess()
+        {
+            return View();
+        }
+
+        public ActionResult CreateAdminFail()
+        {
+            return View();
+        }
     }
 }

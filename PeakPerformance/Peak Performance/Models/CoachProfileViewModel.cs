@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Peak_Performance.DAL;
 
 namespace Peak_Performance.Models
 {
     public class CoachProfileViewModel
     {
-        private readonly PeakPerformance db = new PeakPerformance();
+        private readonly PeakPerformanceContext db = new PeakPerformanceContext();
+
         public CoachProfileViewModel(int id)
         {
             coach = db.Coaches.Find(id);
@@ -22,12 +24,11 @@ namespace Peak_Performance.Models
                     athletes.AddRange(athletelist);
                 }
             }
-
         }
+
         public int CoachProfileId { get; set; }
         public virtual IEnumerable<Team> teams { get; set; }
         public virtual Coach coach { get; set; }
         public virtual List<Athlete> athletes { get; set; }
-
     }
 }

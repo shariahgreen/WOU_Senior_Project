@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
+//using Peak_Performance.DAL;
+
 namespace Peak_Performance.Models
 {
     public class ExternalLoginConfirmationViewModel
@@ -31,6 +33,7 @@ namespace Peak_Performance.Models
         [Required]
         [Display(Name = "Code")]
         public string Code { get; set; }
+
         public string ReturnUrl { get; set; }
 
         [Display(Name = "Remember this browser?")]
@@ -67,6 +70,7 @@ namespace Peak_Performance.Models
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
+        [RegularExpression(@"^[a-zA-Z0-9._%+-]+(@wou\.edu|@mail.wou.edu)$", ErrorMessage = "Registration is limited to the wou.edu domain.")]
         public string Email { get; set; }
 
         [Required]
@@ -108,5 +112,10 @@ namespace Peak_Performance.Models
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
+    }
+
+    public enum AccountMessageId {
+        EmailSentSuccess,
+        EmailConfirmationNeeded
     }
 }

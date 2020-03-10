@@ -3,6 +3,8 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 
+//using Peak_Performance.DAL;
+
 namespace Peak_Performance.Models
 {
     public class IndexViewModel

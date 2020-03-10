@@ -7,12 +7,13 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Peak_Performance.Models;
+using Peak_Performance.DAL;
 
 namespace Peak_Performance.Controllers
 {
     public class CoachesController : Controller
     {
-        private PeakPerformance db = new PeakPerformance();
+        private PeakPerformanceContext db = new PeakPerformanceContext();
 
         // GET: Coaches
         public ActionResult Index()
@@ -42,7 +43,7 @@ namespace Peak_Performance.Controllers
         }
 
         // POST: Coaches/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -74,7 +75,7 @@ namespace Peak_Performance.Controllers
         }
 
         // POST: Coaches/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
