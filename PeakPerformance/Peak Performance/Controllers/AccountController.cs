@@ -18,11 +18,9 @@ using System.Net;
 
 namespace Peak_Performance.Controllers
 {
-    
-
     [Authorize]
     public class AccountController : Controller
-    {        
+    {
         private PeakPerformanceContext db = new PeakPerformanceContext();
 
         private ApplicationSignInManager _signInManager;
@@ -95,10 +93,12 @@ namespace Peak_Performance.Controllers
                     {
                         return RedirectToAction("Index", "Home", new { area = "admin" });
                     }
-                    else if(role[0] == "Coach") {
+                    else if (role[0] == "Coach")
+                    {
                         return RedirectToAction("Index", "Home", new { area = "coach" });
                     }
-                    else if (role[0] == "Athlete") {
+                    else if (role[0] == "Athlete")
+                    {
                         return RedirectToAction("Index", "Home", new { area = "athlete" });
                     }
                     return RedirectToAction(returnUrl);
@@ -179,10 +179,10 @@ namespace Peak_Performance.Controllers
         public async Task<ActionResult> Register(RegisterViewModel model, bool captchaValid)
         {
             ViewData["Roles"] = db.AspNetRoles.ToList();
-           
+
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email.Split('@')[0], Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email/*.Split('@')[0]*/, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 //For Roles
                 var role = Request.Form["Roles"].ToString();
@@ -198,15 +198,18 @@ namespace Peak_Performance.Controllers
                     var currentUser = UserManager.FindByName(user.UserName);
 
                     //Add roles to user before sign in async
-                    if (role == "Admin") {
+                    if (role == "Admin")
+                    {
                         //add role for user to be admin
                         var roleresult = UserManager.AddToRole(currentUser.Id, "Admin");
                     }
-                    else if (role == "Coach") {
+                    else if (role == "Coach")
+                    {
                         //add role for user as coach
                         var roleresult = UserManager.AddToRole(currentUser.Id, "Coach");
                     }
-                    else if (role == "Athlete") {
+                    else if (role == "Athlete")
+                    {
                         //add role for user as athlete
                         var roleresult = UserManager.AddToRole(currentUser.Id, "Athlete");
                     }
@@ -219,26 +222,29 @@ namespace Peak_Performance.Controllers
 
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
-                    if (User.IsInRole("Admin")) {
+                    if (User.IsInRole("Admin"))
+                    {
                         return RedirectToAction("Index", "Home", new { area = "admin" });
                     }
-                    else if (User.IsInRole("Coach")) {
+                    else if (User.IsInRole("Coach"))
+                    {
                         return RedirectToAction("Index", "Home", new { area = "coach" });
                     }
-                    else if (User.IsInRole("Athlete")) {
+                    else if (User.IsInRole("Athlete"))
+                    {
                         return RedirectToAction("Index", "Home", new { area = "athlete" });
                     }
                     return RedirectToAction("About", "Home");
                 }
                 AddErrors(result);
             }
-            
+
             // If we got this far, something failed, redisplay form
             return View(model);
         }
-        
 
-        private async Task<string> SendConfirmationTokenAsync(string userID, string subject, string name) {
+        private async Task<string> SendConfirmationTokenAsync(string userID, string subject, string name)
+        {
             string code = await UserManager.GenerateEmailConfirmationTokenAsync(userID);
             var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = userID, code = code }, protocol: Request.Url.Scheme);
             string emailBody = "Hello " + name + ", please follow <a href=\"" + callbackUrl + "\"> this link</a> to confirm your <i>Peak Performance</i> account";
@@ -251,7 +257,8 @@ namespace Peak_Performance.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> SendConfirmationEmail(string urlOfReferrer) {
+        public async Task<ActionResult> SendConfirmationEmail(string urlOfReferrer)
+        {
             string id = User.Identity.GetUserId();
             await SendConfirmationTokenAsync(id, "Confirm your account", ",");
             ViewBag.EmailSent = true;
@@ -514,20 +521,23 @@ namespace Peak_Performance.Controllers
 
         #region Helpers
 
-        private IAuthenticationManager AuthenticationManager {
-            get {
+        private IAuthenticationManager AuthenticationManager
+        {
+            get
+            {
                 return HttpContext.GetOwinContext().Authentication;
             }
         }
 
-        private void AddErrors(IdentityResult result) {
-            foreach (var error in result.Errors) {
+        private void AddErrors(IdentityResult result)
+        {
+            foreach (var error in result.Errors)
+            {
                 ModelState.AddModelError("", error);
             }
         }
 
         #endregion Helpers
-
 
         [Authorize]
         public ActionResult RegisterAdmin()
