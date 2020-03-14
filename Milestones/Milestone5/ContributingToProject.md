@@ -1,6 +1,6 @@
 <hr/>
 <hr/>
-<h1 align="center">Guidlines</h1> 
+<h1 align="center">Guidelines</h1> 
 
 ## Team Rules and Requirements
 
