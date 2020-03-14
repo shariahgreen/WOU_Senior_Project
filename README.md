@@ -8,7 +8,7 @@ This web application will assist sports coaches in creating and assigning workou
 >For teams and coaches looking to bring their athletes' strength training performance to the next level, Peak Performance is designed to tailor a variety of workouts to the athlete, keep athletes and coaches on the same page about training, and help athletes and coaches set training goals and make plans to accomplish them. Peak Performance will provide continuous workout programs tailored to an athlete's specific needs and abilities, exercise tracking, and interfacing with social media to allow for a well-rounded strength training experience for all athletes. Unlike many other strength training apps that are bogged down with features and add-ons that are never used, our product strives to serve our customers in the simplest, but most effective ways; helping athletes achieve their goals and helping teams grow closer as they do it.
 
 ## 404 Not Found Group Members
-- <a href="https://github.com/jmcworth">Joe Collinsworth</a>
+- <a href="http://joecollinsworth.com">Joe Collinsworth</a>
 - <a href="https://github.com/sgreen18">Shay Green</a>
 - <a href="https://github.com/mtraeger15">Megan Traeger</a>
 - <a href="https://github.com/ysodara">Sodara Y</a>
@@ -36,13 +36,13 @@ This web application will assist sports coaches in creating and assigning workou
    - The excel spreadsheet of grading requirements per week.
 
 ### How Do I Get Started?
-The <a href="https://github.com/jmcworth/404notfoundproj/tree/master/Milestone5/GettingStarted.md">starting</a> file has information about how to clone and set up this project on your local machine and how to become a contributor. 
+Our <a href="https://github.com/jmcworth/404notfoundproj/blob/master/Milestones/Milestone5/GettingStarted.md">Getting Started</a> file has information about how to clone and set up this project on your local machine and how to become a contributor.
 
 ### Contributing
-For contributing and coding guidelines when working on this project, see these <a href="https://github.com/jmcworth/404notfoundproj/tree/master/Milestone5/ContributingToProject.md">Guidelines</a>. Here is a list of <a href="https://github.com/jmcworth/404notfoundproj/tree/master/docs/contributing.md">contributors</a> to this project.
+To read our contributing and coding guidelines when working on this project, <a href="https://github.com/jmcworth/404notfoundproj/blob/master/Milestones/Milestone5/ContributingToProject.md">click here</a>. Here is a list of <a href="https://github.com/jmcworth/404notfoundproj/blob/master/Milestones/Milestone%201/contributing.md">contributors</a> to this project.
 
 ### Software Construction Process
-For this project, we are following Agile methodologies, specifically Disciplined Agile Delivery process framework. We follow a two-week sprint cycle that involves daily SCRUM meeting, weekly sprint planning sessions, and an end of sprint review and retrospective. To contribute to this project, one will need to be involved in this process with the 404 Not Found team. 
+For this project we are following Agile methodologies, specifically Disciplined Agile Delivery process framework. We follow a two-week sprint cycle that involves daily SCRUM meetings, weekly sprint planning sessions, and an end of sprint review and retrospective. To contribute to this project, one will need to be involved in this process with the 404 Not Found team. 
 
 ### Tools, Configuration, and Packages
-<a href="https://github.com/jmcworth/404notfoundproj/tree/master/Milestone5/ToolsNeeded.md">Tools</a> is a list of all the software, libraries, tools, packages, and versions used on this project. Make sure you are using the same ones to avoid any compatibility errors. 
+<a href="https://github.com/jmcworth/404notfoundproj/blob/master/Milestones/Milestone5/ToolsNeeded.md">Tools</a> is a list of all the software, libraries, tools, packages, and versions used on this project. Make sure you are using the same ones to avoid any compatibility errors. 
