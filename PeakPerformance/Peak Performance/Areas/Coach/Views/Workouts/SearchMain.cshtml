@@ -2,47 +2,84 @@
 @{
     ViewBag.Title = "Exercise Search Page";
     Layout = "~/Areas/Coach/Views/Shared/_Layout.cshtml";
+    Peak_Performance.Models.WorkoutCreationViewModel workoutCreation = ViewBag.WorkoutCreation;
 }
 
 <h2>Exercise Search Page</h2>
 <br />
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-4">
         @using (Html.BeginForm("SearchMain", "Workouts", FormMethod.Get))
         {
             <div class="form-group">
                 <div class="search">
-                    @Html.TextBox("exercise", null, new { @class = "form-control", type = "text" })
+                    @Html.TextBox("exercise", "Search Exercises", new { @class = "form-control", type = "text" })
                     <br />
                     <button class="btn btn-primary" type="submit">Search</button>
                 </div>
             </div>
         }
-        @if (Model != null && Request.QueryString["exercise"] != null)
-        {
-            <div class="container">
-                <p>Showing result for: "@Request.QueryString["exercise"]"</p>
-                @foreach (var Exercise in Model)
-                {
-                    <p>@Exercise.Name</p>
-                }
-
-            </div>
-        }
     </div>
-    <div class="col-md-6">
-
+    <div class="col-md-4">
         <div class="form-group">
             <div class="search">
-                @Html.DropDownList("MuscleGroupsId", null, "Please select", htmlAttributes: new { @class = "form-control", @onchange = "GetSelectedSubject(this);", @runat = "server", @ClientIDMode = "Static" })
-
+                @Html.DropDownList("MuscleGroupsId", null, "Search by Muscle Group", htmlAttributes: new { @class = "form-control", @onchange = "GetSelectedSubject(this);", @runat = "server", @ClientIDMode = "Static" })
             </div>
             <br />
+        </div>
+    </div>
+    <div class="col-md-4"></div>
+</div>   
+<div class="row">
+    <div class="col-md-4" style="background-color: lightgrey; border: 5px solid black; padding: 5px; margin: 5px;">
+        <div id="result">
+            <p style="font-size:160%;">Search Results</p>
+            @if (Model != null && Request.QueryString["exercise"] != null)
+            {
+                <div class="container">
+                    <p>Showing result for: "@Request.QueryString["exercise"]"</p>
+                    @foreach (var Exercise in Model)
+                    {
+                        <p>@Exercise.Name</p>
+                    }
 
-            <div id="result"></div>
+                </div>
+            }
+            <div></div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="row" style="background-color: lightgrey; border: 5px solid black; padding: 5px; margin: 5px;" align="center">
+            @using (Html.BeginForm("SearchMain", "Workouts", FormMethod.Get))
+            {
+                <p style="font-size:160%;" align="center">Workout Details</p>
+                <div class="row">
+                    <div class="col-md-6">@Html.DropDownList("TeamList", "Select the assigned team")</div>
+                    <div class="col-md-6">@Html.TextBox("Date", null, new { @class = "form-control", type = "Date" })</div>
+                </div>
+                <div class="row">
+                    <button class="btn btn-primary" id="newworkout" type="submit" style="padding: 5px; margin: 5px;">+ Create New Workout</button>
+                </div>
+            }
+        </div>
+        <div class="row" id="workout" style="background-color: lightgrey; border: 5px solid black; padding: 5px; margin: 5px;">
+            @foreach (var c in Enumerable.Range(0, 5))//workoutCreation.Complexes)
+            {
+                <div class="row" style="background-color: white; border: 5px solid black; padding: 5px; margin: 5px;">
+                    complex
+                    @foreach (var i in Enumerable.Range(0, 5))//workoutCreation.ComplexItems.Where(x => x.ComplexId == c.Key))
+                    {
+                        <p> exercise </p>
+                    }
+                </div>
+            }
         </div>
     </div>
 </div>
+
+
+
+
 @section scripts
 {
     <script src="~/Scripts/main.js"></script>

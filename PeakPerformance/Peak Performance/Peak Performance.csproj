@@ -189,6 +189,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\TeamsController.cs" />
+    <Compile Include="Models\WorkoutCreationViewModel.cs" />
     <Compile Include="Models\Complex.cs" />
     <Compile Include="Models\ComplexItem.cs" />
     <Compile Include="Models\ExcerciseMuscleGroup.cs" />

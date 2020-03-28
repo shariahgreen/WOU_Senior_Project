@@ -29,7 +29,7 @@ function errorOnAjax() {
 function succedAjaxCalled(data) {
     //console.log('We got something');
     $("#result").empty();
-    $('#result').append($('<p>Found ' + data.length + ' results:</p>'))
+    $('#result').append($('<p style="font-size:160%;">Found ' + data.length + ' results:</p>'))
     for (var i = 0; i < data.length; ++i) {
         $('#result').append($('<p id ="exerciseResult">' + data[i] + '</p>'))
     }
