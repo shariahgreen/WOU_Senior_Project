@@ -554,7 +554,7 @@ namespace Peak_Performance.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email.Split('@')[0], Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
@@ -576,6 +576,88 @@ namespace Peak_Performance.Controllers
         }
 
         public ActionResult CreateAdminFail()
+        {
+            return View();
+        }
+
+        [Authorize]
+        public ActionResult RegisterCoach()
+        {
+            return View();
+        }
+
+        //
+        // POST: /Account/Register
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public async Task<ActionResult> RegisterCoach(RegisterViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var result = await UserManager.CreateAsync(user, model.Password);
+
+                if (result.Succeeded)
+                {
+                    var currentUser = UserManager.FindByName(user.UserName);
+
+                    var roleresult = UserManager.AddToRole(currentUser.Id, "Coach");
+
+                    return RedirectToAction("CreateCoachSuccess", "Account");
+                }
+            }
+            // If we got this far, something failed
+            return RedirectToAction("CreateCoachFail", "Account");
+        }
+
+        public ActionResult CreateCoachSuccess()
+        {
+            return View();
+        }
+
+        public ActionResult CreateCoachFail()
+        {
+            return View();
+        }
+
+        [Authorize]
+        public ActionResult RegisterAthlete()
+        {
+            return View();
+        }
+
+        //
+        // POST: /Account/Register
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public async Task<ActionResult> RegisterAthlete(RegisterViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var result = await UserManager.CreateAsync(user, model.Password);
+
+                if (result.Succeeded)
+                {
+                    var currentUser = UserManager.FindByName(user.UserName);
+
+                    var roleresult = UserManager.AddToRole(currentUser.Id, "Athlete");
+
+                    return RedirectToAction("CreateAthleteSuccess", "Account");
+                }
+            }
+            // If we got this far, something failed
+            return RedirectToAction("CreateAthleteFail", "Account");
+        }
+
+        public ActionResult CreateAthleteSuccess()
+        {
+            return View();
+        }
+
+        public ActionResult CreateAthleteFail()
         {
             return View();
         }
