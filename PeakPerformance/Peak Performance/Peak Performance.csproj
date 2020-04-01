@@ -326,6 +326,12 @@
     <Content Include="Views\Teams\Details.cshtml" />
     <Content Include="Views\Teams\Edit.cshtml" />
     <Content Include="Views\Teams\Index.cshtml" />
+    <Content Include="Views\Account\RegisterCoach.cshtml" />
+    <Content Include="Views\Account\CreateCoachSuccess.cshtml" />
+    <Content Include="Views\Account\CreateCoachFail.cshtml" />
+    <Content Include="Views\Account\RegisterAthlete.cshtml" />
+    <Content Include="Views\Account\CreateAthleteSuccess.cshtml" />
+    <Content Include="Views\Account\CreateAthleteFail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
