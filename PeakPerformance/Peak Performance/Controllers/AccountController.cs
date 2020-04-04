@@ -176,17 +176,46 @@ namespace Peak_Performance.Controllers
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         [CaptchaValidator]
-        public async Task<ActionResult> Register(RegisterViewModel model, bool captchaValid)
+        public async Task<ActionResult> Register(RegistrationTypes model, bool captchaValid)
         {
-            ViewData["Roles"] = db.AspNetRoles.ToList();
+            bool isAdmin, isCoach, isAthlete;
+            isAdmin = isCoach = isAthlete = false;
+            string tempEmail, tempPassword, tempFName, tempLName;
+            tempEmail = tempPassword = tempFName = tempLName = null;
+            DateTime tempDOB = new DateTime(DateTime.MinValue.Ticks);
+            int tempTeam = 0;
 
-            if (ModelState.IsValid)
-            {
-                var user = new ApplicationUser { UserName = model.Email/*.Split('@')[0]*/, Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password);
-                //For Roles
-                var role = Request.Form["Roles"].ToString();
-                if (result.Succeeded)
+            if(ModelState.IsValid) {
+                if(model.adminVM != null) {
+                    isAdmin = true;
+                    tempEmail = model.adminVM.Email;
+                    tempPassword = model.adminVM.Password;
+                }
+                if(model.coachVM != null) {
+                    isCoach = true;
+                    tempEmail = model.coachVM.Email;
+                    tempPassword = model.coachVM.Password;
+                    tempFName = model.coachVM.FirstName;
+                    tempLName = model.coachVM.LastName;
+                }
+                if(model.athleteVM != null) {
+                    isAthlete = true;
+                    tempEmail = model.athleteVM.Email;
+                    tempPassword = model.athleteVM.Password;
+                    tempFName = model.athleteVM.FirstName;
+                    tempLName = model.athleteVM.LastName;
+                    tempDOB = model.athleteVM.DOB;
+                    tempTeam = model.athleteVM.TeamID;
+                }
+
+                //if(isCoach || isAthlete) {
+                //    //confirm account via email
+                //}
+
+                var user = new ApplicationUser { UserName = tempEmail, Email = tempEmail };
+                var result = await UserManager.CreateAsync(user, tempPassword);
+
+                if(result.Succeeded)
                 {
                     //var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
@@ -195,42 +224,55 @@ namespace Peak_Performance.Controllers
                     //    "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link<\a>");
                     //ViewBag.Link = callbackUrl;
 
-                    var currentUser = UserManager.FindByName(user.UserName);
-
-                    //Add roles to user before sign in async
-                    if (role == "Admin")
-                    {
-                        //add role for user to be admin
-                        var roleresult = UserManager.AddToRole(currentUser.Id, "Admin");
-                    }
-                    else if (role == "Coach")
-                    {
-                        //add role for user as coach
-                        var roleresult = UserManager.AddToRole(currentUser.Id, "Coach");
-                    }
-                    else if (role == "Athlete")
-                    {
-                        //add role for user as athlete
-                        var roleresult = UserManager.AddToRole(currentUser.Id, "Athlete");
-                    }
-
-                    //if adding another admin
-                    //if (User.IsInRole("Admin"))
-                    //{
-                    //    //add role for user as admin
-                    //}
-
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
-                    if (User.IsInRole("Admin"))
+                    var tempUser = new Person
+                    {
+                        FirstName = tempFName,
+                        LastName = tempLName,
+                        ASPNetIdentityID = user.Id,
+                        Active = true
+                    };
+
+                    PeakPerformanceContext db = new PeakPerformanceContext();
+
+                    if(model.adminVM != null) {
+                        UserManager.AddToRole(user.Id, "Admin");
+                    }
+                    if(model.coachVM != null) {
+                        var newCoach = new Coach {
+                            
+                        };
+
+                        newCoach.Person = tempUser;
+                        db.Persons.Add(tempUser);
+                        db.Coaches.Add(newCoach);
+                        UserManager.AddToRole(user.Id, "Coach");
+                    }
+                    if(model.athleteVM != null) {
+                        var newAthlete = new Athlete
+                        {
+                            DOB = tempDOB,
+                            TeamID = tempTeam
+                        };
+
+                        newAthlete.Person = tempUser;
+                        db.Persons.Add(tempUser);
+                        db.Athletes.Add(newAthlete);
+                        UserManager.AddToRole(user.Id, "Athlete");
+                    }
+
+                    await db.SaveChangesAsync();
+
+                    if(User.IsInRole("Admin"))
                     {
                         return RedirectToAction("Index", "Home", new { area = "admin" });
-                    }
-                    else if (User.IsInRole("Coach"))
+                    }   
+                    else if(User.IsInRole("Coach"))
                     {
                         return RedirectToAction("Index", "Home", new { area = "coach" });
                     }
-                    else if (User.IsInRole("Athlete"))
+                    else if(User.IsInRole("Athlete"))
                     {
                         return RedirectToAction("Index", "Home", new { area = "athlete" });
                     }
@@ -550,7 +592,7 @@ namespace Peak_Performance.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<ActionResult> RegisterAdmin(RegisterViewModel model)
+        public async Task<ActionResult> RegisterAdmin(AdminRegistrationViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -591,7 +633,7 @@ namespace Peak_Performance.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<ActionResult> RegisterCoach(RegisterViewModel model)
+        public async Task<ActionResult> RegisterCoach(CoachRegistrationViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -632,7 +674,7 @@ namespace Peak_Performance.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<ActionResult> RegisterAthlete(RegisterViewModel model)
+        public async Task<ActionResult> RegisterAthlete(AthleteRegistrationViewModel model)
         {
             if (ModelState.IsValid)
             {

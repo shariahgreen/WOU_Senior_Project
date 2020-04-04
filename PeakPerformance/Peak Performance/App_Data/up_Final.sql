@@ -4,7 +4,7 @@
 	[FirstName]			NVARCHAR (100)		NOT NULL,
 	[LastName]			NVARCHAR (100)		NOT NULL,
 	[PreferredName] 	NVARCHAR (100),
-	[Active] 			BIT 				NOT NULL,
+	[Active] 			BIT, 				
 	[ASPNetIdentityID]	NVARCHAR (128)		NOT NULL
 	
 	CONSTRAINT [PK_dbo.Persons]	PRIMARY KEY CLUSTERED ([ID] ASC)

@@ -17,7 +17,7 @@
         @foreach (var item in Model.teams) {
         <tr>
             <td>
-                <a href="~/Teams/Details/@item.TeamId">
+                <a href="~/Teams/Details/@item.ID">
                     @Html.DisplayFor(modelItem => item.TeamName)
                                 @*@Html.ActionLink("Details", "Details", "Teams", new { id = item.TeamId }, null)*@
                 </a>
@@ -60,20 +60,20 @@
 
                 @*@Html.ActionLink(@Html.DisplayFor(modelItem => item.FirstName) + " " + @Html.DisplayFor(modelItem => item.LastName), "Details", "Athletes", new { id=item.AthleteId },null)*@
 
-                <a href="~/Athletes/Details/@item.AthleteId">
-                    @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)
+                <a href="~/Athletes/Details/@item.ID">
+                    @Html.DisplayFor(modelItem => item.Person.FirstName) @Html.DisplayFor(modelItem => item.Person.LastName)
                     @*@Html.ActionLink("Details", "Details", "Teams", new { id = item.TeamId }, null)*@
                 </a>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PreferredName)
+                @Html.DisplayFor(modelItem => item.Person.PreferredName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Active)
+                @Html.DisplayFor(modelItem => item.Person.Active)
             </td>
             <td>
-                <a href="~/Athletes/Edit/@item.AthleteId">Edit</a> |
-                <a href="~/Athletes/Delete/@item.AthleteId">Delete</a>
+                <a href="~/Athletes/Edit/@item.ID">Edit</a> |
+                <a href="~/Athletes/Delete/@item.ID">Delete</a>
                 @*@Html.ActionLink("Edit", "Edit", "Athletes", new { id = item.AthleteId }, null) |
                 @Html.ActionLink("Delete", "Delete", "Athletes", new { id = item.AthleteId }, null)*@
             </td>

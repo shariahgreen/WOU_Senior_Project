@@ -12,23 +12,23 @@ namespace Peak_Performance.Models
         public Team()
         {
             Athletes = new HashSet<Athlete>();
+            Workouts = new HashSet<Workout>();
         }
 
-        public int TeamId { get; set; }
+        public int ID { get; set; }
 
         [Required]
         [StringLength(200)]
         public string TeamName { get; set; }
 
-        public int? SportId { get; set; }
-
-        public int? CoachId { get; set; }
+        public int CoachID { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Athlete> Athletes { get; set; }
 
         public virtual Coach Coach { get; set; }
 
-        public virtual Sport Sport { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Workout> Workouts { get; set; }
     }
 }

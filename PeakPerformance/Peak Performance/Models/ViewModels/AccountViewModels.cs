@@ -65,8 +65,80 @@ namespace Peak_Performance.Models
         public bool RememberMe { get; set; }
     }
 
-    public class RegisterViewModel
+    public class RegistrationTypes {
+        public AdminRegistrationViewModel adminVM { get; set; }
+        public CoachRegistrationViewModel coachVM { get; set; }
+        public AthleteRegistrationViewModel athleteVM { get; set; }
+    }
+
+    public class AdminRegistrationViewModel
     {
+        [Required]
+        [EmailAddress]
+        [Display(Name = "Email")]
+        [RegularExpression(@"^[a-zA-Z0-9._%+-]+(@wou\.edu|@mail.wou.edu)$", ErrorMessage = "Registration is limited to the wou.edu domain.")]
+        public string Email { get; set; }
+
+        [Required]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "Password")]
+        public string Password { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm password")]
+        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        public string ConfirmPassword { get; set; }
+    }
+
+    public class CoachRegistrationViewModel {
+        [Required]
+        [Display(Name = "First Name")]
+        [StringLength(50, MinimumLength = 1, ErrorMessage = "First name must be at least one character long")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [Display(Name = "Last Name")]
+        [StringLength(50, MinimumLength = 1, ErrorMessage = "Last name must be at least one character long")]
+        public string LastName { get; set; }
+
+        [Required]
+        [EmailAddress]
+        [Display(Name = "Email")]
+        [RegularExpression(@"^[a-zA-Z0-9._%+-]+(@wou\.edu|@mail.wou.edu)$", ErrorMessage = "Registration is limited to the wou.edu domain.")]
+        public string Email { get; set; }
+
+        [Required]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "Password")]
+        public string Password { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm password")]
+        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        public string ConfirmPassword { get; set; }
+    }
+
+    public class AthleteRegistrationViewModel {
+        [Required]
+        [Display(Name = "First Name")]
+        [StringLength(50, MinimumLength = 1, ErrorMessage = "First name must be at least one character long")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [Display(Name = "Last Name")]
+        [StringLength(50, MinimumLength = 1, ErrorMessage = "Last name must be at least one character long")]
+        public string LastName { get; set; }
+
+        [Required]
+        [Display(Name = "DOB")]
+        public System.DateTime DOB { get; set; }
+
+        [Required]
+        [Display(Name = "TeamID")]
+        public int TeamID { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]

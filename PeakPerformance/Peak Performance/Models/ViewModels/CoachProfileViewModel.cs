@@ -13,12 +13,12 @@ namespace Peak_Performance.Models
         public CoachProfileViewModel(int id)
         {
             coach = db.Coaches.Find(id);
-            teams = db.Teams.Where(t => t.CoachId == id).ToList();
-            CoachProfileId = coach.CoachId;
+            teams = db.Teams.Where(t => t.CoachID == id).ToList();
+            CoachProfileId = coach.ID;
             athletes = new List<Athlete>();
             foreach (Team team in teams)
             {
-                IEnumerable<Athlete> athletelist = db.Athletes.Where(a => a.TeamId == team.TeamId).ToList();
+                IEnumerable<Athlete> athletelist = db.Athletes.Where(a => a.TeamID == team.ID).ToList();
                 if (athletelist != null)
                 {
                     athletes.AddRange(athletelist);

@@ -1,13 +1,12 @@
-﻿@model Peak_Performance.Models.RegisterViewModel
+﻿@model Peak_Performance.Models.AthleteRegistrationViewModel
 @{
     ViewBag.Title = "Register Athlete";
 }
 
-<h2>Register a New Coach</h2>
+<h2>Register a New Athlete</h2>
 <hr />
 
-@using (Html.BeginForm("RegisterAthlete", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
+@using (Html.BeginForm("RegisterAthlete", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" })) {
     @Html.AntiForgeryToken()
 
     @Html.ValidationSummary("", new { @class = "text-danger" })
@@ -27,6 +26,18 @@
         @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
             @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.DOB, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.EditorFor(m => m.DOB, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.TeamID, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.EditorFor(m => m.TeamID, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">

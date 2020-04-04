@@ -14,25 +14,24 @@
             <th>
                 Coach Name
             </th>
-            <th>
-                Coach Email
-            </th>
+            @*<th>
+                    Coach Email
+                </th>*@
             <th>
             </th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
-        {
+        @foreach (var item in Model) {
             <tr align="center">
                 <td>
-                    @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)
+                    @Html.DisplayFor(modelItem => item.Person.FirstName) @Html.DisplayFor(modelItem => item.Person.LastName)
                 </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>*@
                 <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Active)
+                    @Html.DisplayFor(modelItem => item.Person.Active)
                 </td>
             </tr>
         }
