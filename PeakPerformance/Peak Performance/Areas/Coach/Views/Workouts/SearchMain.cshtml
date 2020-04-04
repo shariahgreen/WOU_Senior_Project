@@ -48,31 +48,30 @@
             <div></div>
         </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-6" id="EntireWorkoutElement">
         <div class="row" style="background-color: lightgrey; border: 5px solid black; padding: 5px; margin: 5px;" align="center">
-            @using (Html.BeginForm("SearchMain", "Workouts", FormMethod.Get))
-            {
-                <p style="font-size:160%;" align="center">Workout Details</p>
-                <div class="row">
-                    <div class="col-md-6">@Html.DropDownList("TeamList", "Select the assigned team")</div>
-                    <div class="col-md-6">@Html.TextBox("Date", null, new { @class = "form-control", type = "Date" })</div>
-                </div>
-                <div class="row">
-                    <button class="btn btn-primary" id="newworkout" type="submit" style="padding: 5px; margin: 5px;">+ Create New Workout</button>
-                </div>
-            }
+            @*@using (Html.BeginForm("SearchMain", "Workouts", FormMethod.Get)){*@
+            <p style="font-size:160%;" align="center">Workout Details</p>
+            <div class="row">
+                <div class="col-md-6">@Html.DropDownList("TeamList", "Select the assigned team")</div>
+                <div class="col-md-6">@Html.TextBox("Date", null, new { @class = "form-control", type = "Date" })</div>
+            </div>
+            <div class="row">
+                <button class="btn btn-primary" id="newworkout" onclick="createWorkout()" style="padding: 5px; margin: 5px;">+ Create New Workout</button>
+            </div>
+            @*}*@
         </div>
-        <div class="row" id="workout" style="background-color: lightgrey; border: 5px solid black; padding: 5px; margin: 5px;">
-            @foreach (var c in Enumerable.Range(0, 5))//workoutCreation.Complexes)
-            {
-                <div class="row" style="background-color: white; border: 5px solid black; padding: 5px; margin: 5px;">
-                    complex
-                    @foreach (var i in Enumerable.Range(0, 5))//workoutCreation.ComplexItems.Where(x => x.ComplexId == c.Key))
-                    {
-                        <p> exercise </p>
-                    }
-                </div>
-            }
+        <div class="row" id="workout" style="visibility:hidden; font-size:150%; background-color: lightgrey; border: 5px solid black; padding: 5px; margin: 5px;">
+            Workout
+            <div class="row" align="right" style="padding: 5px; margin: 5px;">
+                <button class="btn btn-primary" id="newcomplex" onclick="createComplex()" style="padding: 5px; margin: 5px;">+ Create New Complex</button>
+            </div>
+            <div class="row" id="complexes" style="font-size:75%; background-color: lightgrey; margin: 5px;">
+
+            </div>
+            <div class="row" align="right" style="padding: 5px; margin: 5px;">
+                <button class="btn btn-primary" id="saveworkout" onclick="createWorkoutSave()" style="padding: 5px; margin: 5px;">Submit</button>
+            </div>
         </div>
     </div>
 </div>

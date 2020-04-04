@@ -35,17 +35,27 @@ namespace Peak_Performance.Areas.Coach
             return View(list);
 
         }
-        [RequireRouteValues(new[] { "TeamList", "Date" })]
-        public ActionResult SearchMain(int TeamList, DateTime Date)
+        //[RequireRouteValues(new[] { "TeamList", "Date" })]
+        //public JsonResult CreateWorkout(int TeamList, string Date)
+        [HttpPost]
+        public void CreateWorkout()
         {
             string id = User.Identity.GetUserId();
             Peak_Performance.Models.Coach temp = db.Coaches.FirstOrDefault(p => p.UserId == id);
-            Peak_Performance.Models.WorkoutCreationViewModel WorkoutCreation = new WorkoutCreationViewModel(temp, TeamList, Date);
-            ViewBag.MuscleGroupsId = new SelectList(db.MuscleGroups, "MuscleGroupsId", "Name");
-            ViewBag.TeamList = new SelectList(db.Teams.Where(t => t.CoachId == temp.CoachId), "TeamId", "TeamName");
-            ViewBag.WorkoutCreation = WorkoutCreation;
-            return View();
+            //DateTime dateTime = DateTime.Parse(Date);
+            //Peak_Performance.Models.WorkoutCreationViewModel WorkoutCreation = new WorkoutCreationViewModel(temp, TeamList, dateTime);
+            //ViewBag.MuscleGroupsId = new SelectList(db.MuscleGroups, "MuscleGroupsId", "Name");
+            //ViewBag.TeamList = new SelectList(db.Teams.Where(t => t.CoachId == temp.CoachId), "TeamId", "TeamName");
+            //ViewBag.WorkoutCreation = WorkoutCreation;
+            //return Json(WorkoutCreation, JsonRequestBehavior.AllowGet);
+            return;
         }
+
+        //public JsonResult CreateComplex (int WorkoutId)
+        //{
+//
+  //          return; //Json();
+    //    }
 
         public JsonResult SearchByMuscle(string MuscleGroupsId)
         {

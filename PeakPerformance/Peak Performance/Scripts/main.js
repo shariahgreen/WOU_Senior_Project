@@ -34,3 +34,46 @@ function succedAjaxCalled(data) {
         $('#result').append($('<p id ="exerciseResult">' + data[i] + '</p>'))
     }
 }
+
+function createWorkoutSave() {
+    //var dropdownListElem = document.getElementById("TeamList");
+    //var woTeam = dropdownListElem.options[dropdownListElem.selectedIndex].value;
+    //var woDate = document.getElementById("Date").value;
+    //console.log("Workout created for team " + woTeam + " on date " + woDate)
+    var htmldata = document.getElementById("EntireWorkoutElement").innerHTML;
+    var source = '/Workouts/CreateWorkout';
+    var htmldataenc = { "value": htmldata }
+    $.ajax({
+        url: source,
+        type: 'POST',
+        processData: false,
+        //data: JSON.stringify(data),
+        data : htmldataenc,
+        success: function (result) {
+            alert('the request was successfully sent to the server');
+        },
+        error: errorOnAjax
+    });
+
+    /*$.ajax({
+        type: 'GET',
+        dataType: 'json',
+        url: source,
+        success: createWorkoutView,
+        error: errorOnAjax
+    });*/
+}
+
+function createWorkout() {
+    console.log("Adding workout creation functionality to webpage.");
+    //var x = document.getElementById("workout");
+    if ($('#workout').style.visibility === "hidden") {
+        $('#workout').style.visibility = "";
+    }
+    //$('#workout').style.visibility = ""
+}
+
+function createComplex() {
+    console.log("Adding complex creation functionality to webpage.");
+    $('#complexes').append($('<div class="row" style="background-color: white; border: 5px solid black; padding: 5px; margin: 5px;">Complex</div>'))
+}
