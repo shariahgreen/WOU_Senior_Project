@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using Peak_Performance.DAL;
 using Peak_Performance.Models;
+using Microsoft.AspNet.Identity;
+using System.Reflection;
 
 namespace Peak_Performance.Areas.Coach
 {
@@ -25,10 +27,35 @@ namespace Peak_Performance.Areas.Coach
         }
         public ActionResult SearchMain(string exercise)
         {
+            string id = User.Identity.GetUserId();
+            Peak_Performance.Models.Coach temp = db.Coaches.FirstOrDefault(p => p.Person.ASPNetIdentityID == id);
             ViewBag.MuscleGroupsId = new SelectList(db.MuscleGroups, "MuscleGroupsId", "Name");
+            ViewBag.TeamList = new SelectList(db.Teams.Where(t => t.CoachID == temp.ID), "ID", "TeamName");
             IEnumerable<Peak_Performance.Models.Exercis> list = db.Exercises.Where(p => p.Name.Contains(exercise)).ToList();
             return View(list);
+
         }
+        //[RequireRouteValues(new[] { "TeamList", "Date" })]
+        //public JsonResult CreateWorkout(int TeamList, string Date)
+        [HttpPost]
+        public void CreateWorkout()
+        {
+            string id = User.Identity.GetUserId();
+            Peak_Performance.Models.Coach temp = db.Coaches.FirstOrDefault(p => p.Person.ASPNetIdentityID == id);
+            //DateTime dateTime = DateTime.Parse(Date);
+            //Peak_Performance.Models.WorkoutCreationViewModel WorkoutCreation = new WorkoutCreationViewModel(temp, TeamList, dateTime);
+            //ViewBag.MuscleGroupsId = new SelectList(db.MuscleGroups, "MuscleGroupsId", "Name");
+            //ViewBag.TeamList = new SelectList(db.Teams.Where(t => t.CoachId == temp.CoachId), "TeamId", "TeamName");
+            //ViewBag.WorkoutCreation = WorkoutCreation;
+            //return Json(WorkoutCreation, JsonRequestBehavior.AllowGet);
+            return;
+        }
+
+        //public JsonResult CreateComplex (int WorkoutId)
+        //{
+//
+  //          return; //Json();
+    //    }
 
         public JsonResult SearchByMuscle(string MuscleGroupsId)
         {
@@ -57,7 +84,9 @@ namespace Peak_Performance.Areas.Coach
         // GET: Coach/Workouts/Create
         public ActionResult Create()
         {
-            ViewBag.TeamID = new SelectList(db.Teams, "TeamId", "TeamName");
+            string id = User.Identity.GetUserId();
+            //Peak_Performance.Models.Coach temp = db.Coaches.FirstOrDefault(p => p.UserId == id);
+            //ViewBag.TeamID = new SelectList(db.Teams.Where(t => t.Coach == temp), "TeamId", "TeamName");
             return View();
         }
 
@@ -146,5 +175,27 @@ namespace Peak_Performance.Areas.Coach
             }
             base.Dispose(disposing);
         }
+    }
+
+
+    public class RequireRouteValuesAttribute : ActionMethodSelectorAttribute
+    {
+        public RequireRouteValuesAttribute(string[] valueNames)
+        {
+            ValueNames = valueNames;
+        }
+
+        public override bool IsValidForRequest(ControllerContext controllerContext, MethodInfo methodInfo)
+        {
+            bool contains = false;
+            foreach (var value in ValueNames)
+            {
+                contains = controllerContext.HttpContext.Request[value] != null;
+                if (!contains) break;
+            }
+            return contains;
+        }
+
+        public string[] ValueNames { get; private set; }
     }
 }
