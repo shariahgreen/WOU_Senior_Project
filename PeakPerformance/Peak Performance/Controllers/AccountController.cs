@@ -91,15 +91,15 @@ namespace Peak_Performance.Controllers
                     var role = db.AspNetUsers.Where(r => r.Email == model.Email).Select(r => r.AspNetRoles.Select(t => t.Name)).First().ToArray();
                     if (role[0] == "Admin")
                     {
-                        return RedirectToAction("Index", "Home", new { area = "admin" });
+                        return RedirectToAction("Index", "Home", new { area = "Admin" });
                     }
                     else if (role[0] == "Coach")
                     {
-                        return RedirectToAction("Index", "Home", new { area = "coach" });
+                        return RedirectToAction("Index", "Home", new { area = "Coach" });
                     }
                     else if (role[0] == "Athlete")
                     {
-                        return RedirectToAction("Index", "Home", new { area = "athlete" });
+                        return RedirectToAction("Index", "Home", new { area = "Athlete" });
                     }
                     return RedirectToAction(returnUrl);
 
@@ -185,20 +185,24 @@ namespace Peak_Performance.Controllers
             DateTime tempDOB = new DateTime(DateTime.MinValue.Ticks);
             int tempTeam = 0;
 
-            if(ModelState.IsValid) {
-                if(model.adminVM != null) {
+            if (ModelState.IsValid)
+            {
+                if (model.adminVM != null)
+                {
                     isAdmin = true;
                     tempEmail = model.adminVM.Email;
                     tempPassword = model.adminVM.Password;
                 }
-                if(model.coachVM != null) {
+                if (model.coachVM != null)
+                {
                     isCoach = true;
                     tempEmail = model.coachVM.Email;
                     tempPassword = model.coachVM.Password;
                     tempFName = model.coachVM.FirstName;
                     tempLName = model.coachVM.LastName;
                 }
-                if(model.athleteVM != null) {
+                if (model.athleteVM != null)
+                {
                     isAthlete = true;
                     tempEmail = model.athleteVM.Email;
                     tempPassword = model.athleteVM.Password;
@@ -215,7 +219,7 @@ namespace Peak_Performance.Controllers
                 var user = new ApplicationUser { UserName = tempEmail, Email = tempEmail };
                 var result = await UserManager.CreateAsync(user, tempPassword);
 
-                if(result.Succeeded)
+                if (result.Succeeded)
                 {
                     //var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
@@ -236,12 +240,14 @@ namespace Peak_Performance.Controllers
 
                     PeakPerformanceContext db = new PeakPerformanceContext();
 
-                    if(model.adminVM != null) {
+                    if (model.adminVM != null)
+                    {
                         UserManager.AddToRole(user.Id, "Admin");
                     }
-                    if(model.coachVM != null) {
-                        var newCoach = new Coach {
-                            
+                    if (model.coachVM != null)
+                    {
+                        var newCoach = new Coach
+                        {
                         };
 
                         newCoach.Person = tempUser;
@@ -249,7 +255,8 @@ namespace Peak_Performance.Controllers
                         db.Coaches.Add(newCoach);
                         UserManager.AddToRole(user.Id, "Coach");
                     }
-                    if(model.athleteVM != null) {
+                    if (model.athleteVM != null)
+                    {
                         var newAthlete = new Athlete
                         {
                             DOB = tempDOB,
@@ -264,15 +271,15 @@ namespace Peak_Performance.Controllers
 
                     await db.SaveChangesAsync();
 
-                    if(User.IsInRole("Admin"))
+                    if (User.IsInRole("Admin"))
                     {
                         return RedirectToAction("Index", "Home", new { area = "admin" });
-                    }   
-                    else if(User.IsInRole("Coach"))
+                    }
+                    else if (User.IsInRole("Coach"))
                     {
                         return RedirectToAction("Index", "Home", new { area = "coach" });
                     }
-                    else if(User.IsInRole("Athlete"))
+                    else if (User.IsInRole("Athlete"))
                     {
                         return RedirectToAction("Index", "Home", new { area = "athlete" });
                     }
