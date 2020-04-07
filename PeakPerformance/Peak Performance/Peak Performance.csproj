@@ -236,6 +236,7 @@
     <Content Include="Images\pushup.png" />
     <Content Include="Images\Text_Only.png" />
     <Content Include="Images\treadmill.png" />
+    <Content Include="Scripts\app.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\Admin\Views\Web.config" />
