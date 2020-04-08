@@ -34,5 +34,11 @@ namespace Peak_Performance.Controllers
 
             return View();
         }
+
+        //This is stricly for testing the example test so we can see how things work.
+        public string Capitolize(string sentence)
+        {
+            return char.ToUpper(sentence[0]) + sentence.Substring(1);
+        }
     }
 }
