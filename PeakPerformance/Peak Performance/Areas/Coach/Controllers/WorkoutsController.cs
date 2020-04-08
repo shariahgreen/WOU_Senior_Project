@@ -45,6 +45,7 @@ namespace Peak_Performance.Areas.Coach
             //DateTime dateTime = DateTime.Parse(Date);
             //Peak_Performance.Models.WorkoutCreationViewModel WorkoutCreation = new WorkoutCreationViewModel(temp, TeamList, dateTime);
             //ViewBag.MuscleGroupsId = new SelectList(db.MuscleGroups, "MuscleGroupsId", "Name");
+            
             //ViewBag.TeamList = new SelectList(db.Teams.Where(t => t.CoachId == temp.CoachId), "TeamId", "TeamName");
             //ViewBag.WorkoutCreation = WorkoutCreation;
             //return Json(WorkoutCreation, JsonRequestBehavior.AllowGet);

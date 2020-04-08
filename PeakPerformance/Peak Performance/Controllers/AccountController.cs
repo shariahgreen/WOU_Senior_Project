@@ -260,7 +260,7 @@ namespace Peak_Performance.Controllers
                         db.Persons.Add(tempUser);
                         db.Athletes.Add(newAthlete);
                         UserManager.AddToRole(user.Id, "Athlete");
-                    }
+                                                     }
 
                     await db.SaveChangesAsync();
 

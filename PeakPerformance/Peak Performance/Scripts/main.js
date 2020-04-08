@@ -74,10 +74,13 @@ function createWorkout() {
 
 function createComplex() {
     console.log("Adding complex creation functionality to webpage.");
-    var complexhtml = '<div class="row" style="background-color: white; border: 5px solid black; padding: 5px; margin: 5px;">' +
-        'Complex' +
-        '<button class="btn btn-primary" id="newexercise" onclick="createExercise" style="padding: 5px; margin: 5px;" >' + '+ Add New Exercise' +
-        '</button></div> ';
+    var complexhtml =
+        '<div class="row" style="background-color: white; border: 5px solid black; padding: 5px; margin: 5px;">' +
+            'Complex' +
+            '<div class="row" align="right" style="padding: 5px; margin: 5px;">' +
+                '<button class="btn btn-primary" id="newexercise" onclick="createExercise()" style="padding: 5px; margin: 5px;">+ Add an Exercise</button>' +
+            '</div>' +
+        '</div>';
 
     $('#complexes').append($(complexhtml))
 }
