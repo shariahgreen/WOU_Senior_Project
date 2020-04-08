@@ -7,8 +7,12 @@ namespace Peak_Performance_Test
     [TestFixture]
     public class MeganTests
     {
+        /**
+         * This is to test if the "Retu
+         * */
+
         [Test]
-        public void TestMethod1()
+        public void ReturnsAllAdmin_NumberGreaterThanZero_ReturnsTrue()
         {
         }
     }
