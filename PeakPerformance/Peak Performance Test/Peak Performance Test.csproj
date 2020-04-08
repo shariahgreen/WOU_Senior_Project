@@ -70,6 +70,10 @@
   <ItemGroup>
     <Compile Include="ExampleTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="MeganTests.cs" />
+    <Compile Include="JoeTests.cs" />
+    <Compile Include="ShayTests.cs" />
+    <Compile Include="SodaraTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
