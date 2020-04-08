@@ -237,6 +237,7 @@
     <Content Include="Images\pushup.png" />
     <Content Include="Images\Text_Only.png" />
     <Content Include="Images\treadmill.png" />
+    <Content Include="Scripts\app.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\Admin\Views\Web.config" />
@@ -259,6 +260,9 @@
     <Content Include="Areas\Coach\Views\Workouts\Edit.cshtml" />
     <Content Include="Areas\Coach\Views\Workouts\Index.cshtml" />
     <Content Include="Areas\Coach\Views\Workouts\SearchMain.cshtml" />
+    <Content Include="Areas\Coach\Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Areas\Athlete\Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_LoginPartial.cshtml" />
     <None Include="Properties\PublishProfiles\PeakPerformance - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
