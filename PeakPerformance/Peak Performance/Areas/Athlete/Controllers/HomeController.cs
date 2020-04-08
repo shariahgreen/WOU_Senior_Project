@@ -21,7 +21,6 @@ namespace Peak_Performance.Areas.Athlete.Controllers {
             string id = User.Identity.GetUserId();
             Person temp = db.Persons.FirstOrDefault(p => p.ASPNetIdentityID == id);
             AthleteProfileViewModel athlete = new AthleteProfileViewModel(temp.ID);
-
             return View("Index", athlete);
         }
     }

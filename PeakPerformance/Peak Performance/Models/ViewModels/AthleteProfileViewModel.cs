@@ -23,13 +23,7 @@ namespace Peak_Performance.Models.ViewModels
             //select list of workout today and future
             upcomingWorkoutLists = db.Workouts.Where(p => p.TeamID == athleteTeamID && p.WorkoutDate >= DateTime.Today).ToList();
             upcomingWorkoutDate = upcomingWorkoutLists.Select(p => p.WorkoutDate.ToString("MM-dd-yyyy")).ToList();
-
-
-
         }
-
-
-
         public virtual Athlete athlete { get; set; }
         public virtual Person person { get; set; }
 
