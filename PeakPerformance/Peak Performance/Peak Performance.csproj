@@ -197,6 +197,7 @@
     <Compile Include="Models\AspNetUserLogin.cs" />
     <Compile Include="Models\Athlete.cs" />
     <Compile Include="Models\Coach.cs" />
+    <Compile Include="Models\ViewModels\AthleteProfileViewModel.cs" />
     <Compile Include="Models\ViewModels\CoachProfileViewModel.cs" />
     <Compile Include="Models\Complex.cs" />
     <Compile Include="Models\ComplexItem.cs" />
@@ -215,6 +216,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\about_view.css" />
+    <Content Include="Content\AthleteProfileStyle.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -223,6 +225,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\Avatar.png" />
     <Content Include="Images\bike.png" />
     <Content Include="Images\Compact_Circle_Backgorund.png" />
     <Content Include="Images\Compact_Dome_Background.png" />
