@@ -10,7 +10,7 @@ namespace Peak_Performance.Models.ViewModels
 {
     public class WorkoutsViewModel
     {
-        private readonly PeakPerformanceContext db = new PeakPerformanceContext();
+/*        private readonly PeakPerformanceContext db = new PeakPerformanceContext();
         public WorkoutsViewModel(Coach coach, int team, DateTime date)
         {
             Date = date;
@@ -71,14 +71,33 @@ namespace Peak_Performance.Models.ViewModels
             db.SaveChanges();
 
             return;
-        }
-        public Peak_Performance.Models.Workout NewWorkout { get; set; }
-        public Peak_Performance.Models.Coach Coach { get; set; }
-        public Peak_Performance.Models.Team Team { get; set; }
-        public DateTime Date { get; set; }
-        public IEnumerable<Peak_Performance.Models.Exercis> Exercises { get; set; }
-        public IEnumerable<Peak_Performance.Models.Complex> Complexes { get; set; }
-        public IEnumerable<Peak_Performance.Models.ComplexItem> ComplexItems { get; set; }
+        }*/
+        public DateTime date { get; set; }
 
+        public string team {get; set;}
+        
+        public ComplexesViewModel complexes { get; set; }
+    }
+
+    public class ComplexesViewModel
+    {
+        public List<ComplexViewModel> complex { get; set; }
+    }
+
+    public class ComplexViewModel
+    { 
+        public List<ExerciseViewModel> exercise { get; set; }
+    
+    }
+
+    public class ExerciseViewModel
+    {
+        string name { get; set; }
+        int reps { get; set; }
+        int sets { get; set; }
+        double weight { get; set; }
+        TimeSpan time { get; set; }
+        double speed { get; set; }
+        double distance { get; set; }
     }
 }

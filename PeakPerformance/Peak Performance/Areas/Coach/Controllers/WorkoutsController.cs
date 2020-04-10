@@ -10,6 +10,7 @@ using Peak_Performance.DAL;
 using Peak_Performance.Models;
 using Microsoft.AspNet.Identity;
 using System.Reflection;
+using Peak_Performance.Models.ViewModels;
 
 namespace Peak_Performance.Areas.Coach
 {
@@ -38,10 +39,10 @@ namespace Peak_Performance.Areas.Coach
         //[RequireRouteValues(new[] { "TeamList", "Date" })]
         //public JsonResult CreateWorkout(int TeamList, string Date)
         [HttpPost]
-        public void CreateWorkout()
+        public ActionResult CreateWorkout(WorkoutsViewModel workoutsViewModel)
         {
             string id = User.Identity.GetUserId();
-            Peak_Performance.Models.Coach temp = db.Coaches.FirstOrDefault(p => p.Person.ASPNetIdentityID == id);
+            Peak_Performance.Models.Coach temp = db.Coaches.FirstOrDefault(c => c.Person.ASPNetIdentityID == id);
             //DateTime dateTime = DateTime.Parse(Date);
             //Peak_Performance.Models.WorkoutCreationViewModel WorkoutCreation = new WorkoutCreationViewModel(temp, TeamList, dateTime);
             //ViewBag.MuscleGroupsId = new SelectList(db.MuscleGroups, "MuscleGroupsId", "Name");
@@ -49,21 +50,18 @@ namespace Peak_Performance.Areas.Coach
             //ViewBag.TeamList = new SelectList(db.Teams.Where(t => t.CoachId == temp.CoachId), "TeamId", "TeamName");
             //ViewBag.WorkoutCreation = WorkoutCreation;
             //return Json(WorkoutCreation, JsonRequestBehavior.AllowGet);
-            return;
+            return View();
         }
 
-        //public JsonResult CreateComplex (int WorkoutId)
-        //{
-//
-  //          return; //Json();
-    //    }
+        public JsonResult SearchByText(string text)
+        {
+            IEnumerable<string> result = db.Exercises.Where(e => e.Name.Contains(text)).Select(e => e.Name).ToList();
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
 
         public JsonResult SearchByMuscle(string MuscleGroupsId)
         {
-            ViewBag.MuscleGroupsId = new SelectList(db.MuscleGroups, "MuscleGroupsId", "Name");
-            //IEnumerable<string> list = new IEnumerable<string>();
             IEnumerable<string> result = db.ExcerciseMuscleGroups.Where(p => p.MuscleGroup.Name.Contains(MuscleGroupsId)).Select(p => p.Exercis.Name).ToList();
-
             return Json(result, JsonRequestBehavior.AllowGet);
         }
         

@@ -2,23 +2,19 @@
 @{
     ViewBag.Title = "Exercise Search Page";
     Layout = "~/Areas/Coach/Views/Shared/_Layout.cshtml";
-    //Peak_Performance.Models.WorkoutCreationViewModel workoutCreation = ViewBag.WorkoutCreation;
 }
 
 <h2>Exercise Search Page</h2>
 <br />
 <div class="row">
     <div class="col-md-4">
-        @using (Html.BeginForm("SearchMain", "Workouts", FormMethod.Get))
-        {
-            <div class="form-group">
-                <div class="search">
-                    @Html.TextBox("exercise", null, new { @class = "form-control", type = "text" })
-                    <br />
-                    <button class="btn btn-primary" type="submit">Search</button>
-                </div>
+        <div class="form-group">
+            <div class="search">
+                @Html.TextBox("exercise", null, new { @class = "form-control", type = "text" })
+                <br />
+                <button class="btn btn-primary" onclick="getExercisesbyText()">Search</button>
             </div>
-        }
+        </div>
     </div>
     <div class="col-md-4">
         <div class="form-group">
@@ -74,8 +70,6 @@
         </div>
     </div>
 </div>
-
-
 
 
 @section scripts
