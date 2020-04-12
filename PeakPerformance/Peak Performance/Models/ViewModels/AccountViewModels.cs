@@ -135,7 +135,6 @@ namespace Peak_Performance.Models
         [Display(Name = "DOB")]
         public System.DateTime DOB { get; set; }
 
-        [Required]
         [Display(Name = "TeamID")]
         public int TeamID { get; set; }
 

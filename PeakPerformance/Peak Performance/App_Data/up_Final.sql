@@ -45,10 +45,9 @@ CREATE TABLE [dbo].[Athletes]
 	[DOB] 			DATE			NOT NULL,
     [Height] 		FLOAT,
     [Weight] 		FLOAT,
-	[TeamID] 		INT 			NOT NULL
+	[TeamID] 		INT
 	
 	CONSTRAINT [PK_dbo.Athletes] PRIMARY KEY CLUSTERED ([ID] ASC),
 	CONSTRAINT [FK_dbo.Athletes_dbo.Persons_ID] FOREIGN KEY ([ID]) REFERENCES [Persons] ([ID]) ON DELETE CASCADE ON UPDATE CASCADE,
 	CONSTRAINT [FK_dbo.Athletes_dbo.Teams_TeamID] FOREIGN KEY ([TeamID]) REFERENCES [dbo].[Teams] ([ID]) ON DELETE NO ACTION
 );
-
