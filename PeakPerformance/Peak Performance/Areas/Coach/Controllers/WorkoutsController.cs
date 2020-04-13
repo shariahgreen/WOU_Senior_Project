@@ -38,11 +38,12 @@ namespace Peak_Performance.Areas.Coach
         }
         //[RequireRouteValues(new[] { "TeamList", "Date" })]
         //public JsonResult CreateWorkout(int TeamList, string Date)
+
         [HttpPost]
         public ActionResult CreateWorkout(WorkoutsViewModel workoutsViewModel)
         {
-            string id = User.Identity.GetUserId();
-            Peak_Performance.Models.Coach temp = db.Coaches.FirstOrDefault(c => c.Person.ASPNetIdentityID == id);
+           // string id = User.Identity.GetUserId();
+            //Peak_Performance.Models.Coach temp = db.Coaches.FirstOrDefault(c => c.Person.ASPNetIdentityID == id);
             //DateTime dateTime = DateTime.Parse(Date);
             //Peak_Performance.Models.WorkoutCreationViewModel WorkoutCreation = new WorkoutCreationViewModel(temp, TeamList, dateTime);
             //ViewBag.MuscleGroupsId = new SelectList(db.MuscleGroups, "MuscleGroupsId", "Name");
@@ -177,23 +178,23 @@ namespace Peak_Performance.Areas.Coach
     }
 
 
-    public class RequireRouteValuesAttribute : ActionMethodSelectorAttribute
-    {
-        public RequireRouteValuesAttribute(string[] valueNames)
-        {
-            ValueNames = valueNames;
-        }
+//    public class RequireRouteValuesAttribute : ActionMethodSelectorAttribute
+//    {
+//        public RequireRouteValuesAttribute(string[] valueNames)
+//        {
+//            ValueNames = valueNames;
+//        }
 
-        public override bool IsValidForRequest(ControllerContext controllerContext, MethodInfo methodInfo)
-        {
-            bool contains = false;
-            foreach (var value in ValueNames)
-            {
-                contains = controllerContext.HttpContext.Request[value] != null;
-                if (!contains) break;
-            }
-            return contains;
-        }
+//        public override bool IsValidForRequest(ControllerContext controllerContext, MethodInfo methodInfo)
+//        {
+//            bool contains = false;
+//            foreach (var value in ValueNames)
+//            {
+//                contains = controllerContext.HttpContext.Request[value] != null;
+//                if (!contains) break;
+//            }
+//            return contains;
+//        }
 
         public string[] ValueNames { get; private set; }
     }
