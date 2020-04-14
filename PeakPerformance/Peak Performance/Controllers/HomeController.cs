@@ -35,6 +35,11 @@ namespace Peak_Performance.Controllers
             return View();
         }
 
+        public ActionResult Error()
+        {
+            return View();
+        }
+
         //This is stricly for testing the example test so we can see how things work.
         public string Capitolize(string sentence)
         {
