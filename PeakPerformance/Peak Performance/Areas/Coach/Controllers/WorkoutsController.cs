@@ -147,8 +147,6 @@ namespace Peak_Performance.Areas.Coach
             base.Dispose(disposing);
         }
     }
-<<<<<<< Updated upstream
-=======
 
 
 //    public class RequireRouteValuesAttribute : ActionMethodSelectorAttribute
@@ -171,5 +169,4 @@ namespace Peak_Performance.Areas.Coach
 //
 //        public string[] ValueNames { get; private set; }
 //    }
->>>>>>> Stashed changes
 }
