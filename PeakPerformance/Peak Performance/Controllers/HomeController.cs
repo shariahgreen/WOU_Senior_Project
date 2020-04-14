@@ -64,7 +64,7 @@ namespace Peak_Performance.Controllers
                 {
                     var senderEmail = new MailAddress("peakperformance1189@gmail.com", name);
                     var receiverEmail = new MailAddress("peakperformancewou@gmail.com");
-                    var password = "Thisisfor1!";
+                    var gmail = "Thisisfor1!";
                     var body = "Customer Email: "+ cutomerEmail + System.Environment.NewLine + System.Environment.NewLine + message ;
                     var smtp = new SmtpClient
                     {
@@ -73,7 +73,7 @@ namespace Peak_Performance.Controllers
                         EnableSsl = true,
                         DeliveryMethod = SmtpDeliveryMethod.Network,
                         UseDefaultCredentials = false,
-                        Credentials = new NetworkCredential(senderEmail.Address, password)
+                        Credentials = new NetworkCredential(senderEmail.Address, gmail)
                     };
                     using (var mess = new MailMessage(senderEmail, receiverEmail)
                     {
