@@ -1,21 +1,22 @@
-﻿@{
+﻿@model Peak_Performance.Models.ContactFormModels
+
+@{
     ViewBag.Title = "Contact";
 }
-
-<form id="contact-form" name="contact-form" action="Contact">
-    <input name="firstName" id="firstName" type="text" class="feedback-input" placeholder="First Name" />
-    <input name="lastName" id="lastName" type="text" class="feedback-input" placeholder="Last Name" />
-    <input name="email" id="email" type="text" class="feedback-input" placeholder="Email" />
-    <input name="subject" id="subject" type="text" class="feedback-input" placeholder="subject" />
-    <textarea name="text" class="feedback-input" placeholder="Comment"></textarea>
-    <br />
-    <a class="btn btn-danger" onclick="SendEmail()">Send</a>
-</form>
-
+    <h3 align="center">@ViewBag.Message</h3>
+    <form id="contact-form" name="contact-form" action="/Home/Recieved">
+        
+        <input name="firstName" id="Name" type="text" class="feedback-input" placeholder="Name" required />
+        <input name="email" id="email" type="email" class="feedback-input" placeholder="Email" required />
+        <input name="subject" id="subject" type="text" class="feedback-input" placeholder="subject" required />
+        <textarea name="text" id="message" class="feedback-input" placeholder="Message" required></textarea>
+        <br />
+        <input type="submit" onclick="SendEmail()" value="Send">
+    </form>
 
 <div class="container-fluid">
 
-    <h3 align="center">@ViewBag.Message</h3>
+    
 
 
 

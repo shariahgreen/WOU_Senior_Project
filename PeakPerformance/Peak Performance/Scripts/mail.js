@@ -4,9 +4,14 @@
 //    <input name="subject" id="subject" type="text" class="feedback-input" placeholder="subject" />
 //    <textarea name="text" class="feedback-input" placeholder="Comment"></textarea>
 function SendEmail() {
+    var name = document.getElementById("Name").value;
+    var email = document.getElementById("email").value;
+    var subject = document.getElementById("subject").value;
+    var message = document.getElementById("message").value;
+
     $.ajax({
         type: 'Post',
-        url: "/Home/SendEmail",
+        url: "/Home/SendEmail?name=" + name + '&cutomerEmail=' + email + '&subject=' + subject + '&message=' + message,
         success: show,
         error: errorOnAjax
     }); 

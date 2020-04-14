@@ -49,18 +49,23 @@ namespace Peak_Performance.Controllers
             return View();
         }
 
+        public ActionResult Recieved()
+        {
+
+            return View();
+        }
+        
         [HttpPost]
-        public ActionResult SendEmail(string receiver, string subject, string message)
+        public ActionResult SendEmail(string name, string cutomerEmail, string subject, string message)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    var senderEmail = new MailAddress("ysodara89@gmail.com", "Tesing Emails");
-                    var receiverEmail = new MailAddress("ysodara89@gmail.com", "Receiver");
-                    var password = "sodaraman";
-                    var sub = "ysodara89@gmail.com";
-                    var body = "ysodara89@gmail.com";
+                    var senderEmail = new MailAddress("peakperformance1189@gmail.com", name);
+                    var receiverEmail = new MailAddress("peakperformancewou@gmail.com");
+                    var password = "Thisisfor1!";
+                    var body = "Customer Email: "+ cutomerEmail + System.Environment.NewLine + System.Environment.NewLine + message ;
                     var smtp = new SmtpClient
                     {
                         Host = "smtp.gmail.com",
@@ -78,14 +83,14 @@ namespace Peak_Performance.Controllers
                     {
                         smtp.Send(mess);
                     }
-                    return View();
+                    return View("Recieved");
                 }
             }
             catch (Exception)
             {
                 ViewBag.Error = "Some Error";
             }
-            return View();
+            return View("Contact");
         }
 
 

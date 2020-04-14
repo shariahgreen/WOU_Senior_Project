@@ -191,6 +191,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ContactFormModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\AspNetRole.cs" />
@@ -338,7 +339,7 @@
     <Content Include="Views\Athletes\Details.cshtml" />
     <Content Include="Views\Athletes\Edit.cshtml" />
     <Content Include="Views\Athletes\Index.cshtml" />
-
+    <Content Include="Views\Home\Recieved.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
