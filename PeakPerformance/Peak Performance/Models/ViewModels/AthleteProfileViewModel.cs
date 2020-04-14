@@ -18,11 +18,21 @@ namespace Peak_Performance.Models.ViewModels
 
             //select list of workout in the past
             pastWorkoutLists = db.Workouts.Where(p => p.TeamID == athleteTeamID && p.WorkoutDate < DateTime.Today).ToList();           
-            pastWorkoutDate = pastWorkoutLists.Select(p => p.WorkoutDate.ToString("MM-dd-yyyy")).ToList();
+            pastWorkoutDate = pastWorkoutLists.Select(p => ConvertToDate(p.WorkoutDate)).ToList();
 
             //select list of workout today and future
             upcomingWorkoutLists = db.Workouts.Where(p => p.TeamID == athleteTeamID && p.WorkoutDate >= DateTime.Today).ToList();
-            upcomingWorkoutDate = upcomingWorkoutLists.Select(p => p.WorkoutDate.ToString("MM-dd-yyyy")).ToList();
+            upcomingWorkoutDate = upcomingWorkoutLists.Select(p => ConvertToDate(p.WorkoutDate)).ToList();
+        }
+
+        public AthleteProfileViewModel()
+        {
+            
+        }
+
+        public string ConvertToDate(DateTime s)
+        {
+            return s.ToString("MM-dd-yyyy");
         }
         public virtual Athlete athlete { get; set; }
         public virtual Person person { get; set; }
