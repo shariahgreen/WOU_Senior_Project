@@ -15,7 +15,7 @@ namespace Peak_Performance.Models
         }
 
         [Key]
-        public int ComplexesId { get; set; }
+        public int ID { get; set; }
 
         public int? WorkoutID { get; set; }
 
