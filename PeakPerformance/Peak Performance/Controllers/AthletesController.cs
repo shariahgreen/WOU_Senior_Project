@@ -6,8 +6,8 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using Peak_Performance.Models;
 using Peak_Performance.DAL;
+using Peak_Performance.Models;
 
 namespace Peak_Performance.Controllers
 {
@@ -18,7 +18,7 @@ namespace Peak_Performance.Controllers
         // GET: Athletes
         public ActionResult Index()
         {
-            var athletes = db.Athletes.Include(a => a.Team);
+            var athletes = db.Athletes.Include(a => a.Person).Include(a => a.Team);
             return View(athletes.ToList());
         }
 
@@ -40,16 +40,17 @@ namespace Peak_Performance.Controllers
         // GET: Athletes/Create
         public ActionResult Create()
         {
-            ViewBag.TeamId = new SelectList(db.Teams, "TeamId", "TeamName");
+            ViewBag.ID = new SelectList(db.Persons, "ID", "FirstName");
+            ViewBag.TeamID = new SelectList(db.Teams, "ID", "TeamName");
             return View();
         }
 
         // POST: Athletes/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "AthleteId,FirstName,LastName,PreferredName,ProfilePic,Sex,Gender,Active,DOB,Height,Weight,UserId,TeamId")] Athlete athlete)
+        public ActionResult Create([Bind(Include = "ID,Sex,Gender,DOB,Height,Weight,TeamID")] Athlete athlete)
         {
             if (ModelState.IsValid)
             {
@@ -58,7 +59,8 @@ namespace Peak_Performance.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.TeamId = new SelectList(db.Teams, "TeamId", "TeamName", athlete.TeamId);
+            ViewBag.ID = new SelectList(db.Persons, "ID", "FirstName", athlete.ID);
+            ViewBag.TeamID = new SelectList(db.Teams, "ID", "TeamName", athlete.TeamID);
             return View(athlete);
         }
 
@@ -74,16 +76,17 @@ namespace Peak_Performance.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.TeamId = new SelectList(db.Teams, "TeamId", "TeamName", athlete.TeamId);
+            ViewBag.ID = new SelectList(db.Persons, "ID", "FirstName", athlete.ID);
+            ViewBag.TeamID = new SelectList(db.Teams, "ID", "TeamName", athlete.TeamID);
             return View(athlete);
         }
 
         // POST: Athletes/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "AthleteId,FirstName,LastName,PreferredName,ProfilePic,Sex,Gender,Active,DOB,Height,Weight,UserId,TeamId")] Athlete athlete)
+        public ActionResult Edit([Bind(Include = "ID,Sex,Gender,DOB,Height,Weight,TeamID")] Athlete athlete)
         {
             if (ModelState.IsValid)
             {
@@ -91,7 +94,8 @@ namespace Peak_Performance.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.TeamId = new SelectList(db.Teams, "TeamId", "TeamName", athlete.TeamId);
+            ViewBag.ID = new SelectList(db.Persons, "ID", "FirstName", athlete.ID);
+            ViewBag.TeamID = new SelectList(db.Teams, "ID", "TeamName", athlete.TeamID);
             return View(athlete);
         }
 

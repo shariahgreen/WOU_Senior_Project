@@ -17,8 +17,8 @@ namespace Peak_Performance.Areas.Coach.Controllers {
 
         public ActionResult Index() {
             string id = User.Identity.GetUserId();
-            Coach temp = db.Coaches.FirstOrDefault(p => p.UserId == id);
-            CoachProfileViewModel coach = new CoachProfileViewModel(temp.CoachId);
+            Person temp = db.Persons.FirstOrDefault(p => p.ASPNetIdentityID == id);
+            CoachProfileViewModel coach = new CoachProfileViewModel(temp.ID);
             return View("Index", coach);
         }
     }

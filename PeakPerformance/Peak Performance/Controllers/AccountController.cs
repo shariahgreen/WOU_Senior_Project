@@ -18,11 +18,9 @@ using System.Net;
 
 namespace Peak_Performance.Controllers
 {
-    
-
     [Authorize]
     public class AccountController : Controller
-    {        
+    {
         private PeakPerformanceContext db = new PeakPerformanceContext();
 
         private ApplicationSignInManager _signInManager;
@@ -93,13 +91,15 @@ namespace Peak_Performance.Controllers
                     var role = db.AspNetUsers.Where(r => r.Email == model.Email).Select(r => r.AspNetRoles.Select(t => t.Name)).First().ToArray();
                     if (role[0] == "Admin")
                     {
-                        return RedirectToAction("Index", "Home", new { area = "admin" });
+                        return RedirectToAction("Index", "Home", new { area = "Admin" });
                     }
-                    else if(role[0] == "Coach") {
-                        return RedirectToAction("Index", "Home", new { area = "coach" });
+                    else if (role[0] == "Coach")
+                    {
+                        return RedirectToAction("Index", "Home", new { area = "Coach" });
                     }
-                    else if (role[0] == "Athlete") {
-                        return RedirectToAction("Index", "Home", new { area = "athlete" });
+                    else if (role[0] == "Athlete")
+                    {
+                        return RedirectToAction("Index", "Home", new { area = "Athlete" });
                     }
                     return RedirectToAction(returnUrl);
 
@@ -176,69 +176,120 @@ namespace Peak_Performance.Controllers
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         [CaptchaValidator]
-        public async Task<ActionResult> Register(RegisterViewModel model, bool captchaValid)
+        public async Task<ActionResult> Register(RegistrationTypes model, bool captchaValid)
         {
-            ViewData["Roles"] = db.AspNetRoles.ToList();
-           
+            bool isAdmin, isCoach, isAthlete;
+            isAdmin = isCoach = isAthlete = false;
+            string tempEmail, tempPassword, tempFName, tempLName;
+            tempEmail = tempPassword = tempFName = tempLName = null;
+            DateTime tempDOB = new DateTime(DateTime.MinValue.Ticks);
+            int tempTeam = 0;
+
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email.Split('@')[0], Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password);
-                //For Roles
-                var role = Request.Form["Roles"].ToString();
+                if (model.adminVM != null)
+                {
+                    isAdmin = true;
+                    tempEmail = model.adminVM.Email;
+                    tempPassword = model.adminVM.Password;
+                }
+                if (model.coachVM != null)
+                {
+                    isCoach = true;
+                    tempEmail = model.coachVM.Email;
+                    tempPassword = model.coachVM.Password;
+                    tempFName = model.coachVM.FirstName;
+                    tempLName = model.coachVM.LastName;
+                }
+                if (model.athleteVM != null)
+                {
+                    isAthlete = true;
+                    tempEmail = model.athleteVM.Email;
+                    tempPassword = model.athleteVM.Password;
+                    tempFName = model.athleteVM.FirstName;
+                    tempLName = model.athleteVM.LastName;
+                    tempDOB = model.athleteVM.DOB;
+                    tempTeam = model.athleteVM.TeamID;
+                }
+
+                //if(isCoach || isAthlete) {
+                //    //confirm account via email
+                //}
+
+                var user = new ApplicationUser { UserName = tempEmail, Email = tempEmail };
+                var result = await UserManager.CreateAsync(user, tempPassword);
+
                 if (result.Succeeded)
                 {
-                    //var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    //await UserManager.SendEmailAsync(user.Id,
-                    //    "Confirm your account",
-                    //    "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link<\a>");
-                    //ViewBag.Link = callbackUrl;
-
-                    var currentUser = UserManager.FindByName(user.UserName);
-
-                    //Add roles to user before sign in async
-                    if (role == "Admin") {
-                        //add role for user to be admin
-                        var roleresult = UserManager.AddToRole(currentUser.Id, "Admin");
-                    }
-                    else if (role == "Coach") {
-                        //add role for user as coach
-                        var roleresult = UserManager.AddToRole(currentUser.Id, "Coach");
-                    }
-                    else if (role == "Athlete") {
-                        //add role for user as athlete
-                        var roleresult = UserManager.AddToRole(currentUser.Id, "Athlete");
-                    }
-
-                    //if adding another admin
-                    //if (User.IsInRole("Admin"))
-                    //{
-                    //    //add role for user as admin
-                    //}
-
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
-                    if (User.IsInRole("Admin")) {
-                        return RedirectToAction("Index", "Home", new { area = "admin" });
+                    string subject = "Please confirm your Peak Performance email";
+                    string callbackUrl = await SendConfirmationTokenAsync(user.Id, subject, tempFName);
+
+                    var tempUser = new Person
+                    {
+                        FirstName = tempFName,
+                        LastName = tempLName,
+                        ASPNetIdentityID = user.Id,
+                        Active = true
+                    };
+
+                    PeakPerformanceContext db = new PeakPerformanceContext();
+
+                    if (model.adminVM != null)
+                    {
+                        UserManager.AddToRole(user.Id, "Admin");
                     }
-                    else if (User.IsInRole("Coach")) {
-                        return RedirectToAction("Index", "Home", new { area = "coach" });
+                    if (model.coachVM != null)
+                    {
+                        var newCoach = new Coach
+                        {
+                        };
+
+                        newCoach.Person = tempUser;
+                        db.Persons.Add(tempUser);
+                        db.Coaches.Add(newCoach);
+                        UserManager.AddToRole(user.Id, "Coach");
                     }
-                    else if (User.IsInRole("Athlete")) {
-                        return RedirectToAction("Index", "Home", new { area = "athlete" });
+                    if (model.athleteVM != null)
+                    {
+                        var newAthlete = new Athlete
+                        {
+                            DOB = tempDOB,
+                            TeamID = tempTeam
+                        };
+
+                        newAthlete.Person = tempUser;
+                        db.Persons.Add(tempUser);
+                        db.Athletes.Add(newAthlete);
+                        UserManager.AddToRole(user.Id, "Athlete");
                     }
-                    return RedirectToAction("About", "Home");
+
+                    await db.SaveChangesAsync();
+
+                    if(isAdmin)
+                    {
+                        return RedirectToAction("Index", "Home", new { area = "Admin" });
+                    }
+                    else if(isCoach)
+                    {
+                        return RedirectToAction("Index", "Home", new { area = "Coach" });
+                    }
+                    else if(isAthlete)
+                    { 
+                        return RedirectToAction("Index", "Home", new { area = "Athlete" });
+                    }
                 }
                 AddErrors(result);
             }
-            
+
             // If we got this far, something failed, redisplay form
+
             return View(model);
         }
-        
 
-        private async Task<string> SendConfirmationTokenAsync(string userID, string subject, string name) {
+        private async Task<string> SendConfirmationTokenAsync(string userID, string subject, string name)
+        {
             string code = await UserManager.GenerateEmailConfirmationTokenAsync(userID);
             var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = userID, code = code }, protocol: Request.Url.Scheme);
             string emailBody = "Hello " + name + ", please follow <a href=\"" + callbackUrl + "\"> this link</a> to confirm your <i>Peak Performance</i> account";
@@ -251,7 +302,8 @@ namespace Peak_Performance.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> SendConfirmationEmail(string urlOfReferrer) {
+        public async Task<ActionResult> SendConfirmationEmail(string urlOfReferrer)
+        {
             string id = User.Identity.GetUserId();
             await SendConfirmationTokenAsync(id, "Confirm your account", ",");
             ViewBag.EmailSent = true;
@@ -514,20 +566,23 @@ namespace Peak_Performance.Controllers
 
         #region Helpers
 
-        private IAuthenticationManager AuthenticationManager {
-            get {
+        private IAuthenticationManager AuthenticationManager
+        {
+            get
+            {
                 return HttpContext.GetOwinContext().Authentication;
             }
         }
 
-        private void AddErrors(IdentityResult result) {
-            foreach (var error in result.Errors) {
+        private void AddErrors(IdentityResult result)
+        {
+            foreach (var error in result.Errors)
+            {
                 ModelState.AddModelError("", error);
             }
         }
 
         #endregion Helpers
-
 
         [Authorize]
         public ActionResult RegisterAdmin()
@@ -540,11 +595,11 @@ namespace Peak_Performance.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<ActionResult> RegisterAdmin(RegisterViewModel model)
+        public async Task<ActionResult> RegisterAdmin(AdminRegistrationViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email.Split('@')[0], Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
@@ -566,6 +621,88 @@ namespace Peak_Performance.Controllers
         }
 
         public ActionResult CreateAdminFail()
+        {
+            return View();
+        }
+
+        [Authorize]
+        public ActionResult RegisterCoach()
+        {
+            return View();
+        }
+
+        //
+        // POST: /Account/Register
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public async Task<ActionResult> RegisterCoach(CoachRegistrationViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var result = await UserManager.CreateAsync(user, model.Password);
+
+                if (result.Succeeded)
+                {
+                    var currentUser = UserManager.FindByName(user.UserName);
+
+                    var roleresult = UserManager.AddToRole(currentUser.Id, "Coach");
+
+                    return RedirectToAction("CreateCoachSuccess", "Account");
+                }
+            }
+            // If we got this far, something failed
+            return RedirectToAction("CreateCoachFail", "Account");
+        }
+
+        public ActionResult CreateCoachSuccess()
+        {
+            return View();
+        }
+
+        public ActionResult CreateCoachFail()
+        {
+            return View();
+        }
+
+        [Authorize]
+        public ActionResult RegisterAthlete()
+        {
+            return View();
+        }
+
+        //
+        // POST: /Account/Register
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public async Task<ActionResult> RegisterAthlete(AthleteRegistrationViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var result = await UserManager.CreateAsync(user, model.Password);
+
+                if (result.Succeeded)
+                {
+                    var currentUser = UserManager.FindByName(user.UserName);
+
+                    var roleresult = UserManager.AddToRole(currentUser.Id, "Athlete");
+
+                    return RedirectToAction("CreateAthleteSuccess", "Account");
+                }
+            }
+            // If we got this far, something failed
+            return RedirectToAction("CreateAthleteFail", "Account");
+        }
+
+        public ActionResult CreateAthleteSuccess()
+        {
+            return View();
+        }
+
+        public ActionResult CreateAthleteFail()
         {
             return View();
         }

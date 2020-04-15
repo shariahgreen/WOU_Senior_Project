@@ -9,7 +9,7 @@ namespace Peak_Performance.Models
     public partial class ComplexItem
     {
         [Key]
-        public int ComplexItemsId { get; set; }
+        public int ID { get; set; }
 
         public int? ComplexReps { get; set; }
 

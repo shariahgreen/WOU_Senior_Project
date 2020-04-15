@@ -6,8 +6,6 @@ namespace Peak_Performance.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    //using Peak_Performance.DAL;
-
     public partial class Coach
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -16,29 +14,10 @@ namespace Peak_Performance.Models
             Teams = new HashSet<Team>();
         }
 
-        public int CoachId { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int ID { get; set; }
 
-        [Required]
-        [StringLength(100)]
-        public string FirstName { get; set; }
-
-        [Required]
-        [StringLength(100)]
-        public string LastName { get; set; }
-
-        [StringLength(100)]
-        public string PreferredName { get; set; }
-
-        public byte[] ProfilePic { get; set; }
-
-        public bool Active { get; set; }
-
-        [StringLength(128)]
-        public string UserId { get; set; }
-
-        [Required]
-        [StringLength(128)]
-        public string Email { get; set; }
+        public virtual Person Person { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Team> Teams { get; set; }

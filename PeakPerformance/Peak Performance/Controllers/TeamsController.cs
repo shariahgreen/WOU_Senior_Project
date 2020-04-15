@@ -11,6 +11,7 @@ using Peak_Performance.Models;
 
 namespace Peak_Performance.Controllers
 {
+    [Authorize(Roles = "Coach, Admin")]
     public class TeamsController : Controller
     {
         private PeakPerformanceContext db = new PeakPerformanceContext();
@@ -18,7 +19,7 @@ namespace Peak_Performance.Controllers
         // GET: Teams
         public ActionResult Index()
         {
-            var teams = db.Teams.Include(t => t.Coach).Include(t => t.Sport);
+            var teams = db.Teams.Include(t => t.Coach);
             return View(teams.ToList());
         }
 
@@ -40,8 +41,7 @@ namespace Peak_Performance.Controllers
         // GET: Teams/Create
         public ActionResult Create()
         {
-            ViewBag.CoachId = new SelectList(db.Coaches, "CoachId", "FirstName");
-            ViewBag.SportId = new SelectList(db.Sports, "SportId", "SportName");
+            ViewBag.CoachID = new SelectList(db.Coaches, "ID", "ID");
             return View();
         }
 
@@ -50,7 +50,7 @@ namespace Peak_Performance.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TeamId,TeamName,SportId,CoachId")] Team team)
+        public ActionResult Create([Bind(Include = "ID,TeamName,CoachID")] Team team)
         {
             if (ModelState.IsValid)
             {
@@ -59,8 +59,7 @@ namespace Peak_Performance.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CoachId = new SelectList(db.Coaches, "CoachId", "FirstName", team.CoachId);
-            ViewBag.SportId = new SelectList(db.Sports, "SportId", "SportName", team.SportId);
+            ViewBag.CoachID = new SelectList(db.Coaches, "ID", "ID", team.CoachID);
             return View(team);
         }
 
@@ -76,8 +75,7 @@ namespace Peak_Performance.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.CoachId = new SelectList(db.Coaches, "CoachId", "FirstName", team.CoachId);
-            ViewBag.SportId = new SelectList(db.Sports, "SportId", "SportName", team.SportId);
+            ViewBag.CoachID = new SelectList(db.Coaches, "ID", "ID", team.CoachID);
             return View(team);
         }
 
@@ -86,7 +84,7 @@ namespace Peak_Performance.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "TeamId,TeamName,SportId,CoachId")] Team team)
+        public ActionResult Edit([Bind(Include = "ID,TeamName,CoachID")] Team team)
         {
             if (ModelState.IsValid)
             {
@@ -94,8 +92,7 @@ namespace Peak_Performance.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CoachId = new SelectList(db.Coaches, "CoachId", "FirstName", team.CoachId);
-            ViewBag.SportId = new SelectList(db.Sports, "SportId", "SportName", team.SportId);
+            ViewBag.CoachID = new SelectList(db.Coaches, "ID", "ID", team.CoachID);
             return View(team);
         }
 

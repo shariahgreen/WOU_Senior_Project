@@ -15,7 +15,7 @@ namespace Peak_Performance.Models
         }
 
         [Key]
-        public int WorkoutsId { get; set; }
+        public int ID { get; set; }
 
         [Column(TypeName = "date")]
         public DateTime WorkoutDate { get; set; }

@@ -1,76 +1,71 @@
-﻿@model Peak_Performance.Models.Athlete
+﻿@model Peak_Performance.Models.ViewModels.AthleteProfileViewModel
 
 @{
     ViewBag.Title = "Your Profile";
     Layout = "~/Areas/Athlete/Views/Shared/_Layout.cshtml";
 }
 
+
 <div class="container-fluid">
-    <div class="jumbotron">
-
-
-
-        <div class="row">
-           
-            <div class="col-md-12">
-                <div>
-                    <dl class="dl-horizontal">
-
-
-                        <dt>
-                            Name
-                        </dt>
-
-                        <dd>
-                            @Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)
-                        </dd>
-
-                        <dt>
-                            Your Team
-                        </dt>
-
-                        <dd>
-                            @Html.DisplayFor(model => model.Team.TeamName)
-                        </dd>
-
-                        <dt>
-                            @Html.DisplayNameFor(model => model.Gender)
-                        </dt>
-
-                        <dd>
-                            @Html.DisplayFor(model => model.Gender)
-                        </dd>
-
-                        <dt>
-                            Age
-                        </dt>
-
-                        <dd>
-                            @ViewBag.Age
-                        </dd>
-
-                        <dt>
-                            @Html.DisplayNameFor(model => model.Height)
-                        </dt>
-
-                        <dd>
-                            @Html.DisplayFor(model => model.Height)
-                        </dd>
-
-                        <dt>
-                            @Html.DisplayNameFor(model => model.Weight)
-                        </dt>
-
-                        <dd>
-                            @Html.DisplayFor(model => model.Weight)
-                        </dd>
-
-                    </dl>
-                </div>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card">
+                <img src="~/Images/Avatar.png" alt="Profile Picture" style="width:300px" />
+                <h1>@Html.DisplayFor(item => item.athlete.Person.FirstName) @Html.DisplayFor(item => item.athlete.Person.LastName)</h1>
+                <p class="team">@Html.DisplayFor(item => item.athlete.Team.TeamName)</p>
+                <br />
 
             </div>
         </div>
-    </div>
     
+
+        <div class="col-md-4">
+            <div class="jumbotron">
+                <div>
+                    <h4>Past Workout Lists</h4>
+
+                    <table class="table">
+                        @foreach (var item in Model.pastWorkoutDate)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item)
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="jumbotron">
+                <div>
+                    <h4>Upcoming Workout Lists</h4>
+
+                    <table class="table">
+                        @foreach (var item in Model.upcomingWorkoutDate)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item)
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+
+
+
+
+
+@section scripts
+{
+    <link href="@Url.Content("~/Content/AthleteProfileStyle.css")" rel="stylesheet" type="text/css" />
+}
+
 
