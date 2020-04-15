@@ -17,7 +17,7 @@ namespace Peak_Performance.Models
         }
 
         [Key]
-        public int ExercisesId { get; set; }
+        public int ID { get; set; }
 
         [StringLength(128)]
         public string Name { get; set; }

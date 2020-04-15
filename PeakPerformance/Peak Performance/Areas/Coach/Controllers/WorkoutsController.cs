@@ -32,7 +32,6 @@ namespace Peak_Performance.Areas.Coach
             Peak_Performance.Models.Coach temp = db.Coaches.FirstOrDefault(p => p.Person.ASPNetIdentityID == id);
             ViewBag.MuscleGroupsId = new SelectList(db.MuscleGroups, "ID", "Name");
             ViewBag.TeamList = new SelectList(db.Teams.Where(t => t.CoachID == temp.ID), "ID", "TeamName");
-            //IEnumerable<Peak_Performance.Models.Exercis> list = db.Exercises.Where(p => p.Name.Contains(exercise)).ToList();
             return View();
 
         }
