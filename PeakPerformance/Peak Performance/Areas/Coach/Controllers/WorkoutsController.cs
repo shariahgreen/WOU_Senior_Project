@@ -26,14 +26,14 @@ namespace Peak_Performance.Areas.Coach
             var workouts = db.Workouts.Include(w => w.Team);
             return View(workouts.ToList());
         }
-        public ActionResult SearchMain(string exercise)
+        public ActionResult SearchMain()
         {
             string id = User.Identity.GetUserId();
             Peak_Performance.Models.Coach temp = db.Coaches.FirstOrDefault(p => p.Person.ASPNetIdentityID == id);
-            ViewBag.MuscleGroupsId = new SelectList(db.MuscleGroups, "MuscleGroupsId", "Name");
+            ViewBag.MuscleGroupsId = new SelectList(db.MuscleGroups, "ID", "Name");
             ViewBag.TeamList = new SelectList(db.Teams.Where(t => t.CoachID == temp.ID), "ID", "TeamName");
-            IEnumerable<Peak_Performance.Models.Exercis> list = db.Exercises.Where(p => p.Name.Contains(exercise)).ToList();
-            return View(list);
+            //IEnumerable<Peak_Performance.Models.Exercis> list = db.Exercises.Where(p => p.Name.Contains(exercise)).ToList();
+            return View();
 
         }
         //[RequireRouteValues(new[] { "TeamList", "Date" })]
