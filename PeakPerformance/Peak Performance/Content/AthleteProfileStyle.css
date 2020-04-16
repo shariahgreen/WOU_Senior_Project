@@ -1,21 +1,7 @@
-﻿body {
+﻿.jumbotron {
+    margin-top: 50px;
 }
 
-div.col-md-3 {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-    font-size: 20px;
-}
-
-
-div.row{
-    min-width:1600px;
-}
-
-.jumbotron{
-    margin-top:50px;
-}
 .card {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     max-width: 400px;
@@ -25,9 +11,15 @@ div.row{
     font-family: arial;
 }
 
-
-p {
-    margin:0px;
-    padding:0px;
+.col-md-3 {
+    width: auto !important;
 }
 
+#fitbit {
+    max-width: 400px;
+    min-width: 400px;
+    margin: 25px auto auto auto;
+    font-family: arial;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
