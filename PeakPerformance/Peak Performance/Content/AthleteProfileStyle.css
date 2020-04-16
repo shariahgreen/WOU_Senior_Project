@@ -23,3 +23,23 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     text-align: center;
 }
+
+#myTable {
+    max-width: 400px;
+    min-width: 400px;
+    margin: 25px auto auto 15px;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    text-align: center;
+    background-image: url(~/Images/fitbit_logo.jpg);
+}
+
+    #myTable tr td {
+        border: 1px solid #00b0b9;
+    }
+
+    #myTable tr th {
+        text-align: center;
+        font-size: large;
+        border: 1px solid #00b0b9;
+    }
