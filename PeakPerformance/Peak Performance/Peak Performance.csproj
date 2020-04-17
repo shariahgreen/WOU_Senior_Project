@@ -238,7 +238,9 @@
     <Content Include="Images\Compact_No_Background.png" />
     <Content Include="Images\companyLogo.png" />
     <Content Include="Images\dumbell.jpg" />
+    <Content Include="Images\fitbit.jpg" />
     <Content Include="Images\fitbit.png" />
+    <Content Include="Images\fitbit_logo.svg" />
     <Content Include="Images\Header.png" />
     <Content Include="Images\Header_Old.png" />
     <Content Include="Images\Image_Only.png" />
