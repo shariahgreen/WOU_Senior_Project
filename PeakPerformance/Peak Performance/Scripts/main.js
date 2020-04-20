@@ -66,15 +66,15 @@ function createWorkoutSave() {
         for (var j = 1, row; row = table.rows[j]; j++) {            
             var entry =
             {
-                "exercise": {
-                    "name": row.cells[0].innerText,
-                    "reps": row.cells[1].innerText,
-                    "sets": row.cells[2].innerText,
-                    "weight": row.cells[3].innerText,
-                    "time": row.cells[4].innerText,
-                    "speed": row.cells[5].innerText,
-                    "distance": row.cells[6].innerText
-                }
+
+                "name": row.cells[0].innerText,
+                "reps": row.cells[1].innerText,
+                "sets": row.cells[2].innerText,
+                "weight": row.cells[3].innerText,
+                "time": row.cells[4].innerText,
+                "speed": row.cells[5].innerText,
+                "distance": row.cells[6].innerText
+
             };
             exercises.push(entry);
             //console.log(JSON.stringify(entry));
@@ -95,15 +95,15 @@ function createWorkoutSave() {
     //console.log(JSON.stringify(complexes));
     console.log(JSON.stringify(htmldata));
     
-    var source = '/Workouts/CreateWorkout';
+    var source = 'CreateWorkout';
     $.ajax({
         url: source,
         type: 'POST',
-        contentType: "application/json; charset=utf-8",
+        contentType: "application/json",
         data: JSON.stringify(htmldata),
-        dataType: "json",
         success: function (result) {
             alert('Workout successfully created!');
+            window.location.href = result.newUrl;
         },
         error: errorOnAjax
     });
@@ -178,4 +178,18 @@ function createExercise(count) {
     cell5.innerHTML = time;
     cell6.innerHTML = speed;
     cell7.innerHTML = distance;
+}
+
+function contactTeam(team) {
+    console.log("Sending notification of new workout to athletes on " + team);
+    var source = 'Workouts/ContactTeam?team=' + team;
+    $.ajax({
+        type: 'GET',
+        dataType: 'json',
+        url: source,
+        success: function () {
+            alert("Notification sent successfully.")
+        },
+        error: errorOnAjax
+    });
 }

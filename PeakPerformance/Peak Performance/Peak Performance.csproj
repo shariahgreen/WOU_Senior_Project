@@ -275,6 +275,7 @@
     <Content Include="Areas\Coach\Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Areas\Athlete\Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Areas\Coach\Views\Workouts\WorkoutCreated.cshtml" />
     <None Include="Properties\PublishProfiles\PeakPerformance - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\peakperformancedev - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />

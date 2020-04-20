@@ -11,6 +11,7 @@ using Peak_Performance.Models;
 using Microsoft.AspNet.Identity;
 using System.Reflection;
 using Peak_Performance.Models.ViewModels;
+using Newtonsoft.Json.Linq;
 
 namespace Peak_Performance.Areas.Coach
 {
@@ -41,16 +42,45 @@ namespace Peak_Performance.Areas.Coach
         [HttpPost]
         public ActionResult CreateWorkout(WorkoutsViewModel workoutsViewModel)
         {
-           // string id = User.Identity.GetUserId();
-            //Peak_Performance.Models.Coach temp = db.Coaches.FirstOrDefault(c => c.Person.ASPNetIdentityID == id);
-            //DateTime dateTime = DateTime.Parse(Date);
-            //Peak_Performance.Models.WorkoutCreationViewModel WorkoutCreation = new WorkoutCreationViewModel(temp, TeamList, dateTime);
-            //ViewBag.MuscleGroupsId = new SelectList(db.MuscleGroups, "MuscleGroupsId", "Name");
-            
-            //ViewBag.TeamList = new SelectList(db.Teams.Where(t => t.CoachId == temp.CoachId), "TeamId", "TeamName");
-            //ViewBag.WorkoutCreation = WorkoutCreation;
-            //return Json(WorkoutCreation, JsonRequestBehavior.AllowGet);
-            return View();
+            try
+            {
+                string id = User.Identity.GetUserId();
+                //Peak_Performance.Models.Workout myworkout = new Workout();
+                //Peak_Performance.Models.Workout myworkout = workoutsViewModel.createWorkout();
+                //return Json(new { newUrl = Url.Action("WorkoutCreated", "Workouts", new { workout = myworkout }) });
+                return Json(new
+                {
+                    newUrl = Url.Action("WorkoutCreated", "Workouts")
+                });
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public ActionResult WorkoutCreated(Peak_Performance.Models.Workout workout)
+        {
+            return View(workout);
+        }
+
+        public void ContactTeam(int team)
+        {
+            Peak_Performance.Models.Team newTeam = db.Teams.FirstOrDefault(t => t.ID == team);
+            IQueryable<Peak_Performance.Models.Athlete> athletes = db.Athletes.Where(a => a.Team == newTeam);
+
+            foreach (var athlete in athletes)
+            {
+                notify(athlete);
+            }
+
+            return;
+        }
+
+        public void notify(Peak_Performance.Models.Athlete athlete)
+        {
+
+            return;
         }
 
         public JsonResult SearchByText(string text)
