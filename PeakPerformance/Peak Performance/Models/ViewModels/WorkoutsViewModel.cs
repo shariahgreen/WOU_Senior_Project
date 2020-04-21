@@ -40,29 +40,45 @@ namespace Peak_Performance.Models.ViewModels
             {
                 Peak_Performance.Models.Workout workout = new Workout();
                 workout.Team = db.Teams.Find(this.team);
+                workout.TeamID = db.Teams.Find(this.team).ID;
                 workout.WorkoutDate = this.date;
 
+                List<Complex> complexes = new List<Complex>();
                 foreach (ComplexViewModel comp in this.complexes)
                 {
                     Peak_Performance.Models.Complex complex = new Complex();
                     complex.Workout = workout;
+                    List<ComplexItem> complexItems = new List<ComplexItem>();
                     foreach (ExerciseViewModel ex in comp.complex)
                     {
-                        Peak_Performance.Models.ComplexItem item = new ComplexItem();
-                        item.Complex = complex;
-                        item.Exercis = db.Exercises.FirstOrDefault(e => e.Name == ex.name);
-                        item.ComplexReps = ex.reps;
-                        item.ComplexSets = ex.sets;
-                        item.LiftWeight = ex.weight;
-                        item.RunDistance = ex.distance;
-                        item.RunSpeed = ex.speed;
-                        item.RunTime = ex.time;
-                        //db.ComplexItems.Add(item);
+                        if (db.Exercises.FirstOrDefault(e => e.Name == ex.name) != null)
+                        {
+                            Peak_Performance.Models.ComplexItem item = new ComplexItem();
+                            item.Complex = complex;
+                            item.Exercis = db.Exercises.FirstOrDefault(e => e.Name == ex.name);
+                            item.ComplexReps = ex.reps;
+                            item.ComplexSets = ex.sets;
+                            item.LiftWeight = ex.weight;
+                            item.RunDistance = ex.distance;
+                            item.RunSpeed = ex.speed;
+                            item.RunTime = ex.time;
+                            complexItems.Add(item);
+                            db.ComplexItems.Add(item);
+                        }
+                        else
+                        {
+                            //right now we are only creating the complex item if the exercise already exists in the database
+                            //handle if we don't have the specified exercise
+                            //maybe add a name attribute to complex items, set name == name if we dont have the exercise => no link to exercise info
+                        }
                     }
-                    //db.Complexes.Add(complex);
+                    complex.ComplexItems = complexItems;
+                    complexes.Add(complex);
+                    db.Complexes.Add(complex);
                 }
-                //db.Workouts.Add(workout);
-                //db.SaveChanges();
+                workout.Complexes = complexes;
+                db.Workouts.Add(workout);
+                db.SaveChanges();
                 return workout;
             }
             catch (Exception ex)

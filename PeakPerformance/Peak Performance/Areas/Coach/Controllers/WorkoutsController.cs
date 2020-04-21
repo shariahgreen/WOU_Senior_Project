@@ -46,12 +46,9 @@ namespace Peak_Performance.Areas.Coach
             {
                 string id = User.Identity.GetUserId();
                 //Peak_Performance.Models.Workout myworkout = new Workout();
-                //Peak_Performance.Models.Workout myworkout = workoutsViewModel.createWorkout();
-                //return Json(new { newUrl = Url.Action("WorkoutCreated", "Workouts", new { workout = myworkout }) });
-                return Json(new
-                {
-                    newUrl = Url.Action("WorkoutCreated", "Workouts")
-                });
+                Peak_Performance.Models.Workout myworkout = workoutsViewModel.createWorkout();
+                return Json(new { newUrl = Url.Action("WorkoutCreated", "Workouts", new { workout = myworkout }) });
+                //return Json(new { newUrl = Url.Action("WorkoutCreated", "Workouts") });
             }
             catch (Exception ex)
             {

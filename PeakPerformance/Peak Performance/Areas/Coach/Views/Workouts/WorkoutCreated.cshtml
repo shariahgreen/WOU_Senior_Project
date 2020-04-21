@@ -6,7 +6,7 @@
 }
 
 <h2>Workout for @Html.DisplayFor(model => model.Team.TeamName) on @Html.DisplayFor(model => model.WorkoutDate) Created Successfully</h2>
-<button class="btn btn-primary" id="contact" onclick="contactTeam(@Model.Team.TeamName)" style="padding: 5px; margin: 5px;">+ Create New Workout</button>
+<button class="btn btn-primary" id="contact" onclick="contactTeam(@Html.ValueFor(model => model.TeamID)" style="padding: 5px; margin: 5px;">+ Create New Workout</button>
 <div>
     <h4>Workout</h4>
     <hr />
