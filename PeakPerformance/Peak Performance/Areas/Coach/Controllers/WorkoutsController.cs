@@ -47,8 +47,8 @@ namespace Peak_Performance.Areas.Coach
                 string id = User.Identity.GetUserId();
                 //Peak_Performance.Models.Workout myworkout = new Workout();
                 Peak_Performance.Models.Workout myworkout = workoutsViewModel.createWorkout();
-                return Json(new { newUrl = Url.Action("WorkoutCreated", "Workouts", new { workout = myworkout }) });
-                //return Json(new { newUrl = Url.Action("WorkoutCreated", "Workouts") });
+                int wid = myworkout.ID;
+                return Json(new { newUrl = Url.Action("WorkoutCreated", "Workouts", new { id = wid }) });
             }
             catch (Exception ex)
             {
@@ -56,9 +56,19 @@ namespace Peak_Performance.Areas.Coach
             }
         }
 
-        public ActionResult WorkoutCreated(Peak_Performance.Models.Workout workout)
+        public ActionResult WorkoutCreated(int? id)
         {
-            return View(workout);
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Workout workout = db.Workouts.Find(id);
+            if (workout == null)
+            {
+                return HttpNotFound();
+            }
+            Peak_Performance.Models.ViewModels.FullWorkoutViewModel fullworkout = new FullWorkoutViewModel(workout.ID);
+            return View(fullworkout);
         }
 
         public void ContactTeam(int team)

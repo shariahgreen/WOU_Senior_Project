@@ -105,7 +105,10 @@ function createWorkoutSave() {
             alert('Workout successfully created!');
             window.location.href = result.newUrl;
         },
-        error: errorOnAjax
+        error: function (result) {
+            alert('Workout creation failed, please try again.');
+            console.log('Error on AJAX return');
+        }
     });
 }
 

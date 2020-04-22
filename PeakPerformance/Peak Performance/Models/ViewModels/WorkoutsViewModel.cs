@@ -8,6 +8,27 @@ using Microsoft.AspNet.Identity;
 
 namespace Peak_Performance.Models.ViewModels
 {
+    public class FullWorkoutViewModel
+    {
+        private PeakPerformanceContext db = new PeakPerformanceContext();
+        public Peak_Performance.Models.Workout workout { get; set; }
+        public IQueryable<Peak_Performance.Models.Complex> complexes { get; set; }
+
+        public Dictionary<int, IQueryable<Peak_Performance.Models.ComplexItem>> exercises { get; set; }
+
+        public FullWorkoutViewModel(int id)
+        {
+            this.workout = db.Workouts.Find(id);
+            this.complexes = db.Complexes.Where(c => c.WorkoutID == id);
+
+            foreach (Peak_Performance.Models.Complex comp in this.complexes)
+            {
+                IQueryable<Peak_Performance.Models.ComplexItem> items = db.ComplexItems.Where(i => i.ComplexId == comp.ID);
+                this.exercises.Add(comp.ID, items);
+            }
+        }
+    }
+
     public class WorkoutsViewModel
     {
         private PeakPerformanceContext db = new PeakPerformanceContext();
