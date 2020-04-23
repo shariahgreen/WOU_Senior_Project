@@ -24,13 +24,17 @@
         }
 
         [HttpPost]
-        public ActionResult FitBit(string steps, string miles, string calories, string floors, string sedentary)
+        public ActionResult FitBit(string userID, string token)
         {
-            ViewData["steps"] = steps;
-            ViewData["miles"] = miles;
-            ViewData["calories"] = calories;
-            ViewData["floors"] = floors;
-            ViewData["sedentary"] = sedentary;
+            //getting id for everything
+            string ID = User.Identity.GetUserId();
+            int PersonID = db.Persons.Where(r => r.ASPNetIdentityID == ID).Select(r => r.ID).First();
+
+            //adding token and userID
+            Person user = db.Persons.Find(PersonID);
+            user.Athlete.FitBitUserID = userID;
+            user.Athlete.FitBitAccessToken = token;
+            db.SaveChanges();
 
             string id = User.Identity.GetUserId();
             Person temp = db.Persons.FirstOrDefault(p => p.ASPNetIdentityID == id);

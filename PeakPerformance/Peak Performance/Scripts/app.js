@@ -43,7 +43,7 @@ function sendData() {
     $.ajax({
         url: '/Athlete/Home/FitBit',
         type: 'POST',
-        data: { 'steps': stepsToday, 'miles': milesToday, 'calories': caloriesToday, 'floors': floorsToday, 'sedentary': sedindaryMinToday },
+        data: { 'userID': userId, 'token': access_token },
         //dataType: 'json',
         //contentType: 'application/json; charset=utf-8',
         success: function () {
@@ -60,8 +60,12 @@ function successFitBit() {
     var fitBitImage = document.getElementById("fitbitImage");
     fitBitImage.parentNode.removeChild(fitBitImage);
 
+    //Help and Hints visibility
+    var help = document.getElementById("helpandhints");
+    help.style.visibility = 'visible';
+
     //replace with table of data
     var table = document.getElementById("myTable");
     table.style.visibility = 'visible';
-    $('#myTable').append($('<tr><th>Steps</th><td>' + stepsToday + '</td></tr><tr><th>Miles</th><td>' + milesToday + '</td></tr><tr><th>Calories</th><td>' + caloriesToday + '</td></tr><tr><th>Floors</th><td>' + floorsToday + '</td></tr><th>Sedintary Minutes</th><td>' + sedindaryMinToday + '</td></tr>'));
+    $('#myTable').append($('<tr><th rowspan="5" style="color: white;font-size: xx-large;width: 180px; height: 155px; border: none;" id="fitbit_steps">' + stepsToday + '</th></tr><tr><th>Miles</th><td>' + milesToday + '</td></tr><tr><th>Calories</th><td>' + caloriesToday + '</td></tr><tr><th>Floors</th><td>' + floorsToday + '</td></tr><th>Sedintary Mins</th><td>' + sedindaryMinToday + '</td></tr>'));
 }
