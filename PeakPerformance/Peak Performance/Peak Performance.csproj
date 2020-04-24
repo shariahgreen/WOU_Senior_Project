@@ -241,6 +241,7 @@
     <Content Include="Images\fitbit.jpg" />
     <Content Include="Images\fitbit.png" />
     <Content Include="Images\fitbit_logo.svg" />
+    <Content Include="Images\fitbit_steps.png" />
     <Content Include="Images\Header.png" />
     <Content Include="Images\Header_Old.png" />
     <Content Include="Images\Image_Only.png" />
