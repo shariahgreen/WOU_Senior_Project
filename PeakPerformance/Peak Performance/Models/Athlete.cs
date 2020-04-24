@@ -26,6 +26,10 @@ namespace Peak_Performance.Models
 
         public int TeamID { get; set; }
 
+        public string FitBitUserID { get; set; }
+
+        public string FitBitAccessToken { get; set; }
+
         public virtual Person Person { get; set; }
 
         public virtual Team Team { get; set; }
