@@ -4,8 +4,8 @@ body {
     background-color: lightgray;    
 }
 
-form {
-    padding-left:60px;
+#contact-form {
+    padding-left: 60px;
     max-width: 420px;
     margin: 50px auto;
 }
