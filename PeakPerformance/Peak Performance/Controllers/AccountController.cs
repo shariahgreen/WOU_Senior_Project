@@ -266,8 +266,8 @@ namespace Peak_Performance.Controllers
                     }
 
                     await db.SaveChangesAsync();
-
-                    if(isAdmin)
+                    
+                    if (isAdmin)
                     {
                         return RedirectToAction("Index", "Home", new { area = "Admin" });
                     }
