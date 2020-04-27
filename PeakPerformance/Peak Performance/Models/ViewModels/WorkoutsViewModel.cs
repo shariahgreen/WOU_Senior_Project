@@ -20,6 +20,7 @@ namespace Peak_Performance.Models.ViewModels
         {
             this.workout = db.Workouts.Find(id);
             this.complexes = db.Complexes.Where(c => c.WorkoutID == id);
+            this.exercises = new Dictionary<int, IQueryable<ComplexItem>>();
 
             foreach (Peak_Performance.Models.Complex comp in this.complexes)
             {
