@@ -8,47 +8,129 @@ using Microsoft.AspNet.Identity;
 
 namespace Peak_Performance.Models.ViewModels
 {
-    public class WorkoutsViewModel
+    public class FullWorkoutViewModel
     {
-        public DateTime date { get; set; }
+        private PeakPerformanceContext db = new PeakPerformanceContext();
+        public Peak_Performance.Models.Workout workout { get; set; }
+        public IQueryable<Peak_Performance.Models.Complex> complexes { get; set; }
 
-        public string team {get; set;}
-        
-        public ComplexesViewModel complexes { get; set; }
+        public Dictionary<int, IQueryable<Peak_Performance.Models.ComplexItem>> exercises { get; set; }
 
-        public List<int> CountExercises ()
+        public FullWorkoutViewModel(int id)
         {
-            List<int> exercises = new List<int>();
-            for (int i = 0; i < this.complexes.complex.Count(); i++)
+            this.workout = db.Workouts.Find(id);
+            this.complexes = db.Complexes.Where(c => c.WorkoutID == id);
+
+            foreach (Peak_Performance.Models.Complex comp in this.complexes)
             {
-                exercises.Add(this.complexes.complex[i].exercise.Count());
+                IQueryable<Peak_Performance.Models.ComplexItem> items = db.ComplexItems.Where(i => i.ComplexId == comp.ID);
+                this.exercises.Add(comp.ID, items);
             }
-            return exercises;
         }
     }
 
-    public class ComplexesViewModel
+    public class WorkoutsViewModel
     {
-        public List<ComplexViewModel> complex { get; set; }
+        private PeakPerformanceContext db = new PeakPerformanceContext();
+
+        public DateTime date { get; set; }
+
+        public int team {get; set;}
+        
+        public List<ComplexViewModel> complexes { get; set; }
+
+        /*public WorkoutsViewModel(DateTime d, int t, List<ComplexViewModel> c)
+        {
+            this.date = d;
+            this.team = t;
+            this.complexes = c;
+        }*/
+       public List<int> CountExercises ()
+        {
+            List<int> exercises = new List<int>();
+            for (int i = 0; i < this.complexes.Count(); i++)
+            {
+                exercises.Add(this.complexes[i].complex.Count());
+            }
+            return exercises;
+        }
+
+        public Peak_Performance.Models.Workout createWorkout()
+        {
+            try
+            {
+                Peak_Performance.Models.Workout workout = new Workout();
+                workout.Team = db.Teams.Find(this.team);
+                workout.TeamID = db.Teams.Find(this.team).ID;
+                workout.WorkoutDate = this.date;
+
+                List<Complex> complexes = new List<Complex>();
+                foreach (ComplexViewModel comp in this.complexes)
+                {
+                    Peak_Performance.Models.Complex complex = new Complex();
+                    complex.Workout = workout;
+                    List<ComplexItem> complexItems = new List<ComplexItem>();
+                    foreach (ExerciseViewModel ex in comp.complex)
+                    {
+                        if (db.Exercises.FirstOrDefault(e => e.Name == ex.name) != null)
+                        {
+                            Peak_Performance.Models.ComplexItem item = new ComplexItem();
+                            item.Complex = complex;
+                            item.Exercis = db.Exercises.FirstOrDefault(e => e.Name == ex.name);
+                            item.ComplexReps = ex.reps;
+                            item.ComplexSets = ex.sets;
+                            item.LiftWeight = ex.weight;
+                            item.RunDistance = ex.distance;
+                            item.RunSpeed = ex.speed;
+                            item.RunTime = ex.time;
+                            complexItems.Add(item);
+                            db.ComplexItems.Add(item);
+                        }
+                        else
+                        {
+                            //right now we are only creating the complex item if the exercise already exists in the database
+                            //handle if we don't have the specified exercise
+                            //maybe add a name attribute to complex items, set name == name if we dont have the exercise => no link to exercise info
+                        }
+                    }
+                    complex.ComplexItems = complexItems;
+                    complexes.Add(complex);
+                    db.Complexes.Add(complex);
+                }
+                workout.Complexes = complexes;
+                db.Workouts.Add(workout);
+                db.SaveChanges();
+                return workout;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 
+  
     public class ComplexViewModel
-    { 
-        public List<ExerciseViewModel> exercise { get; set; }
-    
+    {
+        public List<ExerciseViewModel> complex { get; set; }
+
+        /*public ComplexViewModel(List<ExerciseViewModel> ex)
+        {
+            this.complex = ex;
+        }*/
+        
     }
 
     public class ExerciseViewModel
     {
-        string name { get; set; }
-        int? reps { get; set; }
-        int? sets { get; set; }
-        double? weight { get; set; }
-        TimeSpan? time { get; set; }
-        double? speed { get; set; }
-        double? distance { get; set; }
-
-        public ExerciseViewModel(string Name, int? Reps, int? Sets, double? Weight, TimeSpan? Time, double? Speed, double? Distance)
+        public string name { get; set; }
+        public int? reps { get; set; }
+        public int? sets { get; set; }
+        public double? weight { get; set; }
+        public TimeSpan? time { get; set; }
+        public double? speed { get; set; }
+        public double? distance { get; set; }
+        /*public ExerciseViewModel(string Name, string Reps, string Sets, string Weight, string Time, string Speed, string Distance)
         {
             this.name = Name;
             this.reps = Reps;
@@ -57,10 +139,6 @@ namespace Peak_Performance.Models.ViewModels
             this.time = Time;
             this.speed = Speed;
             this.distance = Distance;
-        }
-        ExerciseViewModel()
-        {
-
-        }
+        }*/
     }
 }
