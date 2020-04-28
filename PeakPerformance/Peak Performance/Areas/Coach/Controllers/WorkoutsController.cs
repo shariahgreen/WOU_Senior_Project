@@ -11,7 +11,7 @@ using Peak_Performance.Models;
 using Microsoft.AspNet.Identity;
 using System.Reflection;
 using Peak_Performance.Models.ViewModels;
-using Newtonsoft.Json.Linq;
+using System.Net.Mail;
 
 namespace Peak_Performance.Areas.Coach
 {
@@ -71,23 +71,58 @@ namespace Peak_Performance.Areas.Coach
             return View(fullworkout);
         }
 
-        public void ContactTeam(int team)
+        public int ContactTeam(int team)
         {
             Peak_Performance.Models.Team newTeam = db.Teams.FirstOrDefault(t => t.ID == team);
             IQueryable<Peak_Performance.Models.Athlete> athletes = db.Athletes.Where(a => a.Team == newTeam);
-
-            foreach (var athlete in athletes)
+            try
             {
-                notify(athlete);
+                foreach (var athlete in athletes)
+                {
+                    AspNetUser user = db.AspNetUsers.Find(athlete.Person.ASPNetIdentityID);
+                    if (user.Email != null && user.EmailConfirmed == true)
+                    {
+                        string to = user.Email;
+                        notify(to);
+                    }
+                }
+                //notify("shariah.green1@gmail.com");
+                return 0;
             }
-
-            return;
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        public void notify(Peak_Performance.Models.Athlete athlete)
+        public void notify(string to)
         {
+            try
+            {
+                MailMessage mail = new MailMessage();
+                SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
 
-            return;
+                mail.From = new MailAddress("peakperformancewou@gmail.com");
+                mail.To.Add(to);
+                mail.Subject = "New Peak Performance Workout Available";
+                mail.Body = "This is for testing SMTP mail from GMAIL";
+
+                string username = "peakperformancewou@gmail.com";
+                string pwd = "";
+
+                SmtpServer.Port = 587;
+                SmtpServer.EnableSsl = true;
+                SmtpServer.DeliveryMethod = SmtpDeliveryMethod.Network;
+                SmtpServer.UseDefaultCredentials = false;
+                SmtpServer.Credentials = new System.Net.NetworkCredential(username, pwd);
+
+                SmtpServer.Send(mail);
+                return;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public JsonResult SearchByText(string text)

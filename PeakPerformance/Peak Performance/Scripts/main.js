@@ -185,7 +185,7 @@ function createExercise(count) {
 
 function contactTeam(team) {
     console.log("Sending notification of new workout to athletes on " + team);
-    var source = 'Workouts/ContactTeam?team=' + team;
+    var source = '/Workouts/ContactTeam?team=' + team;
     $.ajax({
         type: 'GET',
         dataType: 'json',
@@ -193,6 +193,10 @@ function contactTeam(team) {
         success: function () {
             alert("Notification sent successfully.")
         },
-        error: errorOnAjax
+        error: function (result) {
+            alert("Notification sending failed.")
+            console.log('Error on AJAX return');
+            console.log(result);
+        }
     });
 }

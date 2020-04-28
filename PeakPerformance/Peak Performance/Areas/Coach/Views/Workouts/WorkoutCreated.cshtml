@@ -5,41 +5,41 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Workout for @Html.DisplayFor(model => model.workout.Team.TeamName) on @Html.DisplayFor(model => model.workout.WorkoutDate) Created Successfully</h2>
-<button class="btn btn-primary" id="contact" onclick="contactTeam(@Html.ValueFor(model => model.workout.TeamID)" style="padding: 5px; margin: 5px;">+ Create New Workout</button>
-<!--
+<h2>Workout for @Html.DisplayFor(model => model.workout.Team.TeamName) on @Html.DisplayFor(model => model.workout.WorkoutDate.Date) Created Successfully</h2>
+<button class="btn btn-primary" id="contact" onclick="contactTeam(@Html.ValueFor(model => model.workout.TeamID))" style="padding: 5px; margin: 5px;">Notify Team</button>
+
 <div>
     <h4>Workout</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            Html.DisplayNameFor(model => model.workout.Team.TeamName)
+            @Html.DisplayNameFor(model => model.workout.Team.TeamName)
         </dt>
 
         <dd>
-            Html.DisplayFor(model => model.workout.Team.TeamName)
+            @Html.DisplayFor(model => model.workout.Team.TeamName)
         </dd>
 
         <dt>
-            Html.DisplayNameFor(model => model.workout.WorkoutDate)
+            @Html.DisplayNameFor(model => model.workout.WorkoutDate)
         </dt>
 
         <dd>
-            Html.DisplayFor(model => model.workout.WorkoutDate)
+            @Html.DisplayFor(model => model.workout.WorkoutDate)
         </dd>
 
     </dl>
 
-    foreach (Peak_Performance.Models.Complex complex in Model.complexes)
+    @foreach (Peak_Performance.Models.Complex complex in Model.complexes)
     {
         int id = complex.ID;
         foreach (Peak_Performance.Models.ComplexItem item in Model.exercises[id])
         {
-            <p>item.Exercis.Name</p>
+            <p>@item.Exercis.Name</p>
         }
     }
 </div>
--->
+
 
 
 
