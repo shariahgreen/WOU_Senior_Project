@@ -77,7 +77,7 @@ namespace Peak_Performance.Areas.Coach
            List<Peak_Performance.Models.Athlete> athletes = db.Athletes.Where(a => a.Team.ID == newTeam).ToList();
             try
             {
-                //notify("shariah.green1@gmail.com", "Shay Green");
+                notify("shariah.green1@gmail.com", "Shay Green");
                 foreach (var athlete in athletes)
                 {
                     AspNetUser user = db.AspNetUsers.Find(athlete.Person.ASPNetIdentityID);
@@ -118,10 +118,8 @@ namespace Peak_Performance.Areas.Coach
                 mail.Body = "<hmtl><head/><body><div><img src=\"cid:" + contentid + "\"></div><div><h2> Hello " + name + ",</h2><h3> You have a new workout available for view at www.peakperformancedev.azurewebsites.net </h3></div></body></html>";
                 //mail.Body = "<hmtl><head/><body><div><h2>Hello " + name + ",</h2><br/><h3> You have a new workout available for view at www.peakperformancedev.azurewebsites.net </h3></div></body></html>";
 
-
-
                 string username = "peakperformancewou@gmail.com";
-                string pwd = "Nu77ptr1 ";
+                string pwd = System.Web.Configuration.WebConfigurationManager.AppSettings["PeakPerformanceEmail"];
 
                 SmtpServer.Port = 587;
                 SmtpServer.EnableSsl = true;
