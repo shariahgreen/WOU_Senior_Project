@@ -221,8 +221,6 @@ namespace Peak_Performance.Controllers
 
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-
                     string subject = "Please confirm your Peak Performance email";
                     string callbackUrl = await SendConfirmationTokenAsync(user.Id, subject, tempFName);
 
@@ -266,6 +264,7 @@ namespace Peak_Performance.Controllers
                     }
 
                     await db.SaveChangesAsync();
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                     if (isAdmin)
                     {

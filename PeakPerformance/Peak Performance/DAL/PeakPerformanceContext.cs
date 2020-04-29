@@ -23,6 +23,7 @@ namespace Peak_Performance.DAL {
         public virtual DbSet<Exercis> Exercises { get; set; }
         public virtual DbSet<MuscleGroup> MuscleGroups { get; set; }
         public virtual DbSet<Person> Persons { get; set; }
+        public virtual DbSet<Record> Records { get; set; }
         public virtual DbSet<Sport> Sports { get; set; }
         public virtual DbSet<Team> Teams { get; set; }
         public virtual DbSet<Workout> Workouts { get; set; }

@@ -5,31 +5,27 @@
     Layout = "~/Areas/Athlete/Views/Shared/_Layout.cshtml";
 }
 
-
-<div class="container-fluid">
+<div class="container container-fluid">
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-3" style="top: 0; font-size: 20px;">
             <div class="card">
-                <img src="~/Images/Avatar.png" alt="Profile Picture" style="width:300px" />
+                <img src="~/Images/Avatar.png" alt="Profile Picture" style="width:300px; margin-top: 15px;" />
                 <h1>@Html.DisplayFor(item => item.athlete.Person.FirstName) @Html.DisplayFor(item => item.athlete.Person.LastName)</h1>
                 <p class="team">@Html.DisplayFor(item => item.athlete.Team.TeamName)</p>
                 <br />
-
             </div>
         </div>
-    
 
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="jumbotron">
                 <div>
-                    <h4>Past Workout Lists</h4>
+                    <h4>Past Workouts</h4>
 
                     <table class="table">
-                        @foreach (var item in Model.pastWorkoutDate)
-                        {
+                        @foreach (var item in Model.pastWorkoutLists) {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item)
+                                    @Html.ActionLink(item.WorkoutDate.ToString("MM-dd-yyyy"), "Details", "CurrentWorkout", new { id = item.ID }, new { area = "Athlete" })
                                 </td>
                             </tr>
                         }
@@ -37,17 +33,17 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="jumbotron">
                 <div>
-                    <h4>Upcoming Workout Lists</h4>
+                    <h4>Upcoming Workouts</h4>
 
                     <table class="table">
-                        @foreach (var item in Model.upcomingWorkoutDate)
+                        @foreach (var item in Model.upcomingWorkoutLists)
                         {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item)
+                                    @Html.ActionLink(item.WorkoutDate.ToString("MM-dd-yyyy"), "Details", "CurrentWorkout", new { id = item.ID }, new { area = "Athlete" })
                                 </td>
                             </tr>
                         }
@@ -56,16 +52,22 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div id="fitbitImage">
+            <a title="Connect your FitBit to track your Fitness!" href="https://www.fitbit.com/oauth2/authorize?response_type=token&client_id=22BHTD&redirect_uri=https%3A%2F%2Flocalhost%3A44322%2FAthlete&scope=activity%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight&expires_in=604800">
+                <div class="col-md-3" id="fitbit" style="margin-left: 15px !important;">
+                    <img src="~/Images/fitbit.png" alt="Connect your FitBit to track your Fitness!" style="width:150px; margin: 15px;" />
+                </div>
+            </a>
+        </div>
+        <table class="table table-bordered table-hover col-md-3" id="myTable" style="visibility:hidden;">
+        </table>
+    </div>
+    <div class="row" id="helpandhints" style="visibility:hidden;">
+        <h6>Refresh page to update FitBit Data</h6>
+    </div>
 </div>
-
-
-
-
-
-
 @section scripts
 {
     <link href="@Url.Content("~/Content/AthleteProfileStyle.css")" rel="stylesheet" type="text/css" />
 }
-
-

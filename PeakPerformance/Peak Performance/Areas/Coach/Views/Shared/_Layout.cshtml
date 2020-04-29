@@ -20,9 +20,9 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav" style="margin-top: 20px; ">
-                    <li>@Html.ActionLink("Home", "Index", new { area = "Coach" })</li>
-                    <li>@Html.ActionLink("About", "About", new { area = "" })</li>
-                    <li>@Html.ActionLink("Contact", "Contact", new { area = "" })</li>
+                    <li>@Html.ActionLink("Home", "Index", new { area = "Coach", controller = "Home" })</li>
+                    <li>@Html.ActionLink("Workout Search", "SearchMain", new { area = "Coach", controller = "Workouts" })</li>
+                    <li>@Html.ActionLink("Contact", "Contact", new { area = "", controller = "Home" })</li>
                 </ul>
                 <div style="margin-top: 20px; ">
                     @Html.Partial("_LoginPartial")
