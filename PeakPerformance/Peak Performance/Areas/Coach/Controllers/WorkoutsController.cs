@@ -80,12 +80,15 @@ namespace Peak_Performance.Areas.Coach
                 notify("shariah.green1@gmail.com", "Shay Green");
                 foreach (var athlete in athletes)
                 {
-                    AspNetUser user = db.AspNetUsers.Find(athlete.Person.ASPNetIdentityID);
-                    if (user.Email != null && user.EmailConfirmed == true)
+                    AspNetUser user = db.AspNetUsers.FirstOrDefault(a => a.Id == athlete.Person.ASPNetIdentityID);
+                    if (user != null)
                     {
-                        string to = user.Email;
-                        string name = athlete.Person.FirstName + " " + athlete.Person.LastName;
-                        notify(to, name);
+                        if (user.Email != null)
+                        {
+                            string to = user.Email;
+                            string name = athlete.Person.FirstName + " " + athlete.Person.LastName;
+                            notify(to, name);
+                        }
                     }
                 }
                 return 0;
