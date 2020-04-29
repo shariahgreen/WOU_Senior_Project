@@ -178,3 +178,30 @@ table > thead > tr > th {
 h6 small {
     font-size: 100%;
 }
+
+#myDIV1 {
+    display: block;
+}
+
+#myDIV3 {
+    display: none;
+}
+
+#myDIV2 {
+    display: none;
+}
+
+.cardRegister {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 200px;
+    min-width: 0px;
+    height: 120px;
+    margin: 30px 0 0 0;
+    text-align: center;
+    font-family: arial;
+    padding: 0px;
+}
+
+#registerA{
+    color: black;
+}
