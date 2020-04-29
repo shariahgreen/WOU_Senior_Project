@@ -19,14 +19,13 @@
         <div class="col-md-3">
             <div class="jumbotron">
                 <div>
-                    <h4>Past Workout Lists</h4>
+                    <h4>Past Workouts</h4>
 
                     <table class="table">
-                        @foreach (var item in Model.pastWorkoutDate)
-                        {
+                        @foreach (var item in Model.pastWorkoutLists) {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item)
+                                    @Html.ActionLink(item.WorkoutDate.ToString("MM-dd-yyyy"), "Details", "CurrentWorkout", new { id = item.ID }, new { area = "Athlete" })
                                 </td>
                             </tr>
                         }
@@ -37,14 +36,14 @@
         <div class="col-md-3">
             <div class="jumbotron">
                 <div>
-                    <h4>Upcoming Workout Lists</h4>
+                    <h4>Upcoming Workouts</h4>
 
                     <table class="table">
-                        @foreach (var item in Model.upcomingWorkoutDate)
+                        @foreach (var item in Model.upcomingWorkoutLists)
                         {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item)
+                                    @Html.ActionLink(item.WorkoutDate.ToString("MM-dd-yyyy"), "Details", "CurrentWorkout", new { id = item.ID }, new { area = "Athlete" })
                                 </td>
                             </tr>
                         }

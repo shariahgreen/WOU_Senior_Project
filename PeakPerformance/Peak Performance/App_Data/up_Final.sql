@@ -51,3 +51,16 @@ CREATE TABLE [dbo].[Athletes]
 	CONSTRAINT [FK_dbo.Athletes_dbo.Persons_ID] FOREIGN KEY ([ID]) REFERENCES [Persons] ([ID]) ON DELETE CASCADE ON UPDATE CASCADE,
 	CONSTRAINT [FK_dbo.Athletes_dbo.Teams_TeamID] FOREIGN KEY ([TeamID]) REFERENCES [dbo].[Teams] ([ID]) ON DELETE NO ACTION
 );
+
+CREATE TABLE [dbo].[Records]
+(
+	[ID]			INT	IDENTITY (1,1)	NOT NULL,
+	[Completed]		BIT,
+	[Note]			NVARCHAR (250),
+	[AthleteID] 	INT					NOT NULL,
+	[WorkoutID]		INT					NOT NULL,
+
+	CONSTRAINT [PK_dbo.Records]	PRIMARY KEY CLUSTERED ([ID] ASC),
+	CONSTRAINT [FK_dbo.Records_dbo.Athletes_AthleteID] FOREIGN KEY ([AthleteID]) REFERENCES [dbo].[Athletes] ([ID]) ON DELETE CASCADE,
+	CONSTRAINT [FK_dbo.Records_dbo.Workouts_WorkoutID] FOREIGN KEY ([WorkoutID]) REFERENCES [dbo].[Workouts] ([ID]) ON DELETE NO ACTION
+);
