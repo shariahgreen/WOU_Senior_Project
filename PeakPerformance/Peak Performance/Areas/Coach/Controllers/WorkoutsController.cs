@@ -11,6 +11,10 @@ using Peak_Performance.Models;
 using Microsoft.AspNet.Identity;
 using System.Reflection;
 using Peak_Performance.Models.ViewModels;
+using System.Net.Mail;
+using System.Threading.Tasks;
+using SendGrid;
+using SendGrid.Helpers.Mail;
 
 namespace Peak_Performance.Areas.Coach
 {
@@ -41,16 +45,121 @@ namespace Peak_Performance.Areas.Coach
         [HttpPost]
         public ActionResult CreateWorkout(WorkoutsViewModel workoutsViewModel)
         {
-           // string id = User.Identity.GetUserId();
-            //Peak_Performance.Models.Coach temp = db.Coaches.FirstOrDefault(c => c.Person.ASPNetIdentityID == id);
-            //DateTime dateTime = DateTime.Parse(Date);
-            //Peak_Performance.Models.WorkoutCreationViewModel WorkoutCreation = new WorkoutCreationViewModel(temp, TeamList, dateTime);
-            //ViewBag.MuscleGroupsId = new SelectList(db.MuscleGroups, "MuscleGroupsId", "Name");
-            
-            //ViewBag.TeamList = new SelectList(db.Teams.Where(t => t.CoachId == temp.CoachId), "TeamId", "TeamName");
-            //ViewBag.WorkoutCreation = WorkoutCreation;
-            //return Json(WorkoutCreation, JsonRequestBehavior.AllowGet);
-            return View();
+            try
+            {
+                string id = User.Identity.GetUserId();
+                //Peak_Performance.Models.Workout myworkout = new Workout();
+                Peak_Performance.Models.Workout myworkout = workoutsViewModel.createWorkout();
+                int wid = myworkout.ID;
+                return Json(new { newUrl = Url.Action("WorkoutCreated", "Workouts", new { id = wid }) });
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public ActionResult WorkoutCreated(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Workout workout = db.Workouts.Find(id);
+            if (workout == null)
+            {
+                return HttpNotFound();
+            }
+            Peak_Performance.Models.ViewModels.FullWorkoutViewModel fullworkout = new FullWorkoutViewModel(workout.ID);
+            return View(fullworkout);
+        }
+
+        public async Task<int> ContactTeam(int team)
+        {
+            int newTeam = db.Teams.FirstOrDefault(t => t.ID == team).ID;
+           List<Peak_Performance.Models.Athlete> athletes = db.Athletes.Where(a => a.Team.ID == newTeam).ToList();
+            try
+            {
+                await SendGridMail("shariah.green1@gmail.com", "Shay Green");
+                foreach (var athlete in athletes)
+                {
+                    AspNetUser user = db.AspNetUsers.FirstOrDefault(a => a.Id == athlete.Person.ASPNetIdentityID);
+                    if (user != null)
+                    {
+                        if (user.Email != null)
+                        {
+                            string to = user.Email;
+                            string name = athlete.Person.FirstName + " " + athlete.Person.LastName;
+                            await SendGridMail(to, name);
+                        }
+                    }
+                }
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        private async Task SendGridMail(string to, string name)
+        {
+            string apiKey = System.Web.Configuration.WebConfigurationManager.AppSettings["emailsenderkey"];
+            var client = new SendGridClient(apiKey);
+            var myMessage = new SendGridMessage();
+
+            string img = System.IO.Path.GetFullPath(Server.MapPath("~\\Images\\Header.png"));
+            SendGrid.Helpers.Mail.Attachment attachment = new SendGrid.Helpers.Mail.Attachment();
+            attachment.Filename = img;
+            string contentid = "Header";
+            attachment.ContentId = contentid;
+
+            myMessage.AddTo(to);
+            myMessage.SetFrom(new EmailAddress("peakperformancewou@gmail.com", "Peak Performance"));
+            myMessage.SetSubject("New Peak Performance Workout Available");
+            //myMessage.AddContent(MimeType.Text, message.Body);
+            myMessage.AddContent(MimeType.Html, "<hmtl><head/><body><div><img src=\"cid:" + contentid + "\"></div><div><h2> Hello " + name + ",</h2><h3> You have a new workout available for view at www.peakperformancedev.azurewebsites.net </h3></div></body></html>");
+            var response = await client.SendEmailAsync(myMessage);
+        }
+
+
+        public void notify(string to, string name)
+        {
+            try
+            {
+                MailMessage mail = new MailMessage();
+                SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+
+                mail.From = new MailAddress("peakperformancewou@gmail.com");
+                mail.To.Add(to);
+                mail.Subject = "New Peak Performance Workout Available";
+                mail.IsBodyHtml = true;
+
+                string img = System.IO.Path.GetFullPath(Server.MapPath("~\\Images\\Header.png"));
+                System.Net.Mail.Attachment picAttachment = new System.Net.Mail.Attachment(img);
+                string contentid = "Header";
+                picAttachment.ContentId = contentid;
+                mail.Attachments.Add(picAttachment);
+
+                mail.Body = "<hmtl><head/><body><div><img src=\"cid:" + contentid + "\"></div><div><h2> Hello " + name + ",</h2><h3> You have a new workout available for view at www.peakperformancedev.azurewebsites.net </h3></div></body></html>";
+
+                string username = "peakperformancewou@gmail.com";
+                string pwd = System.Web.Configuration.WebConfigurationManager.AppSettings["PeakPerformanceEmail"];
+
+                SmtpServer.Port = 587;
+                SmtpServer.EnableSsl = true;
+                SmtpServer.DeliveryMethod = SmtpDeliveryMethod.Network;
+                SmtpServer.UseDefaultCredentials = false;
+                SmtpServer.Credentials = new System.Net.NetworkCredential(username, pwd);
+
+                SmtpServer.Send(mail);
+                return;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public JsonResult SearchByText(string text)

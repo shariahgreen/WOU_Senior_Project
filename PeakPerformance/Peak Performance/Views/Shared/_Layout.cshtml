@@ -20,12 +20,29 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav" style="margin-top: 20px; ">
-                    @if (User.Identity.Name == "")
+                    @if (User.IsInRole("Athlete"))
+                    {
+                        <li>@Html.ActionLink("Home", "Index", new { area = "Athlete", controller = "Home"})</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    }
+                    else if (User.IsInRole("Coach"))
+                    {
+                        <li>@Html.ActionLink("Home", "Index", new { area = "Coach", controller = "Home"})</li>
+                        <li>@Html.ActionLink("Workout Search", "SearchMain", new { area = "Coach", controller = "Workouts" })</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    }
+                    else if (User.IsInRole("Admin"))
+                    {
+                        <li>@Html.ActionLink("Home", "Index", new { area = "Admin", controller = "Home"})</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    }
+                    else
                     {
                         <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                     }
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+
                 </ul>
                 <div style="margin-top: 20px; ">
                     @Html.Partial("_LoginPartial")

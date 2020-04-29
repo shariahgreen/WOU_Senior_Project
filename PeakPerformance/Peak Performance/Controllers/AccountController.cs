@@ -18,7 +18,7 @@ using System.Net;
 
 namespace Peak_Performance.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class AccountController : Controller
     {
         private PeakPerformanceContext db = new PeakPerformanceContext();
@@ -221,8 +221,6 @@ namespace Peak_Performance.Controllers
 
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-
                     string subject = "Please confirm your Peak Performance email";
                     string callbackUrl = await SendConfirmationTokenAsync(user.Id, subject, tempFName);
 
@@ -266,17 +264,18 @@ namespace Peak_Performance.Controllers
                     }
 
                     await db.SaveChangesAsync();
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
-                    if(isAdmin)
+                    if (isAdmin)
                     {
                         return RedirectToAction("Index", "Home", new { area = "Admin" });
                     }
-                    else if(isCoach)
+                    else if (isCoach)
                     {
                         return RedirectToAction("Index", "Home", new { area = "Coach" });
                     }
-                    else if(isAthlete)
-                    { 
+                    else if (isAthlete)
+                    {
                         return RedirectToAction("Index", "Home", new { area = "Athlete" });
                     }
                 }
@@ -584,7 +583,7 @@ namespace Peak_Performance.Controllers
 
         #endregion Helpers
 
-        [Authorize]
+        //[Authorize]
         public ActionResult RegisterAdmin()
         {
             return View();
@@ -594,7 +593,7 @@ namespace Peak_Performance.Controllers
         // POST: /Account/Register
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize]
+        //[Authorize]
         public async Task<ActionResult> RegisterAdmin(AdminRegistrationViewModel model)
         {
             if (ModelState.IsValid)
