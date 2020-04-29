@@ -111,7 +111,6 @@ namespace Peak_Performance.Areas.Coach
                 mail.Subject = "New Peak Performance Workout Available";
                 mail.IsBodyHtml = true;
 
-                //string img = new Uri("..\\..\\..\\Images\\Header.png").AbsolutePath;
                 string img = System.IO.Path.GetFullPath(Server.MapPath("~\\Images\\Header.png"));
                 Attachment picAttachment = new Attachment(img);
                 string contentid = "Header";
@@ -119,7 +118,6 @@ namespace Peak_Performance.Areas.Coach
                 mail.Attachments.Add(picAttachment);
 
                 mail.Body = "<hmtl><head/><body><div><img src=\"cid:" + contentid + "\"></div><div><h2> Hello " + name + ",</h2><h3> You have a new workout available for view at www.peakperformancedev.azurewebsites.net </h3></div></body></html>";
-                //mail.Body = "<hmtl><head/><body><div><h2>Hello " + name + ",</h2><br/><h3> You have a new workout available for view at www.peakperformancedev.azurewebsites.net </h3></div></body></html>";
 
                 string username = "peakperformancewou@gmail.com";
                 string pwd = System.Web.Configuration.WebConfigurationManager.AppSettings["PeakPerformanceEmail"];
