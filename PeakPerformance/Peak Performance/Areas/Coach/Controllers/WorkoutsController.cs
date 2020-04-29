@@ -12,6 +12,9 @@ using Microsoft.AspNet.Identity;
 using System.Reflection;
 using Peak_Performance.Models.ViewModels;
 using System.Net.Mail;
+using System.Threading.Tasks;
+using SendGrid;
+using SendGrid.Helpers.Mail;
 
 namespace Peak_Performance.Areas.Coach
 {
@@ -71,13 +74,13 @@ namespace Peak_Performance.Areas.Coach
             return View(fullworkout);
         }
 
-        public int ContactTeam(int team)
+        public async Task<int> ContactTeam(int team)
         {
             int newTeam = db.Teams.FirstOrDefault(t => t.ID == team).ID;
            List<Peak_Performance.Models.Athlete> athletes = db.Athletes.Where(a => a.Team.ID == newTeam).ToList();
             try
             {
-                notify("shariah.green1@gmail.com", "Shay Green");
+                await SendGridMail("shariah.green1@gmail.com", "Shay Green");
                 foreach (var athlete in athletes)
                 {
                     AspNetUser user = db.AspNetUsers.FirstOrDefault(a => a.Id == athlete.Person.ASPNetIdentityID);
@@ -87,7 +90,7 @@ namespace Peak_Performance.Areas.Coach
                         {
                             string to = user.Email;
                             string name = athlete.Person.FirstName + " " + athlete.Person.LastName;
-                            notify(to, name);
+                            await SendGridMail(to, name);
                         }
                     }
                 }
@@ -98,6 +101,28 @@ namespace Peak_Performance.Areas.Coach
                 throw ex;
             }
         }
+
+
+        private async Task SendGridMail(string to, string name)
+        {
+            string apiKey = System.Web.Configuration.WebConfigurationManager.AppSettings["emailsenderkey"];
+            var client = new SendGridClient(apiKey);
+            var myMessage = new SendGridMessage();
+
+            string img = System.IO.Path.GetFullPath(Server.MapPath("~\\Images\\Header.png"));
+            SendGrid.Helpers.Mail.Attachment attachment = new SendGrid.Helpers.Mail.Attachment();
+            attachment.Filename = img;
+            string contentid = "Header";
+            attachment.ContentId = contentid;
+
+            myMessage.AddTo(to);
+            myMessage.SetFrom(new EmailAddress("peakperformancewou@gmail.com", "Peak Performance"));
+            myMessage.SetSubject("New Peak Performance Workout Available");
+            //myMessage.AddContent(MimeType.Text, message.Body);
+            myMessage.AddContent(MimeType.Html, "<hmtl><head/><body><div><img src=\"cid:" + contentid + "\"></div><div><h2> Hello " + name + ",</h2><h3> You have a new workout available for view at www.peakperformancedev.azurewebsites.net </h3></div></body></html>");
+            var response = await client.SendEmailAsync(myMessage);
+        }
+
 
         public void notify(string to, string name)
         {
@@ -112,7 +137,7 @@ namespace Peak_Performance.Areas.Coach
                 mail.IsBodyHtml = true;
 
                 string img = System.IO.Path.GetFullPath(Server.MapPath("~\\Images\\Header.png"));
-                Attachment picAttachment = new Attachment(img);
+                System.Net.Mail.Attachment picAttachment = new System.Net.Mail.Attachment(img);
                 string contentid = "Header";
                 picAttachment.ContentId = contentid;
                 mail.Attachments.Add(picAttachment);
