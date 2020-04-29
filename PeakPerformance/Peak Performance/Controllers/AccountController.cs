@@ -18,7 +18,7 @@ using System.Net;
 
 namespace Peak_Performance.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class AccountController : Controller
     {
         private PeakPerformanceContext db = new PeakPerformanceContext();
@@ -270,12 +270,12 @@ namespace Peak_Performance.Controllers
                     {
                         return RedirectToAction("Index", "Home", new { area = "Admin" });
                     }
-                    else if(isCoach)
+                    else if (isCoach)
                     {
                         return RedirectToAction("Index", "Home", new { area = "Coach" });
                     }
-                    else if(isAthlete)
-                    { 
+                    else if (isAthlete)
+                    {
                         return RedirectToAction("Index", "Home", new { area = "Athlete" });
                     }
                 }
@@ -583,7 +583,7 @@ namespace Peak_Performance.Controllers
 
         #endregion Helpers
 
-        [Authorize]
+        //[Authorize]
         public ActionResult RegisterAdmin()
         {
             return View();
@@ -593,7 +593,7 @@ namespace Peak_Performance.Controllers
         // POST: /Account/Register
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize]
+        //[Authorize]
         public async Task<ActionResult> RegisterAdmin(AdminRegistrationViewModel model)
         {
             if (ModelState.IsValid)
