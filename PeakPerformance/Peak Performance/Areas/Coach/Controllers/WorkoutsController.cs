@@ -73,20 +73,21 @@ namespace Peak_Performance.Areas.Coach
 
         public int ContactTeam(int team)
         {
-            Peak_Performance.Models.Team newTeam = db.Teams.FirstOrDefault(t => t.ID == team);
-            IQueryable<Peak_Performance.Models.Athlete> athletes = db.Athletes.Where(a => a.Team == newTeam);
+            int newTeam = db.Teams.FirstOrDefault(t => t.ID == team).ID;
+           List<Peak_Performance.Models.Athlete> athletes = db.Athletes.Where(a => a.Team.ID == newTeam).ToList();
             try
             {
+                //notify("shariah.green1@gmail.com", "Shay Green");
                 foreach (var athlete in athletes)
                 {
                     AspNetUser user = db.AspNetUsers.Find(athlete.Person.ASPNetIdentityID);
                     if (user.Email != null && user.EmailConfirmed == true)
                     {
                         string to = user.Email;
-                        notify(to);
+                        string name = athlete.Person.FirstName + " " + athlete.Person.LastName;
+                        notify(to, name);
                     }
                 }
-                //notify("shariah.green1@gmail.com");
                 return 0;
             }
             catch (Exception ex)
@@ -95,7 +96,7 @@ namespace Peak_Performance.Areas.Coach
             }
         }
 
-        public void notify(string to)
+        public void notify(string to, string name)
         {
             try
             {
@@ -105,10 +106,22 @@ namespace Peak_Performance.Areas.Coach
                 mail.From = new MailAddress("peakperformancewou@gmail.com");
                 mail.To.Add(to);
                 mail.Subject = "New Peak Performance Workout Available";
-                mail.Body = "This is for testing SMTP mail from GMAIL";
+                mail.IsBodyHtml = true;
+
+                //string img = new Uri("..\\..\\..\\Images\\Header.png").AbsolutePath;
+                string img = System.IO.Path.GetFullPath(Server.MapPath("~\\Images\\Header.png"));
+                Attachment picAttachment = new Attachment(img);
+                string contentid = "Header";
+                picAttachment.ContentId = contentid;
+                mail.Attachments.Add(picAttachment);
+
+                mail.Body = "<hmtl><head/><body><div><img src=\"cid:" + contentid + "\"></div><div><h2> Hello " + name + ",</h2><h3> You have a new workout available for view at www.peakperformancedev.azurewebsites.net </h3></div></body></html>";
+                //mail.Body = "<hmtl><head/><body><div><h2>Hello " + name + ",</h2><br/><h3> You have a new workout available for view at www.peakperformancedev.azurewebsites.net </h3></div></body></html>";
+
+
 
                 string username = "peakperformancewou@gmail.com";
-                string pwd = "";
+                string pwd = "Nu77ptr1 ";
 
                 SmtpServer.Port = 587;
                 SmtpServer.EnableSsl = true;
