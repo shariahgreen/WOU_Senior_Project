@@ -11,7 +11,7 @@ using Peak_Performance.Models;
 using Microsoft.AspNet.Identity;
 using System.Reflection;
 using Peak_Performance.Models.ViewModels;
-using Newtonsoft.Json.Linq;
+using System.Net.Mail;
 
 namespace Peak_Performance.Areas.Coach
 {
@@ -71,23 +71,70 @@ namespace Peak_Performance.Areas.Coach
             return View(fullworkout);
         }
 
-        public void ContactTeam(int team)
+        public int ContactTeam(int team)
         {
-            Peak_Performance.Models.Team newTeam = db.Teams.FirstOrDefault(t => t.ID == team);
-            IQueryable<Peak_Performance.Models.Athlete> athletes = db.Athletes.Where(a => a.Team == newTeam);
-
-            foreach (var athlete in athletes)
+            int newTeam = db.Teams.FirstOrDefault(t => t.ID == team).ID;
+           List<Peak_Performance.Models.Athlete> athletes = db.Athletes.Where(a => a.Team.ID == newTeam).ToList();
+            try
             {
-                notify(athlete);
+                notify("shariah.green1@gmail.com", "Shay Green");
+                foreach (var athlete in athletes)
+                {
+                    AspNetUser user = db.AspNetUsers.FirstOrDefault(a => a.Id == athlete.Person.ASPNetIdentityID);
+                    if (user != null)
+                    {
+                        if (user.Email != null)
+                        {
+                            string to = user.Email;
+                            string name = athlete.Person.FirstName + " " + athlete.Person.LastName;
+                            notify(to, name);
+                        }
+                    }
+                }
+                return 0;
             }
-
-            return;
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        public void notify(Peak_Performance.Models.Athlete athlete)
+        public void notify(string to, string name)
         {
+            try
+            {
+                MailMessage mail = new MailMessage();
+                SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
 
-            return;
+                mail.From = new MailAddress("peakperformancewou@gmail.com");
+                mail.To.Add(to);
+                mail.Subject = "New Peak Performance Workout Available";
+                mail.IsBodyHtml = true;
+
+                string img = System.IO.Path.GetFullPath(Server.MapPath("~\\Images\\Header.png"));
+                Attachment picAttachment = new Attachment(img);
+                string contentid = "Header";
+                picAttachment.ContentId = contentid;
+                mail.Attachments.Add(picAttachment);
+
+                mail.Body = "<hmtl><head/><body><div><img src=\"cid:" + contentid + "\"></div><div><h2> Hello " + name + ",</h2><h3> You have a new workout available for view at www.peakperformancedev.azurewebsites.net </h3></div></body></html>";
+
+                string username = "peakperformancewou@gmail.com";
+                string pwd = System.Web.Configuration.WebConfigurationManager.AppSettings["PeakPerformanceEmail"];
+
+                SmtpServer.Port = 587;
+                SmtpServer.EnableSsl = true;
+                SmtpServer.DeliveryMethod = SmtpDeliveryMethod.Network;
+                SmtpServer.UseDefaultCredentials = false;
+                SmtpServer.Credentials = new System.Net.NetworkCredential(username, pwd);
+
+                SmtpServer.Send(mail);
+                return;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public JsonResult SearchByText(string text)
