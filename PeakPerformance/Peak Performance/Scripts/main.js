@@ -127,15 +127,15 @@ function createComplex() {
         '<div class="complex" id="complex' + compcount + '">' +
                 'Complex' +
         '<table id="exercises' + compcount + '" style="visibility:hidden">' +
-            "<tr>" +
-                "<th>Exercise</th>" +
-                "<th>Reps</th>" +
-                "<th>Sets</th>" +
-                "<th>Weight</th>" +
-                "<th>Time</th>" +
-                "<th>Speed</th>" +
-                "<th>Distance</th>" +
-            "</tr>" +
+            '<tr>' +
+                '<th style="width: 200px; padding: 5px; margin: 5px;">Exercise</th>' +
+                '<th style="width: 200px; padding: 5px; margin: 5px">Reps</th>' +
+                '<th style="width: 200px; padding: 5px; margin: 5px">Sets</th>' +
+                '<th style="width: 200px; padding: 5px; margin: 5px">Weight</th>' +
+                '<th style="width: 200px; padding: 5px; margin: 5px">Time</th>' +
+                '<th style="width: 200px; padding: 5px; margin: 5px">Speed</th>' +
+                '<th style="width: 200px; padding: 5px; margin: 5px">Distance</th>' +
+            '</tr>' +
         '</table>' +  
         '<div class="row" align="right" style="padding: 5px; margin: 5px;">' +
         '<button class="btn btn-primary" onclick="createExercise(' + compcount + ')" style="padding: 5px; margin: 5px;">+ Add an Exercise</button>' +
