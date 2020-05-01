@@ -4,16 +4,15 @@
     ViewBag.Title = "Register";
 }
 
-    <div class="cardRegister">
+<div class="cardRegister">
 
-        <ul style="list-style-type:none; padding: 17px 20px 20px 20px ;">
-            <li style="padding-bottom:10px;"><button type="button" class="btn btn-outline-secondary" id="registerBtn">Click To Register</button></li>
-            <li><a href="/Account/Login" id="registerA"><button type="button" class="btn btn-outline-secondary">Go to Log In</button></a></li>
+    <ul style="list-style-type:none; padding: 17px 20px 20px 20px ;">
+        <li style="padding-bottom:10px;"><button type="button" class="btn btn-outline-secondary" id="registerBtn">Click To Register</button></li>
+        <li><a href="/Account/Login" id="registerA"><button type="button" class="btn btn-outline-secondary">Go to Log In</button></a></li>
+    </ul>
 
-        </ul>
-
-        <br />
-    </div>
+    <br />
+</div>
 
 <div class="modal fade" id="registerModal">
     <div class="modal-dialog modal-lg">
@@ -58,6 +57,9 @@
                             @Html.Recaptcha()
                             @Html.ValidationMessage("ReCaptcha")
                             <br />
+                            <div class="control-label" style="float: left; padding-bottom: 15px;">
+                                By clicking register, you agree to the <a href="~/Home/TermsOfService">Terms of Service</a> and <a href="~/Home/PrivacyPolicy">Privacy Policy</a>.
+                            </div>
                             <div class="form-group">
                                 <div class="col-md-offset-2 col-md-10">
                                     <input type="submit" class="btn btn-default" value="Register" />
@@ -106,6 +108,9 @@
                             @Html.Recaptcha()
                             @Html.ValidationMessage("ReCaptcha")
                             <br />
+                            <div class="control-label" style="float: left; padding-bottom: 15px;">
+                                By clicking register, you agree to the <a href="~/Home/TermsOfService">Terms of Service</a> and <a href="~/Home/PrivacyPolicy">Privacy Policy</a>.
+                            </div>
                             <div class="form-group">
                                 <div class="col-md-offset-2 col-md-10">
                                     <input type="submit" class="btn btn-default" value="Register" />
@@ -166,6 +171,9 @@
                             @Html.Recaptcha()
                             @Html.ValidationMessage("ReCaptcha")
                             <br />
+                            <div class="control-label" style="float: left; padding-bottom: 15px;">
+                                By clicking register, you agree to the <a href="~/Home/TermsOfService">Terms of Service</a> and <a href="~/Home/PrivacyPolicy">Privacy Policy</a>.
+                            </div>
                             <div class="form-group">
                                 <div class="col-md-offset-2 col-md-10">
                                     <input type="submit" class="btn btn-default" value="Register" />
@@ -178,12 +186,6 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
