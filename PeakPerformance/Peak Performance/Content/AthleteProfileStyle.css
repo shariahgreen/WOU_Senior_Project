@@ -57,6 +57,22 @@
     border: none;
 }
 
+#fitbit_cals_above {
+    background-image: url('../Images/fitbit_cals_above.png');
+    background-color: #0ed145;
+    background-size: 240px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#fitbit_cals_below {
+    background-image: url('../Images/fitbit_cals_below.png');
+    background-color: #ed1c24;
+    background-size: 310px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
 #helpandhints {
     max-width: 400px;
     min-width: 400px;
