@@ -242,6 +242,8 @@
     <Content Include="Images\dumbell.jpg" />
     <Content Include="Images\fitbit.jpg" />
     <Content Include="Images\fitbit.png" />
+    <Content Include="Images\fitbit_cals_above.png" />
+    <Content Include="Images\fitbit_cals_below.png" />
     <Content Include="Images\fitbit_logo.svg" />
     <Content Include="Images\fitbit_steps.png" />
     <Content Include="Images\Header.png" />
@@ -355,6 +357,8 @@
     <Content Include="Views\Athletes\Index.cshtml" />
     <Content Include="Views\Home\Error.cshtml" />
     <Content Include="Views\Home\Recieved.cshtml" />
+    <Content Include="Views\Home\TermsAndConditions.cshtml" />
+    <Content Include="Views\Home\PrivacyPolicy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
