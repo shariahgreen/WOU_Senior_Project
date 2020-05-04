@@ -72,7 +72,7 @@ function successFitBit() {
     var averageCals = 0;
 
     //IF DATA EXISTS, USE ALGO
-    if (height != null && sex != null && weight != null && age != null) {
+    if (height != 0 && sex != null && weight != 0 && age != 0) {
         //Convert age to date and then to age
         height = parseInt(height);
         weight = parseInt(weight);
