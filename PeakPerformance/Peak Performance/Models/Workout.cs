@@ -12,9 +12,9 @@ namespace Peak_Performance.Models
         public Workout()
         {
             Complexes = new HashSet<Complex>();
+            Records = new HashSet<Record>();
         }
 
-        [Key]
         public int ID { get; set; }
 
         [Column(TypeName = "date")]
@@ -24,6 +24,9 @@ namespace Peak_Performance.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Complex> Complexes { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Record> Records { get; set; }
 
         public virtual Team Team { get; set; }
     }
