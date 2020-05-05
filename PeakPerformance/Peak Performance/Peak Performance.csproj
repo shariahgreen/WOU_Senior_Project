@@ -186,6 +186,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Controllers\AthletesController.cs" />
+    <Compile Include="Controllers\ExerciseRecordsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\TeamsController.cs" />
@@ -193,7 +194,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ContactFormModels.cs" />
+    <Compile Include="Models\ExerciseRecord.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="DAL\PeakPerformanceContext.cs" />
     <Compile Include="Models\ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\AspNetRole.cs" />
     <Compile Include="Models\AspNetUser.cs" />
@@ -209,7 +212,6 @@
     <Compile Include="Models\Exercis.cs" />
     <Compile Include="Models\ViewModels\ManageViewModels.cs" />
     <Compile Include="Models\MuscleGroup.cs" />
-    <Compile Include="DAL\PeakPerformanceContext.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Models\Sport.cs" />
     <Compile Include="Models\Team.cs" />
@@ -359,6 +361,11 @@
     <Content Include="Views\Home\Recieved.cshtml" />
     <Content Include="Views\Home\TermsAndConditions.cshtml" />
     <Content Include="Views\Home\PrivacyPolicy.cshtml" />
+    <Content Include="Views\ExerciseRecords\Create.cshtml" />
+    <Content Include="Views\ExerciseRecords\Delete.cshtml" />
+    <Content Include="Views\ExerciseRecords\Details.cshtml" />
+    <Content Include="Views\ExerciseRecords\Edit.cshtml" />
+    <Content Include="Views\ExerciseRecords\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

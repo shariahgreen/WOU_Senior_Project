@@ -14,9 +14,9 @@ namespace Peak_Performance.Models
         {
             ComplexItems = new HashSet<ComplexItem>();
             ExcerciseMuscleGroups = new HashSet<ExcerciseMuscleGroup>();
+            ExerciseRecords = new HashSet<ExerciseRecord>();
         }
 
-        [Key]
         public int ID { get; set; }
 
         [StringLength(128)]
@@ -29,5 +29,8 @@ namespace Peak_Performance.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ExcerciseMuscleGroup> ExcerciseMuscleGroups { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ExerciseRecord> ExerciseRecords { get; set; }
     }
 }
