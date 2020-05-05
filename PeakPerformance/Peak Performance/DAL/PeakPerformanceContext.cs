@@ -1,14 +1,16 @@
 using Peak_Performance.Models;
-
-namespace Peak_Performance.DAL {
+namespace Peak_Performance.DAL
+{
     using System;
     using System.Data.Entity;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
-    public partial class PeakPerformanceContext : DbContext {
+    public partial class PeakPerformanceContext : DbContext
+    {
         public PeakPerformanceContext()
-            : base("name=PeakPerformanceContext") {
+            : base("name=PeakPerformanceContext")
+        {
         }
 
         public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
@@ -20,15 +22,16 @@ namespace Peak_Performance.DAL {
         public virtual DbSet<Complex> Complexes { get; set; }
         public virtual DbSet<ComplexItem> ComplexItems { get; set; }
         public virtual DbSet<ExcerciseMuscleGroup> ExcerciseMuscleGroups { get; set; }
+        public virtual DbSet<ExerciseRecord> ExerciseRecords { get; set; }
         public virtual DbSet<Exercis> Exercises { get; set; }
         public virtual DbSet<MuscleGroup> MuscleGroups { get; set; }
         public virtual DbSet<Person> Persons { get; set; }
         public virtual DbSet<Record> Records { get; set; }
-        public virtual DbSet<Sport> Sports { get; set; }
         public virtual DbSet<Team> Teams { get; set; }
         public virtual DbSet<Workout> Workouts { get; set; }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder) {
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
             modelBuilder.Entity<AspNetRole>()
                 .HasMany(e => e.AspNetUsers)
                 .WithMany(e => e.AspNetRoles)
@@ -49,11 +52,6 @@ namespace Peak_Performance.DAL {
                 .IsFixedLength()
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Complex>()
-                .HasMany(e => e.ComplexItems)
-                .WithRequired(e => e.Complex)
-                .HasForeignKey(e => e.ComplexId);
-
             modelBuilder.Entity<Exercis>()
                 .HasMany(e => e.ComplexItems)
                 .WithRequired(e => e.Exercis)
@@ -64,10 +62,10 @@ namespace Peak_Performance.DAL {
                 .WithRequired(e => e.Exercis)
                 .HasForeignKey(e => e.ExerciseID);
 
-            modelBuilder.Entity<MuscleGroup>()
-                .HasMany(e => e.ExcerciseMuscleGroups)
-                .WithRequired(e => e.MuscleGroup)
-                .HasForeignKey(e => e.MuscleGroupID);
+            modelBuilder.Entity<Exercis>()
+                .HasMany(e => e.ExerciseRecords)
+                .WithRequired(e => e.Exercis)
+                .HasForeignKey(e => e.ExerciseID);
 
             modelBuilder.Entity<Person>()
                 .HasOptional(e => e.Athlete)
@@ -79,16 +77,15 @@ namespace Peak_Performance.DAL {
                 .WithRequired(e => e.Person)
                 .WillCascadeOnDelete();
 
-            modelBuilder.Entity<Team>()
-                .HasMany(e => e.Athletes)
-                .WithRequired(e => e.Team)
-                .WillCascadeOnDelete(false);
-
             modelBuilder.Entity<Workout>()
                 .HasMany(e => e.Complexes)
                 .WithOptional(e => e.Workout)
-                .HasForeignKey(e => e.WorkoutID)
                 .WillCascadeOnDelete();
+
+            modelBuilder.Entity<Workout>()
+                .HasMany(e => e.Records)
+                .WithRequired(e => e.Workout)
+                .WillCascadeOnDelete(false);
         }
     }
 }

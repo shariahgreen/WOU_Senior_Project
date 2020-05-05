@@ -14,7 +14,7 @@ namespace Peak_Performance.Models.ViewModels
         {
             athlete = db.Athletes.Find(id);
 
-            int athleteTeamID = db.Athletes.Find(id).TeamID;
+            int? athleteTeamID = db.Athletes.Find(id).TeamID;
 
             //select list of workout in the past
             pastWorkoutLists = db.Workouts.Where(p => p.TeamID == athleteTeamID && p.WorkoutDate < DateTime.Today).ToList();           

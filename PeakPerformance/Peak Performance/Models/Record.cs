@@ -18,5 +18,9 @@ namespace Peak_Performance.Models
         public int AthleteID { get; set; }
 
         public int WorkoutID { get; set; }
+
+        public virtual Athlete Athlete { get; set; }
+
+        public virtual Workout Workout { get; set; }
     }
 }

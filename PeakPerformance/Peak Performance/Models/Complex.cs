@@ -14,7 +14,6 @@ namespace Peak_Performance.Models
             ComplexItems = new HashSet<ComplexItem>();
         }
 
-        [Key]
         public int ID { get; set; }
 
         public int? WorkoutID { get; set; }
