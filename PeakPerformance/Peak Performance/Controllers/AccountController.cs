@@ -167,6 +167,7 @@ namespace Peak_Performance.Controllers
         public ActionResult Register()
         {
             ViewData["Roles"] = db.AspNetRoles.ToList();
+            ViewData["Teams"] = new SelectList(db.Teams.ToList(), "ID", "TeamName");
             return View();
         }
 
@@ -180,10 +181,11 @@ namespace Peak_Performance.Controllers
         {
             bool isAdmin, isCoach, isAthlete;
             isAdmin = isCoach = isAthlete = false;
-            string tempEmail, tempPassword, tempFName, tempLName;
-            tempEmail = tempPassword = tempFName = tempLName = null;
+            string tempEmail, tempPassword, tempFName, tempLName, tempSex, tempGender;
+            tempEmail = tempPassword = tempFName = tempLName = tempSex = tempGender = null;
             DateTime tempDOB = new DateTime(DateTime.MinValue.Ticks);
-            int tempTeam = 0;
+            int tempTeam, tempHeight, tempWeight;
+            tempTeam = tempHeight = tempWeight = 0;
 
             if (ModelState.IsValid)
             {
@@ -209,7 +211,29 @@ namespace Peak_Performance.Controllers
                     tempFName = model.athleteVM.FirstName;
                     tempLName = model.athleteVM.LastName;
                     tempDOB = model.athleteVM.DOB;
-                    tempTeam = model.athleteVM.TeamID;
+                    string team = Request.Form["Teams"].ToString();
+                    tempTeam = Convert.ToInt32(team);
+                    string heightFeet = Request.Form["feet"].ToString();
+                    string heightInches = Request.Form["inches"].ToString();
+                    if (heightFeet != "")
+                    {
+                        tempHeight = (Convert.ToInt32(heightFeet) * 12) + Convert.ToInt32(heightInches);
+                    }
+                    string weight = Request.Form["weight"].ToString();
+                    if (weight != "")
+                    {
+                        tempWeight = Convert.ToInt32(weight);
+                    }
+                    string sex = Request.Form["sex"].ToString();
+                    if (sex != "")
+                    {
+                        tempSex = sex;
+                    }
+                    string gender = Request.Form["gender"].ToString();
+                    if (gender != "")
+                    {
+                        tempGender = gender;
+                    }
                 }
 
                 //if(isCoach || isAthlete) {
@@ -254,7 +278,11 @@ namespace Peak_Performance.Controllers
                         var newAthlete = new Athlete
                         {
                             DOB = tempDOB,
-                            TeamID = tempTeam
+                            TeamID = tempTeam,
+                            Height = tempHeight,
+                            Weight = tempWeight,
+                            Sex = tempSex,
+                            Gender = tempGender
                         };
 
                         newAthlete.Person = tempUser;
@@ -583,7 +611,7 @@ namespace Peak_Performance.Controllers
 
         #endregion Helpers
 
-        //[Authorize]
+        [Authorize]
         public ActionResult RegisterAdmin()
         {
             return View();
@@ -593,7 +621,7 @@ namespace Peak_Performance.Controllers
         // POST: /Account/Register
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //[Authorize]
+        [Authorize]
         public async Task<ActionResult> RegisterAdmin(AdminRegistrationViewModel model)
         {
             if (ModelState.IsValid)
