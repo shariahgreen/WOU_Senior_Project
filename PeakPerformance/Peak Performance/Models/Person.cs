@@ -22,7 +22,7 @@ namespace Peak_Performance.Models
         [StringLength(100)]
         public string PreferredName { get; set; }
 
-        public bool Active { get; set; }
+        public bool? Active { get; set; }
 
         [Required]
         [StringLength(128)]

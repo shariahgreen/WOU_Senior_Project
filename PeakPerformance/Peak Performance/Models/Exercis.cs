@@ -16,7 +16,6 @@ namespace Peak_Performance.Models
             ExcerciseMuscleGroups = new HashSet<ExcerciseMuscleGroup>();
         }
 
-        [Key]
         public int ID { get; set; }
 
         [StringLength(128)]
