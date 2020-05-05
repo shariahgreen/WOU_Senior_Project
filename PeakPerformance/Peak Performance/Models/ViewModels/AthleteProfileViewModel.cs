@@ -36,6 +36,7 @@ namespace Peak_Performance.Models.ViewModels
         }
         public virtual Athlete athlete { get; set; }
         public virtual Person person { get; set; }
+        public virtual ExerciseRecord NewRecord { get; set; }
 
         public virtual IEnumerable<Workout> pastWorkoutLists { get; set; }
 

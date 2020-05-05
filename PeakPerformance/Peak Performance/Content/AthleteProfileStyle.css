@@ -82,3 +82,7 @@
     float: left;
     font-family: "Seville-Regular";
 }
+
+#recordFormAdding{
+    display:none;
+}
