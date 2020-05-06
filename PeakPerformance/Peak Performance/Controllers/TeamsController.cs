@@ -56,7 +56,7 @@ namespace Peak_Performance.Controllers
             {
                 db.Teams.Add(team);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home", new { area = "Coach" });
             }
 
             ViewBag.CoachID = new SelectList(db.Coaches, "ID", "ID", team.CoachID);
