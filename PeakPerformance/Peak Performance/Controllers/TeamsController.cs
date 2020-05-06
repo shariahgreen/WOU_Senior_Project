@@ -39,9 +39,9 @@ namespace Peak_Performance.Controllers
         }
 
         // GET: Teams/Create
-        public ActionResult Create()
+        public ActionResult Create(int id)
         {
-            ViewBag.CoachID = new SelectList(db.Coaches, "ID", "ID");
+            ViewBag.CoachID = new SelectList(db.Coaches.Where(i => i.ID == id), "ID", "ID");
             return View();
         }
 

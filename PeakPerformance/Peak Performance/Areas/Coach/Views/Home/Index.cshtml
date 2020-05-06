@@ -11,7 +11,7 @@
 <div>
     <h4>My Teams</h4>
     <p>
-        <a href="~/Teams/Create">Add A New Team</a>
+        <a href="~/Teams/Create?id=@Model.coach.ID">Add A New Team</a>
     </p>
     <table class="table">
         @foreach (var item in Model.teams) {
