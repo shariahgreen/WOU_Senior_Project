@@ -39,9 +39,9 @@ namespace Peak_Performance.Controllers
         }
 
         // GET: Teams/Create
-        public ActionResult Create()
+        public ActionResult Create(int id)
         {
-            ViewBag.CoachID = new SelectList(db.Coaches, "ID", "ID");
+            ViewBag.CoachID = new SelectList(db.Coaches.Where(i => i.ID == id), "ID", "ID");
             return View();
         }
 
@@ -56,7 +56,7 @@ namespace Peak_Performance.Controllers
             {
                 db.Teams.Add(team);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home", new { area = "Coach" });
             }
 
             ViewBag.CoachID = new SelectList(db.Coaches, "ID", "ID", team.CoachID);
