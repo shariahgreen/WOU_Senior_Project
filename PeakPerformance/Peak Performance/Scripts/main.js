@@ -168,36 +168,57 @@ function deleteComplex(count) {
 function createExercise(count) {
     console.log("Adding new exercise to the current complex");
     var ex = prompt("Exercise: ");
-
-    var sets = parseInt(prompt("Number of sets: "));
-    while (isNaN(sets)) {
-        var sets = parseInt(prompt("Input invalid, please enter number of sets as a whole number: "));
+    while (ex == "") {
+        ex = prompt("Input invalid, please enter an exercise name: ");
     }
 
-    var reps = parseInt(prompt("Number of reps per set: "));
-    while (isNaN(reps)) {
-        var reps = parseInt(prompt("Input invalid, please enter number of reps as a whole number: "));
+    var sets = prompt("Number of sets: ");
+    while (isNaN(parseInt(sets))) {
+        if (sets == "") {
+            break;
+        }
+        sets = prompt("Input invalid, please enter number of sets as a whole number: ");
+    }
+
+    var reps = prompt("Number of reps per set: ");
+    while (isNaN(parseInt(reps))) {
+        if (reps == "") {
+            break;
+        }
+        reps = prompt("Input invalid, please enter number of reps as a whole number: ");
     }
 
     var weight = prompt("Weight (of lift): ");
-    while (isNaN(weight)) {
-        var weight = parseInt(prompt("Input invalid, please enter weight as a number: "));
+    while (isNaN(parseFloat(weight))) {
+        if (weight == "") {
+            break;
+        }
+        weight = prompt("Input invalid, please enter weight as a number: ");
     }
 
     var time = prompt("Time (of run): ");
     var re = /[0-9]{1,2}:[0-9]{1,2}/
     while (re.test(time) != true) {
-        var time = prompt("Input invalid, please enter time in the format 00:00: ");
+        if (time == "") {
+            break;
+        }
+        time = prompt("Input invalid, please enter time in the format 00:00: ");
     }
 
-    var speed = parseInt(prompt("Speed (of run): "));
-    while (isNaN(speed)) {
-        var speed = parseInt(prompt("Input invalid, please enter speed as a number: "));
+    var speed = prompt("Speed (of run): ");
+    while (isNaN(parseFloat(speed))) {
+        if (speed == "") {
+            break;
+        }
+        speed = prompt("Input invalid, please enter speed as a number: ");
     }
 
-    var distance = parseInt(prompt("Distance (of run): "));
-    while (isNaN(distance)) {
-        var distance = parseInt(prompt("Input invalid, please enter distance as a number: "));
+    var distance = prompt("Distance (of run): ");
+    while (isNaN(parseFloat(distance))) {
+        if (distance == "") {
+            break;
+        }
+        distance = prompt("Input invalid, please enter distance as a number: ");
     }
 
     var tmp = "exercises" + count;
