@@ -250,8 +250,10 @@
     <Content Include="Images\fitbit_steps.png" />
     <Content Include="Images\Header.png" />
     <Content Include="Images\Header_Old.png" />
+    <Content Include="Images\helpAndHints.png" />
     <Content Include="Images\Image_Only.png" />
     <Content Include="Images\lift.png" />
+    <Content Include="Images\logo_only.png" />
     <Content Include="Images\lunge.png" />
     <Content Include="Images\pushup.png" />
     <Content Include="Images\Text_Only.png" />
@@ -284,6 +286,7 @@
     <Content Include="Areas\Admin\Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Areas\Coach\Views\Workouts\WorkoutCreated.cshtml" />
     <Content Include="Areas\Athlete\Views\CurrentWorkout\Details.cshtml" />
+    <Content Include="Areas\Athlete\Views\Home\HelpAndHints.cshtml" />
     <None Include="Properties\PublishProfiles\PeakPerformance - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\peakperformancedev - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />

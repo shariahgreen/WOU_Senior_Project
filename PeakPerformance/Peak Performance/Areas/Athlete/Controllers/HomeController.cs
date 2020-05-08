@@ -15,6 +15,7 @@
     {
         private PeakPerformanceContext db = new PeakPerformanceContext();
 
+        [Authorize]
         public ActionResult Index()
         {
             //getting id for everything
@@ -34,6 +35,7 @@
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult FitBit(string userID, string token)
         {
             //getting id for everything
@@ -51,6 +53,11 @@
             AthleteProfileViewModel athlete = new AthleteProfileViewModel(temp.ID);
 
             return View("Index", athlete);
+        }
+
+        public ActionResult HelpAndHints()
+        {
+            return View();
         }
     }
 }
