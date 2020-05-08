@@ -252,8 +252,10 @@
     <Content Include="Images\fitbit_steps.png" />
     <Content Include="Images\Header.png" />
     <Content Include="Images\Header_Old.png" />
+    <Content Include="Images\helpAndHints.png" />
     <Content Include="Images\Image_Only.png" />
     <Content Include="Images\lift.png" />
+    <Content Include="Images\logo_only.png" />
     <Content Include="Images\lunge.png" />
     <Content Include="Images\pushup.png" />
     <Content Include="Images\Text_Only.png" />
@@ -286,6 +288,7 @@
     <Content Include="Areas\Admin\Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Areas\Coach\Views\Workouts\WorkoutCreated.cshtml" />
     <Content Include="Areas\Athlete\Views\CurrentWorkout\Details.cshtml" />
+    <Content Include="Areas\Athlete\Views\Home\HelpAndHints.cshtml" />
     <Content Include="Areas\Athlete\Views\Records\Create.cshtml" />
     <Content Include="Areas\Athlete\Views\Records\Delete.cshtml" />
     <Content Include="Areas\Athlete\Views\Records\Details.cshtml" />
