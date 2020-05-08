@@ -16,6 +16,8 @@ namespace Peak_Performance.Models.ViewModels
 
         public Dictionary<int, IQueryable<Peak_Performance.Models.ComplexItem>> exercises { get; set; }
 
+        public int userID { get; set; }
+
         public FullWorkoutViewModel(int id)
         {
             this.workout = db.Workouts.Find(id);

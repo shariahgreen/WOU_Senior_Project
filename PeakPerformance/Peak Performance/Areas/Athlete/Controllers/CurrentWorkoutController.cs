@@ -38,6 +38,8 @@ namespace Peak_Performance.Areas.Athlete.Controllers
 
             FullWorkoutViewModel viewModel = new FullWorkoutViewModel(currentWorkout.ID);
 
+            viewModel.userID = temp.ID;
+
             return View(viewModel);
         }
     }
