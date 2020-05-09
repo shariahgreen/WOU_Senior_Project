@@ -65,7 +65,7 @@
             string id = User.Identity.GetUserId();
             Person temp = db.Persons.FirstOrDefault(p => p.ASPNetIdentityID == id);
 
-            
+
 
             if (ModelState.IsValid)
             {
@@ -77,12 +77,13 @@
 
             ViewBag.ExerciseID = new SelectList(db.Exercises, "ID", "Name", exerciseRecord.ExerciseID);
             return RedirectToAction("Index", "Home", new { area = "Athlete" });
-            }
+        }
 
         public ActionResult HelpAndHints()
         {
             return View();
 
         }
-    
+
+    }
 }
