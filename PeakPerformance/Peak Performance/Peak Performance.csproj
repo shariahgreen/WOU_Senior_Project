@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="packages\EntityFramework.6.4.0\build\EntityFramework.props" Condition="Exists('packages\EntityFramework.6.4.0\build\EntityFramework.props')" />
   <Import Project="packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
@@ -252,10 +252,8 @@
     <Content Include="Images\fitbit_steps.png" />
     <Content Include="Images\Header.png" />
     <Content Include="Images\Header_Old.png" />
-    <Content Include="Images\helpAndHints.png" />
     <Content Include="Images\Image_Only.png" />
     <Content Include="Images\lift.png" />
-    <Content Include="Images\logo_only.png" />
     <Content Include="Images\lunge.png" />
     <Content Include="Images\pushup.png" />
     <Content Include="Images\Text_Only.png" />
@@ -288,12 +286,12 @@
     <Content Include="Areas\Admin\Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Areas\Coach\Views\Workouts\WorkoutCreated.cshtml" />
     <Content Include="Areas\Athlete\Views\CurrentWorkout\Details.cshtml" />
-    <Content Include="Areas\Athlete\Views\Home\HelpAndHints.cshtml" />
     <Content Include="Areas\Athlete\Views\Records\Create.cshtml" />
     <Content Include="Areas\Athlete\Views\Records\Delete.cshtml" />
     <Content Include="Areas\Athlete\Views\Records\Details.cshtml" />
     <Content Include="Areas\Athlete\Views\Records\Edit.cshtml" />
     <Content Include="Areas\Athlete\Views\Records\Index.cshtml" />
+    <Content Include="Areas\Coach\Views\Home\AddAthlete.cshtml" />
     <None Include="Properties\PublishProfiles\PeakPerformance - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\peakperformancedev - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
@@ -306,6 +304,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\coachpf.js" />
     <Content Include="Scripts\login.js" />
     <Content Include="Scripts\mail.js" />
     <Content Include="Scripts\main.js" />
