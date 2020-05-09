@@ -15,7 +15,7 @@ namespace Peak_Performance.Models
         {
             coach = db.Coaches.Find(id);
             teams = db.Teams.Where(t => t.CoachID == id).ToList();
-            teamList = new SelectList(teams);
+            teamList = new SelectList(db.Teams.Where(item => item.CoachID == coach.ID), "ID", "TeamName");
             CoachProfileId = coach.ID;
             athletes = new List<Athlete>();
             foreach (Team team in teams)
@@ -26,7 +26,12 @@ namespace Peak_Performance.Models
                     athletes.AddRange(athletelist);
                 }
             }
-            athList = new SelectList(athletes);
+
+            var fullAthName = db.Athletes.Select(x => new { id = x.ID, name = x.Person.FirstName + " " + x.Person.LastName });
+
+            athList = new SelectList(fullAthName, "id", "name");
+            //athList = new SelectList(db.Athletes.Where(r => r.Person.ASPNetIdentityID == db.AspNetUsers.Select(b => b.AspNetRoles.Where(c => c.Id == "3").Select(e => e.Id).FirstOrDefault()).FirstOrDefault()), "ID", "Email");
+            //athList = new SelectList(db.AspNetRoles.Where(r => r.Id == "3").Select(t => t.AspNetUsers), "Id", "Email");
         }
 
         public int CoachProfileId { get; set; }
