@@ -28,6 +28,17 @@
 
     </dl>
 </div>
+
+<table class="table">
+    @foreach (var item in Model.Athletes) {
+        <tr>
+            <td>
+                @item.Person.FirstName @item.Person.LastName
+            </td>
+        </tr>
+    }
+</table>
+
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
     @Html.ActionLink("Back to List", "Index")

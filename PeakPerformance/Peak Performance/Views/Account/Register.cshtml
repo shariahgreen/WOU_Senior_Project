@@ -28,7 +28,7 @@
                     
                     <button type="button" class="btn btn-outline-secondary" onclick="myFunction2()">Register as Coach</button>
                     <button type="button" class="btn btn-outline-secondary" onclick="myFunction3()">Register as Athlete</button>
-                    
+
                     <div id="myDIV2">
                         <h2>Coach Registration</h2>
                         @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
@@ -71,7 +71,7 @@
                             @Html.ValidationMessage("ReCaptcha")
                             <br />
                             <div class="control-label" style="float: left; padding-bottom: 15px;">
-                                By clicking register, you agree to the <a href="~/Home/TermsOfService">Terms of Service</a> and <a href="~/Home/PrivacyPolicy">Privacy Policy</a>.
+                                By clicking register, you agree to the <a href="~/Home/TermsAndConditions">Terms and Conditions</a> and <a href="~/Home/PrivacyPolicy">Privacy Policy</a>.
                             </div>
                             <div class="form-group">
                                 <div class="col-md-offset-2 col-md-10">
@@ -121,13 +121,7 @@
                             <div class="form-group">
                                 @Html.LabelFor(m => m.athleteVM.DOB, new { @class = "col-md-2 control-label" })
                                 <div class="col-md-10">
-                                    @Html.EditorFor(m => m.athleteVM.DOB, new { htmlAttributes = new { placeholder = "MM/DD/YYYY", @class = "form-control" } })
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                @Html.LabelFor(m => m.athleteVM.TeamID, new { @class = "col-md-2 control-label" })
-                                <div class="col-md-10">
-                                    @Html.DropDownList("Teams", null, new { @class = "form-control" })
+                                    @Html.EditorFor(m => m.athleteVM.DOB, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
                                 </div>
                             </div>
                             <div class="form-group">
@@ -160,7 +154,7 @@
                             @Html.ValidationMessage("ReCaptcha")
                             <br />
                             <div class="control-label" style="float: left; padding-bottom: 15px;">
-                                By clicking register, you agree to the <a href="~/Home/TermsOfService">Terms of Service</a> and <a href="~/Home/PrivacyPolicy">Privacy Policy</a>.
+                                By clicking register, you agree to the <a href="~/Home/TermsAndConditions">Terms and Conditions</a> and <a href="~/Home/PrivacyPolicy">Privacy Policy</a>.
                             </div>
                             <div class="form-group">
                                 <div class="col-md-offset-2 col-md-10">

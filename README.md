@@ -45,4 +45,6 @@ To read our contributing and coding guidelines when working on this project, <a 
 For this project we are following Agile methodologies, specifically Disciplined Agile Delivery process framework. We follow a two-week sprint cycle that involves daily SCRUM meetings, weekly sprint planning sessions, and an end of sprint review and retrospective. To contribute to this project, one will need to be involved in this process with the 404 Not Found team. 
 
 ### Tools, Configuration, and Packages
-<a href="https://github.com/jmcworth/404notfoundproj/blob/master/Milestones/Milestone5/ToolsNeeded.md">Tools</a> is a list of all the software, libraries, tools, packages, and versions used on this project. Make sure you are using the same ones to avoid any compatibility errors. 
+<a href="https://github.com/jmcworth/404notfoundproj/blob/master/Milestones/Milestone5/ToolsNeeded.md">Tools</a> is a list of all the software, libraries, tools, packages, and versions used on this project. Make sure you are using the same ones to avoid any compatibility errors.
+
+An ER diagram of our final database schema can be found <a href="https://github.com/jmcworth/404notfoundproj/blob/dev/Milestones/Sprint5/Untitled.png">here</a>.

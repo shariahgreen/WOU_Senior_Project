@@ -184,8 +184,8 @@ namespace Peak_Performance.Controllers
             string tempEmail, tempPassword, tempFName, tempLName, tempSex, tempGender;
             tempEmail = tempPassword = tempFName = tempLName = tempSex = tempGender = null;
             DateTime tempDOB = new DateTime(DateTime.MinValue.Ticks);
-            int tempTeam, tempHeight, tempWeight;
-            tempTeam = tempHeight = tempWeight = 0;
+            int tempHeight, tempWeight;
+            tempHeight = tempWeight = 0;
 
             if (ModelState.IsValid)
             {
@@ -211,8 +211,6 @@ namespace Peak_Performance.Controllers
                     tempFName = model.athleteVM.FirstName;
                     tempLName = model.athleteVM.LastName;
                     tempDOB = model.athleteVM.DOB;
-                    string team = Request.Form["Teams"].ToString();
-                    tempTeam = Convert.ToInt32(team);
                     string heightFeet = Request.Form["feet"].ToString();
                     string heightInches = Request.Form["inches"].ToString();
                     if (heightFeet != "")
@@ -278,7 +276,6 @@ namespace Peak_Performance.Controllers
                         var newAthlete = new Athlete
                         {
                             DOB = tempDOB,
-                            TeamID = tempTeam,
                             Height = tempHeight,
                             Weight = tempWeight,
                             Sex = tempSex,

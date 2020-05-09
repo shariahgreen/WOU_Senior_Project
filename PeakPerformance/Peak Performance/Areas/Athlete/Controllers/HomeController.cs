@@ -15,6 +15,7 @@
     {
         private PeakPerformanceContext db = new PeakPerformanceContext();
 
+        [Authorize]
         public ActionResult Index()
         {
             //getting id for everything
@@ -36,6 +37,7 @@
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult FitBit(string userID, string token)
         {
             //getting id for everything
@@ -54,6 +56,7 @@
 
             return View("Index", athlete);
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -74,6 +77,12 @@
 
             ViewBag.ExerciseID = new SelectList(db.Exercises, "ID", "Name", exerciseRecord.ExerciseID);
             return RedirectToAction("Index", "Home", new { area = "Athlete" });
+            }
+
+        public ActionResult HelpAndHints()
+        {
+            return View();
+
         }
-    }
+    
 }

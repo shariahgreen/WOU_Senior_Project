@@ -9,115 +9,109 @@ using System.Web.Mvc;
 using Peak_Performance.DAL;
 using Peak_Performance.Models;
 
-namespace Peak_Performance.Controllers
+namespace Peak_Performance.Areas.Athlete.Controllers
 {
-    [Authorize(Roles = "Coach, Admin")]
-    public class TeamsController : Controller
+    public class RecordsController : Controller
     {
         private PeakPerformanceContext db = new PeakPerformanceContext();
 
-        // GET: Teams
+        // GET: Athlete/Records
         public ActionResult Index()
         {
-            var teams = db.Teams.Include(t => t.Coach);
-            return View(teams.ToList());
+            return View(db.Records.ToList());
         }
 
-        // GET: Teams/Details/5
+        // GET: Athlete/Records/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Team team = db.Teams.Find(id);
-            if (team == null)
+            Record record = db.Records.Find(id);
+            if (record == null)
             {
                 return HttpNotFound();
             }
-            return View(team);
+            return View(record);
         }
 
-        // GET: Teams/Create
-        public ActionResult Create(int id)
+        // GET: Athlete/Records/Create
+        public ActionResult Create()
         {
-            ViewBag.CoachID = new SelectList(db.Coaches.Where(i => i.ID == id), "ID", "ID");
             return View();
         }
 
-        // POST: Teams/Create
+        // POST: Athlete/Records/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,TeamName,CoachID")] Team team)
+        public ActionResult Create([Bind(Include = "ID,Completed,Note,AthleteID,WorkoutID")] Record record)
         {
             if (ModelState.IsValid)
             {
-                db.Teams.Add(team);
+                db.Records.Add(record);
                 db.SaveChanges();
-                return RedirectToAction("Index", "Home", new { area = "Coach" });
+                return RedirectToAction("Index");
             }
 
-            ViewBag.CoachID = new SelectList(db.Coaches, "ID", "ID", team.CoachID);
-            return View(team);
+            return View(record);
         }
 
-        // GET: Teams/Edit/5
+        // GET: Athlete/Records/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Team team = db.Teams.Find(id);
-            if (team == null)
+            Record record = db.Records.Find(id);
+            if (record == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.CoachID = new SelectList(db.Coaches, "ID", "ID", team.CoachID);
-            return View(team);
+            return View(record);
         }
 
-        // POST: Teams/Edit/5
+        // POST: Athlete/Records/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,TeamName,CoachID")] Team team)
+        public ActionResult Edit([Bind(Include = "ID,Completed,Note,AthleteID,WorkoutID")] Record record)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(team).State = EntityState.Modified;
+                db.Entry(record).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CoachID = new SelectList(db.Coaches, "ID", "ID", team.CoachID);
-            return View(team);
+            return View(record);
         }
 
-        // GET: Teams/Delete/5
+        // GET: Athlete/Records/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Team team = db.Teams.Find(id);
-            if (team == null)
+            Record record = db.Records.Find(id);
+            if (record == null)
             {
                 return HttpNotFound();
             }
-            return View(team);
+            return View(record);
         }
 
-        // POST: Teams/Delete/5
+        // POST: Athlete/Records/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Team team = db.Teams.Find(id);
-            db.Teams.Remove(team);
+            Record record = db.Records.Find(id);
+            db.Records.Remove(record);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
