@@ -83,6 +83,10 @@
     font-family: "Seville-Regular";
 }
 
+
+#recordFormAdding{
+    display:none;
+
 #hhbox {
     background-color: #00b0b9;
     border-radius: 10px;
@@ -107,4 +111,5 @@
 button {
     height: 50px;
     width: 150px;
+
 }
