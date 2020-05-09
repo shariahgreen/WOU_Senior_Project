@@ -291,6 +291,7 @@
     <Content Include="Areas\Athlete\Views\Records\Details.cshtml" />
     <Content Include="Areas\Athlete\Views\Records\Edit.cshtml" />
     <Content Include="Areas\Athlete\Views\Records\Index.cshtml" />
+    <Content Include="Areas\Coach\Views\Home\AddAthlete.cshtml" />
     <None Include="Properties\PublishProfiles\PeakPerformance - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\peakperformancedev - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
@@ -303,6 +304,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\coachpf.js" />
     <Content Include="Scripts\login.js" />
     <Content Include="Scripts\mail.js" />
     <Content Include="Scripts\main.js" />

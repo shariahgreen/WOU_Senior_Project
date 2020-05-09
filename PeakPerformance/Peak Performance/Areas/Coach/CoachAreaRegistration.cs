@@ -12,6 +12,10 @@ namespace Peak_Performance.Areas.Coach {
             context.MapRoute("Coach_default",
                 "Coach/{controller}/{action}/{id}",
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional });
+
+            context.MapRoute("Coach_AddAthlete",
+                "Coach/AddAthlete/{id}",
+                new { controller = "Home", action = "AddAthlete", id = UrlParameter.Optional });
         }
     }
 }

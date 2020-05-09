@@ -5,7 +5,7 @@
     Layout = "~/Areas/Coach/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Your Profile</h2> 
+<h2>Your Profile</h2>
 <br>
 
 <div>
@@ -15,24 +15,24 @@
     </p>
     <table class="table">
         @foreach (var item in Model.teams) {
-        <tr>
-            <td>
-                <a href="~/Teams/Details/@item.ID">
-                    @Html.DisplayFor(modelItem => item.TeamName)
-                                @*@Html.ActionLink("Details", "Details", "Teams", new { id = item.TeamId }, null)*@
-                </a>
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    <a href="~/Teams/Details/@item.ID">
+                        @Html.DisplayFor(modelItem => item.TeamName)
+                        @*@Html.ActionLink("Details", "Details", "Teams", new { id = item.TeamId }, null)*@
+                    </a>
+                </td>
+            </tr>
         }
     </table>
 </div>
 
- 
+
 <div>
     <h4>My Athletes</h4>
     <p>
         @*@Html.ActionLink("Add New Athlete", "Create", "Athletes", new { area = "" })*@
-        <a href="~/Athletes/Create">Add A New Athlete</a>
+        <a href="~/Coach/Home/AddAthlete/?id=@Model.coach.ID">Add A New Athlete</a>
     </p>
     <table class="table">
         <tr>
@@ -52,33 +52,33 @@
         </tr>
 
         @foreach (var item in Model.athletes) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Team.TeamName)
-            </td>
-            <td>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Team.TeamName)
+                </td>
+                <td>
 
-                @*@Html.ActionLink(@Html.DisplayFor(modelItem => item.FirstName) + " " + @Html.DisplayFor(modelItem => item.LastName), "Details", "Athletes", new { id=item.AthleteId },null)*@
+                    @*@Html.ActionLink(@Html.DisplayFor(modelItem => item.FirstName) + " " + @Html.DisplayFor(modelItem => item.LastName), "Details", "Athletes", new { id=item.AthleteId },null)*@
 
-                <a href="~/Athletes/Details/@item.ID">
-                    @Html.DisplayFor(modelItem => item.Person.FirstName) @Html.DisplayFor(modelItem => item.Person.LastName)
-                    @*@Html.ActionLink("Details", "Details", "Teams", new { id = item.TeamId }, null)*@
-                </a>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Person.PreferredName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Person.Active)
-            </td>
-            <td>
-                <a href="~/Athletes/Edit/@item.ID">Edit</a> |
-                <a href="~/Athletes/Delete/@item.ID">Delete</a>
-                @*@Html.ActionLink("Edit", "Edit", "Athletes", new { id = item.AthleteId }, null) |
-                @Html.ActionLink("Delete", "Delete", "Athletes", new { id = item.AthleteId }, null)*@
-            </td>
-        </tr>
-}
+                    <a href="~/Athletes/Details/@item.ID">
+                        @Html.DisplayFor(modelItem => item.Person.FirstName) @Html.DisplayFor(modelItem => item.Person.LastName)
+                        @*@Html.ActionLink("Details", "Details", "Teams", new { id = item.TeamId }, null)*@
+                    </a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Person.PreferredName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Person.Active)
+                </td>
+                <td>
+                    <a href="~/Athletes/Edit/@item.ID">Edit</a> |
+                    <a href="~/Athletes/Delete/@item.ID">Delete</a>
+                    @*@Html.ActionLink("Edit", "Edit", "Athletes", new { id = item.AthleteId }, null) |
+                        @Html.ActionLink("Delete", "Delete", "Athletes", new { id = item.AthleteId }, null)*@
+                </td>
+            </tr>
+        }
 
     </table>
 </div>
