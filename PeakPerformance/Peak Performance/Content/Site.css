@@ -179,16 +179,14 @@ h6 small {
     font-size: 100%;
 }
 
-#myDIV1 {
-    display: block;
-}
+
 
 #myDIV3 {
     display: none;
 }
 
 #myDIV2 {
-    display: none;
+    display: block;
 }
 
 .cardRegister {

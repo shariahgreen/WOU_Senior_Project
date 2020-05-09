@@ -94,9 +94,21 @@
                         <th>Exercise</th>
                         <th>Weight</th>
                     </tr>
+                    @foreach (var item in Model.currMaxList)
+                    {
+                        <tr>
+                            <td>
+                                
+                                @Html.DisplayFor(modelItem =>item.Exercis.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.LiftWeight) Lbs
+                            </td>
+                        </tr>
+                    }
 
 
-                </table>
+                    </table>
             </div>
         </div>
         <div class="col-md-5">
@@ -105,25 +117,36 @@
                 {
                     @Html.AntiForgeryToken()
 
-                    <div class="form-horizontal">
-                        <h4>Adding New Record</h4>
-                        
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.NewRecord.LiftWeight, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.NewRecord.LiftWeight, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.NewRecord.LiftWeight, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
+                <div class="form-horizontal">
+                    <h4>Adding New Record</h4>
 
-                        <div class="form-group">
-                            <div class="col-md-offset-2 col-md-10">
-                                <input type="submit" value="Create" class="btn btn-default" />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="ExerciseID">
+                            Exercise List Name
+                        </label>
+                            <div class="col-md-10">
+                                @Html.DropDownList("ExerciseID", null, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.newRecord.ExerciseID, "", new { @class = "text-danger" })
                             </div>
+</div>
+
+                    <div class="form-group">
+
+                        @Html.LabelFor(model => model.newRecord.LiftWeight, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.TextBox("LiftWeight", null, new { style = " Width:900px; " ,type="number" })
+                            @Html.ValidationMessageFor(model => model.newRecord.LiftWeight, "", new { @class = "text-danger" })
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Create" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
                 }
             </div>
         </div>
