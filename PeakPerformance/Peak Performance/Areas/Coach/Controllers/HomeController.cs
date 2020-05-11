@@ -1,4 +1,4 @@
-﻿namespace Peak_Performance.Areas.Coach.Controllers
+namespace Peak_Performance.Areas.Coach.Controllers
 {
     using System;
     using System.Collections.Generic;

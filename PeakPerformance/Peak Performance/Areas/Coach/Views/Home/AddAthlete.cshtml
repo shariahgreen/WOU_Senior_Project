@@ -14,14 +14,14 @@
         <div class="form-group">
             @Html.LabelFor(model => model.athItem.ID, new { @class = "col-md-2 control-label" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.athItem.TeamName, Model.athList, null, new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.athItem.ID, Model.athList, null, new { @class = "form-control" })
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(m => m.teamItem.TeamName, new { @class = "col-md-2 control-label" })
             <div class="col-md-10">
-                @Html.DropDownListFor(m => m.teamItem, Model.teamList, null, new { @class = "form-control" })
+                @Html.DropDownListFor(m => m.teamItem.ID, Model.teamList, null, new { @class = "form-control" })
             </div>
         </div>
 

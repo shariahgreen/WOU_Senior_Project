@@ -124,3 +124,8 @@ function _calculateAge(birthday) { // birthday is a date
     var ageDate = new Date(ageDifMs); // miliseconds from epoch
     return Math.abs(ageDate.getUTCFullYear() - 1970);
 }
+
+function myFunction1() {
+    var x = document.getElementById("recordFormAdding");
+    x.style.display = "block";
+}
