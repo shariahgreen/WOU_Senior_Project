@@ -31,7 +31,7 @@ namespace Peak_Performance.Models
                 }
             }
 
-            var fullAthName = db.Athletes.Select(x => new { id = x.ID, name = x.Person.FirstName + " " + x.Person.LastName });
+            var fullAthName = db.Athletes.Where(m => m.TeamID == null).Select(x => new { id = x.ID, name = x.Person.FirstName + " " + x.Person.LastName });
 
             athList = new SelectList(fullAthName, "id", "name");
             //athList = new SelectList(db.Athletes.Where(r => r.Person.ASPNetIdentityID == db.AspNetUsers.Select(b => b.AspNetRoles.Where(c => c.Id == "3").Select(e => e.Id).FirstOrDefault()).FirstOrDefault()), "ID", "Email");

@@ -30,11 +30,7 @@ namespace Peak_Performance.Areas.Coach.Controllers
             Person temp = db.Persons.FirstOrDefault(p => p.ASPNetIdentityID == id);
 
             CoachProfileViewModel coach = new CoachProfileViewModel(temp.ID);
-            //    {
-            //        teamList = new SelectList(db.Teams.Where(item => item.CoachID == temp.ID))
-            //};
-            ViewBag.ID = new SelectList(db.Persons.Select(r => r.Athlete), "ID", "FirstName");
-            ViewBag.TeamID = new SelectList(db.Teams.Where(item => item.CoachID == temp.ID), "ID", "TeamName");
+
             return View("AddAthlete", coach);
         }
 
@@ -43,19 +39,13 @@ namespace Peak_Performance.Areas.Coach.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+
         public ActionResult AddAthlete(CoachProfileViewModel vm)
         {
-            if (ModelState.IsValid)
-            {
                 Athlete a = db.Athletes.FirstOrDefault(x => x.ID == vm.athItem.ID);
                 a.TeamID = vm.teamItem.ID;
                 db.SaveChanges();
                 return RedirectToAction("Index");
-            }
-
-            ViewBag.ID = new SelectList(db.Persons, "ID", "FirstName", vm.athItem.ID);
-            ViewBag.TeamID = new SelectList(db.Teams, "ID", "TeamName", vm.teamItem.ID);
-            return View("Index");
         }
     }
 }
