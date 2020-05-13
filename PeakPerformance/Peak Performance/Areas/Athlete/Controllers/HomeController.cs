@@ -50,6 +50,8 @@
             user.Athlete.FitBitAccessToken = token;
             db.SaveChanges();
 
+            ViewBag.ExerciseID = new SelectList(db.Exercises, "ID", "Name");
+
             string id = User.Identity.GetUserId();
             Person temp = db.Persons.FirstOrDefault(p => p.ASPNetIdentityID == id);
             AthleteProfileViewModel athlete = new AthleteProfileViewModel(temp.ID);
