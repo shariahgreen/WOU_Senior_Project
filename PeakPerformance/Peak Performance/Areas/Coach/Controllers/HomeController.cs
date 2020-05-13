@@ -1,6 +1,5 @@
-
-﻿ namespace Peak_Performance.Areas.Coach.Controllers {
-    
+namespace Peak_Performance.Areas.Coach.Controllers
+{
     using System;
     using System.Collections.Generic;
     using System.Data.Entity;
@@ -44,9 +43,10 @@
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-
-        public ActionResult AddAthlete(CoachProfileViewModel vm) {
-            if(ModelState.IsValid) {
+        public ActionResult AddAthlete(CoachProfileViewModel vm)
+        {
+            if (ModelState.IsValid)
+            {
                 Athlete a = db.Athletes.FirstOrDefault(x => x.ID == vm.athItem.ID);
                 a.TeamID = vm.teamItem.ID;
                 db.SaveChanges();
