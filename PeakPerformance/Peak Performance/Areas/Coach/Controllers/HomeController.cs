@@ -31,8 +31,6 @@
         //    {
         //        teamList = new SelectList(db.Teams.Where(item => item.CoachID == temp.ID))
         //};
-            ViewBag.ID = new SelectList(db.Persons.Select(r => r.Athlete), "ID", "FirstName");
-            ViewBag.TeamID = new SelectList(db.Teams.Where(item => item.CoachID == temp.ID), "ID", "TeamName");
             return View("AddAthlete", coach);
         }
 
@@ -42,12 +40,10 @@
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult AddAthlete(CoachProfileViewModel vm) {
-            if(ModelState.IsValid) {
                 Athlete a = db.Athletes.FirstOrDefault(x => x.ID == vm.athItem.ID);
                 a.TeamID = vm.teamItem.ID;
                 db.SaveChanges();
                 return RedirectToAction("Index");
-            }
 
             ViewBag.ID = new SelectList(db.Persons, "ID", "FirstName", vm.athItem.ID);
             ViewBag.TeamID = new SelectList(db.Teams, "ID", "TeamName", vm.teamItem.ID);
