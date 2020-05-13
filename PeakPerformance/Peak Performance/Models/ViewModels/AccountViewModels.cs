@@ -65,7 +65,8 @@ namespace Peak_Performance.Models
         public bool RememberMe { get; set; }
     }
 
-    public class RegistrationTypes {
+    public class RegistrationTypes
+    {
         public AdminRegistrationViewModel adminVM { get; set; }
         public CoachRegistrationViewModel coachVM { get; set; }
         public AthleteRegistrationViewModel athleteVM { get; set; }
@@ -91,7 +92,8 @@ namespace Peak_Performance.Models
         public string ConfirmPassword { get; set; }
     }
 
-    public class CoachRegistrationViewModel {
+    public class CoachRegistrationViewModel
+    {
         [Required]
         [Display(Name = "First Name")]
         [StringLength(50, MinimumLength = 1, ErrorMessage = "First name must be at least one character long")]
@@ -120,7 +122,8 @@ namespace Peak_Performance.Models
         public string ConfirmPassword { get; set; }
     }
 
-    public class AthleteRegistrationViewModel {
+    public class AthleteRegistrationViewModel
+    {
         [Required]
         [Display(Name = "First Name")]
         [StringLength(50, MinimumLength = 1, ErrorMessage = "First name must be at least one character long")]
@@ -135,7 +138,7 @@ namespace Peak_Performance.Models
         [Display(Name = "DOB")]
         public System.DateTime DOB { get; set; }
 
-        [Display(Name = "TeamID")]
+        [Display(Name = "Team")]
         public int TeamID { get; set; }
 
         [Required]
@@ -185,7 +188,8 @@ namespace Peak_Performance.Models
         public string Email { get; set; }
     }
 
-    public enum AccountMessageId {
+    public enum AccountMessageId
+    {
         EmailSentSuccess,
         EmailConfirmationNeeded
     }

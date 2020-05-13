@@ -38,6 +38,13 @@ namespace Peak_Performance.Areas.Athlete.Controllers
 
             FullWorkoutViewModel viewModel = new FullWorkoutViewModel(currentWorkout.ID);
 
+            viewModel.userID = temp.ID;
+
+            if (db.Records.Any(m => m.WorkoutID == currentWorkout.ID)) {
+                Record rec = db.Records.Where(m => m.WorkoutID == currentWorkout.ID).FirstOrDefault();
+                ViewBag.Note = rec.Note;
+            }
+
             return View(viewModel);
         }
     }

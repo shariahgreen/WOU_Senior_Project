@@ -180,20 +180,25 @@
     <Compile Include="Areas\Athlete\AthleteAreaRegistration.cs" />
     <Compile Include="Areas\Athlete\Controllers\CurrentWorkoutController.cs" />
     <Compile Include="Areas\Athlete\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Athlete\Controllers\RecordsController.cs" />
     <Compile Include="Areas\Coach\CoachAreaRegistration.cs" />
     <Compile Include="Areas\Coach\Controllers\HomeController.cs" />
     <Compile Include="Areas\Coach\Controllers\WorkoutsController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Controllers\AthletesController.cs" />
+    <Compile Include="Controllers\ExerciseRecordsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\TeamsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ContactFormModels.cs" />
+    <Compile Include="Models\ExerciseRecord.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="DAL\PeakPerformanceContext.cs" />
     <Compile Include="Models\ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\AspNetRole.cs" />
     <Compile Include="Models\AspNetUser.cs" />
@@ -209,7 +214,6 @@
     <Compile Include="Models\Exercis.cs" />
     <Compile Include="Models\ViewModels\ManageViewModels.cs" />
     <Compile Include="Models\MuscleGroup.cs" />
-    <Compile Include="DAL\PeakPerformanceContext.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Models\Sport.cs" />
     <Compile Include="Models\Team.cs" />
@@ -228,6 +232,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\contact.css" />
+    <Content Include="Content\CoachStyle.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -242,12 +247,18 @@
     <Content Include="Images\dumbell.jpg" />
     <Content Include="Images\fitbit.jpg" />
     <Content Include="Images\fitbit.png" />
+    <Content Include="Images\fitbit_cals_above.png" />
+    <Content Include="Images\fitbit_cals_below.png" />
+    <Content Include="Images\fitbit_logo.jpg" />
     <Content Include="Images\fitbit_logo.svg" />
     <Content Include="Images\fitbit_steps.png" />
+    <Content Include="Images\girl_avatar.png" />
     <Content Include="Images\Header.png" />
     <Content Include="Images\Header_Old.png" />
+    <Content Include="Images\helpAndHints.png" />
     <Content Include="Images\Image_Only.png" />
     <Content Include="Images\lift.png" />
+    <Content Include="Images\logo_only.png" />
     <Content Include="Images\lunge.png" />
     <Content Include="Images\pushup.png" />
     <Content Include="Images\Text_Only.png" />
@@ -280,6 +291,16 @@
     <Content Include="Areas\Admin\Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Areas\Coach\Views\Workouts\WorkoutCreated.cshtml" />
     <Content Include="Areas\Athlete\Views\CurrentWorkout\Details.cshtml" />
+    <Content Include="Areas\Athlete\Views\Records\Create.cshtml" />
+    <Content Include="Areas\Athlete\Views\Records\Delete.cshtml" />
+    <Content Include="Areas\Athlete\Views\Records\Details.cshtml" />
+    <Content Include="Areas\Athlete\Views\Records\Edit.cshtml" />
+    <Content Include="Areas\Athlete\Views\Records\Index.cshtml" />
+    <Content Include="Areas\Coach\Views\Home\AddAthlete.cshtml" />
+    <Content Include="Areas\Athlete\Views\Home\HelpAndHints.cshtml" />
+    <Content Include="Areas\Athlete\Views\Shared\Error.cshtml" />
+    <Content Include="Areas\Coach\Views\Shared\Error.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\Error.cshtml" />
     <None Include="Properties\PublishProfiles\PeakPerformance - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\peakperformancedev - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
@@ -292,6 +313,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\coachpf.js" />
     <Content Include="Scripts\login.js" />
     <Content Include="Scripts\mail.js" />
     <Content Include="Scripts\main.js" />
@@ -355,6 +377,13 @@
     <Content Include="Views\Athletes\Index.cshtml" />
     <Content Include="Views\Home\Error.cshtml" />
     <Content Include="Views\Home\Recieved.cshtml" />
+    <Content Include="Views\Home\TermsAndConditions.cshtml" />
+    <Content Include="Views\Home\PrivacyPolicy.cshtml" />
+    <Content Include="Views\ExerciseRecords\Create.cshtml" />
+    <Content Include="Views\ExerciseRecords\Delete.cshtml" />
+    <Content Include="Views\ExerciseRecords\Details.cshtml" />
+    <Content Include="Views\ExerciseRecords\Edit.cshtml" />
+    <Content Include="Views\ExerciseRecords\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

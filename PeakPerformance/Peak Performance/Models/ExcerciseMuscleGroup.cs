@@ -8,7 +8,6 @@ namespace Peak_Performance.Models
 
     public partial class ExcerciseMuscleGroup
     {
-        [Key]
         public int ID { get; set; }
 
         public int MuscleGroupID { get; set; }

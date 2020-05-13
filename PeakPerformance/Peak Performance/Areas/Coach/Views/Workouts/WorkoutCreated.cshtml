@@ -9,42 +9,46 @@
 <button class="btn btn-primary" id="contact" onclick="contactTeam(@Html.ValueFor(model => model.workout.TeamID))" style="padding: 5px; margin: 5px;">Notify Team</button>
 
 <div>
-    <h4>Workout</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.workout.Team.TeamName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.workout.Team.TeamName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.workout.WorkoutDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.workout.WorkoutDate)
-        </dd>
-
-    </dl>
-
-    @foreach (Peak_Performance.Models.Complex complex in Model.complexes)
-    {
-        int id = complex.ID;
-        foreach (Peak_Performance.Models.ComplexItem item in Model.exercises[id])
+    <h4>Workout Details</h4>
+    <div class="row" id="workout" style="font-size:150%; background-color: lightgrey; border: 5px solid black; padding: 5px; margin: 5px; width: 930px;">
+        @foreach (Peak_Performance.Models.Complex comp in Model.complexes)
         {
-            <p>@item.Exercis.Name</p>
+        <div class="row" style="background-color: white; border: 5px solid black; padding: 5px; margin: 5px; width: 900px;">
+            <div class="complex">
+                Complex
+                <table id="exercises" style="background-color: white; padding: 5px; margin: 5px;">
+                    <tr>
+                        <th style="width: 200px; padding: 5px; margin: 5px">Exercise</th>
+                        <th style="width: 100px; padding: 5px; margin: 5px">Reps</th>
+                        <th style="width: 100px; padding: 5px; margin: 5px">Sets</th>
+                        <th style="width: 100px; padding: 5px; margin: 5px">Weight</th>
+                        <th style="width: 100px; padding: 5px; margin: 5px">Time</th>
+                        <th style="width: 100px; padding: 5px; margin: 5px">Speed</th>
+                        <th style="width: 100px; padding: 5px; margin: 5px">Distance</th>
+                    </tr>
+                    @foreach (Peak_Performance.Models.ComplexItem item in Model.exercises[comp.ID])
+                    {
+                        <tr>
+                            <td>@item.Exercis.Name</td>
+                            <td>@item.ComplexReps</td>
+                            <td>@item.ComplexSets</td>
+                            <td>@item.LiftWeight</td>
+                            <td>@item.RunTime</td>
+                            <td>@item.RunSpeed</td>
+                            <td>@item.RunDistance</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
         }
-    }
+    </div>
 </div>
 
 
 
-
-@section scripts
+    @section scripts
 {
-    <script src="~/Scripts/main.js"></script>
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-}
+        <script src="~/Scripts/main.js"></script>
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    }

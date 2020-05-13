@@ -64,8 +64,68 @@ function successFitBit() {
     var help = document.getElementById("helpandhints");
     help.style.visibility = 'visible';
 
-    //replace with table of data
-    var table = document.getElementById("myTable");
-    table.style.visibility = 'visible';
-    $('#myTable').append($('<tr><th rowspan="5" style="color: white;font-size: xx-large;width: 180px; height: 155px; border: none;" id="fitbit_steps">' + stepsToday + '</th></tr><tr><th>Miles</th><td>' + milesToday + '</td></tr><tr><th>Calories</th><td>' + caloriesToday + '</td></tr><tr><th>Floors</th><td>' + floorsToday + '</td></tr><th>Sedintary Mins</th><td>' + sedindaryMinToday + '</td></tr>'));
+    //Algorithm data pull
+    var height = document.getElementById("height").value;
+    var sex = document.getElementById("sex").value;
+    var weight = document.getElementById("weight").value;
+    var age = document.getElementById("age").value;
+    var averageCals = 0;
+
+    //IF DATA EXISTS, USE ALGO
+    if (height != 0 && sex != null && weight != 0 && age != 0) {
+        //Convert age to date and then to age
+        height = parseInt(height);
+        weight = parseInt(weight);
+        age = new Date(age);
+        age = _calculateAge(age);
+
+        //Algorithm usage
+        if (sex == "F") {
+            //female algo
+            averageCals = 655.1 + (4.35 * weight) + (4.7 * height) - (4.7 * age);
+        }
+        if (sex == "M") {
+            //male algo
+            averageCals = 66 + (6.2 * weight) + (12.7 * height) - (6.76 * age);
+        }
+
+        //Per Hour Converstions
+        var avgCalsPerHour = Math.round(averageCals / 24);
+        var hoursPassed = new Date(Date.now());
+        hoursPassed = hoursPassed.getHours();
+
+        //FitBit Comparisons
+        var calsPerHour = Math.round(caloriesToday / hoursPassed);
+
+        ///////OUTPUT FOR EACH EVENT////////
+        if (avgCalsPerHour > calsPerHour) {
+            //OUTPUT IF BELOW AVERAGE (Make Red Background)
+            var table = document.getElementById("myTable");
+            table.style.visibility = 'visible';
+            $('#myTable').append($('<tr><th rowspan="5" style="color: white;font-size: xx-large;width: 180px; height: 155px; border: none;" id="fitbit_steps">' + stepsToday + '</th></tr><tr><th>Miles</th><td>' + milesToday + '</td></tr><tr><th>Calories</th><td>' + caloriesToday + '</td></tr><tr><th>Floors</th><td>' + floorsToday + '</td></tr><th>Sedintary Mins</th><td>' + sedindaryMinToday + '</td></tr><th colspan="3" id="fitbit_cals_below" style="color: white;font-size: xxx-large;width: 210px; height: 200px; padding-right: 80px; padding-bottom: 15px;">' + calsPerHour + '</th>'));
+        }
+        else if (avgCalsPerHour <= calsPerHour) {
+            //OUTPUT IF ABOVE AVERAGE (Make Green Background)
+            var table = document.getElementById("myTable");
+            table.style.visibility = 'visible';
+            $('#myTable').append($('<tr><th rowspan="5" style="color: white;font-size: xx-large;width: 180px; height: 155px; border: none;" id="fitbit_steps">' + stepsToday + '</th></tr><tr><th>Miles</th><td>' + milesToday + '</td></tr><tr><th>Calories</th><td>' + caloriesToday + '</td></tr><tr><th>Floors</th><td>' + floorsToday + '</td></tr><th>Sedintary Mins</th><td>' + sedindaryMinToday + '</td></tr><th colspan="3" id="fitbit_cals_above" style="color: white;font-size: xxx-large;width: 210px; height: 200px; padding-right: 50px;">' + calsPerHour + '</th>'));
+        }
+    }
+    else {
+        //OUTPUT IF NO DATA IS GIVEN
+        var table = document.getElementById("myTable");
+        table.style.visibility = 'visible';
+        $('#myTable').append($('<tr><th rowspan="5" style="color: white;font-size: xx-large;width: 180px; height: 155px; border: none;" id="fitbit_steps">' + stepsToday + '</th></tr><tr><th>Miles</th><td>' + milesToday + '</td></tr><tr><th>Calories</th><td>' + caloriesToday + '</td></tr><tr><th>Floors</th><td>' + floorsToday + '</td></tr><th>Sedintary Mins</th><td>' + sedindaryMinToday + '</td></tr>'));
+    }
+}
+
+function _calculateAge(birthday) { // birthday is a date
+    var ageDifMs = Date.now() - birthday.getTime();
+    var ageDate = new Date(ageDifMs); // miliseconds from epoch
+    return Math.abs(ageDate.getUTCFullYear() - 1970);
+}
+
+function myFunction1() {
+    var x = document.getElementById("recordFormAdding");
+    x.style.display = "block";
 }

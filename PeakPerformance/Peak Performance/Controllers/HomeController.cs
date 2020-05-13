@@ -20,11 +20,14 @@ namespace Peak_Performance.Controllers
     {
         [Required, Display(Name = "Your name")]
         public string FromName { get; set; }
+
         [Required, Display(Name = "Your email"), EmailAddress]
         public string FromEmail { get; set; }
+
         [Required]
         public string Message { get; set; }
     }
+
     public class HomeController : Controller
     {
         private readonly PeakPerformanceContext db = new PeakPerformanceContext();
@@ -56,10 +59,9 @@ namespace Peak_Performance.Controllers
 
         public ActionResult Recieved()
         {
-
             return View();
         }
-        
+
         [HttpPost]
         public ActionResult SendEmail(string name, string cutomerEmail, string subject, string message)
         {
@@ -70,7 +72,7 @@ namespace Peak_Performance.Controllers
                     var senderEmail = new MailAddress("peakperformance1189@gmail.com", name);
                     var receiverEmail = new MailAddress("peakperformancewou@gmail.com");
                     var gmail = "Thisisfor1!";
-                    var body = "Customer Email: "+ cutomerEmail + System.Environment.NewLine + System.Environment.NewLine + message ;
+                    var body = "Customer Email: " + cutomerEmail + System.Environment.NewLine + System.Environment.NewLine + message;
                     var smtp = new SmtpClient
                     {
                         Host = "smtp.gmail.com",
@@ -102,6 +104,16 @@ namespace Peak_Performance.Controllers
         public string Capitolize(string sentence)
         {
             return char.ToUpper(sentence[0]) + sentence.Substring(1);
+        }
+
+        public ActionResult TermsAndConditions()
+        {
+            return View();
+        }
+
+        public ActionResult PrivacyPolicy()
+        {
+            return View();
         }
     }
 }
