@@ -11,6 +11,10 @@ namespace Peak_Performance.Models
     {
         private readonly PeakPerformanceContext db = new PeakPerformanceContext();
 
+        public CoachProfileViewModel() {
+
+        }
+
         public CoachProfileViewModel(int id)
         {
             coach = db.Coaches.Find(id);
