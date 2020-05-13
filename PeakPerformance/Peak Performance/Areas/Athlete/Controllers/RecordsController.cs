@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using Peak_Performance.DAL;
 using Peak_Performance.Models;
 
@@ -37,8 +38,12 @@ namespace Peak_Performance.Areas.Athlete.Controllers
         }
 
         // GET: Athlete/Records/Create
-        public ActionResult Create()
+        public ActionResult Create(int? wID)
         {
+            string id = User.Identity.GetUserId();
+            Person temp = db.Persons.FirstOrDefault(p => p.ASPNetIdentityID == id);
+            ViewBag.ID = temp.ID;
+            ViewBag.WorkoutID = wID;
             return View();
         }
 

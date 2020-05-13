@@ -54,6 +54,19 @@
     </div>
 </div>
 
+<br>
+
+<div>
+    <h3>
+        Workout Notes:
+    </h3>
+    <p>
+        @ViewBag.Note
+    </p>
+</div>
+
+<br>
+    
 @*@Html.ActionLink("Complete Workout", "Create", "Record", new { area = "Athlete" })*@
 
-<a href="~/Athlete/Records/Create"> Complete Workout</a>
+<a href="~/Athlete/Records/Create/@Model.workout.ID" class="button"> Complete Workout</a>
