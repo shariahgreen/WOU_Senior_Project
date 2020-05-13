@@ -1,5 +1,6 @@
-namespace Peak_Performance.Areas.Coach.Controllers
-{
+
+﻿ namespace Peak_Performance.Areas.Coach.Controllers {
+    
     using System;
     using System.Collections.Generic;
     using System.Data.Entity;
@@ -43,17 +44,17 @@ namespace Peak_Performance.Areas.Coach.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddAthlete([Bind(Include = "ID,TeamID")] Athlete athlete)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(athlete).State = EntityState.Modified;
+
+        public ActionResult AddAthlete(CoachProfileViewModel vm) {
+            if(ModelState.IsValid) {
+                Athlete a = db.Athletes.FirstOrDefault(x => x.ID == vm.athItem.ID);
+                a.TeamID = vm.teamItem.ID;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ID = new SelectList(db.Persons, "ID", "FirstName", athlete.ID);
-            ViewBag.TeamID = new SelectList(db.Teams, "ID", "TeamName", athlete.TeamID);
+            ViewBag.ID = new SelectList(db.Persons, "ID", "FirstName", vm.athItem.ID);
+            ViewBag.TeamID = new SelectList(db.Teams, "ID", "TeamName", vm.teamItem.ID);
             return View("Index");
         }
     }

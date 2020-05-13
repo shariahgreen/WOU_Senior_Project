@@ -18,12 +18,6 @@
         <th>
             @Html.DisplayNameFor(model => model.Note)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AthleteID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.WorkoutID)
-        </th>
         <th></th>
     </tr>
 
@@ -34,12 +28,6 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Note)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AthleteID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.WorkoutID)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
