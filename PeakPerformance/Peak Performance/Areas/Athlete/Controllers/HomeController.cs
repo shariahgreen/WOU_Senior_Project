@@ -59,15 +59,12 @@
             return View("Index", athlete);
         }
 
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Index([Bind(Include = "ExerciseRecordId, LiftWeight, ExerciseID, AthleteID")] ExerciseRecord exerciseRecord)
         {
             string id = User.Identity.GetUserId();
             Person temp = db.Persons.FirstOrDefault(p => p.ASPNetIdentityID == id);
-
-
 
             if (ModelState.IsValid)
             {
@@ -84,8 +81,6 @@
         public ActionResult HelpAndHints()
         {
             return View();
-
         }
-
     }
 }
