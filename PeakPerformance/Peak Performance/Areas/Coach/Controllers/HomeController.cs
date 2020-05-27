@@ -47,5 +47,25 @@ namespace Peak_Performance.Areas.Coach.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
         }
+
+        public ActionResult EditProfile()
+        {
+            string id = User.Identity.GetUserId();
+            Person person = db.Persons.Where(p => p.ASPNetIdentityID == id).FirstOrDefault();
+            return View(person);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditProfile([Bind(Include = "ID,FirstName,LastName,PreferredName,Active,ASPNetIdentityID")] Person person)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(person).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(person);
+        }
     }
 }
