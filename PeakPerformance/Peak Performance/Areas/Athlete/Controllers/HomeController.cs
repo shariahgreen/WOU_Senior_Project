@@ -74,7 +74,7 @@
                 exerciseRecord.AthleteID = temp.ID;
                 db.ExerciseRecords.Add(exerciseRecord);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home", new { area = "Athlete" });
             }
 
             ViewBag.ExerciseID = new SelectList(db.Exercises, "ID", "Name", exerciseRecord.ExerciseID);

@@ -38,16 +38,16 @@ namespace Peak_Performance.Areas.Athlete.Controllers
         }
 
         // GET: Athlete/Records/Create
-        public ActionResult Create(int? wID)
+        public ActionResult Create(int? id)
         {
-            string id = User.Identity.GetUserId();
-            Person temp = db.Persons.FirstOrDefault(p => p.ASPNetIdentityID == id);
+            string pid = User.Identity.GetUserId();
+            Person temp = db.Persons.FirstOrDefault(p => p.ASPNetIdentityID == pid);
             ViewBag.ID = temp.ID;
-            ViewBag.WorkoutID = wID;
+            ViewBag.WorkoutID = id;
             return View();
         }
 
-        // POST: Athlete/Records/Create
+        // POST: Athlete/Records/Create 
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]

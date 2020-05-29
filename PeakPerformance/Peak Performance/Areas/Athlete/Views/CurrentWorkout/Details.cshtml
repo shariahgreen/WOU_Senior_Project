@@ -67,6 +67,6 @@
 
 <br>
     
-@*@Html.ActionLink("Complete Workout", "Create", "Record", new { area = "Athlete" })*@
+@Html.ActionLink("Complete Workout", "Create", "Records", new { area = "Athlete" }, new { id = Model.workout.ID })
 
 <a href="~/Athlete/Records/Create/@Model.workout.ID" class="button"> Complete Workout</a>
