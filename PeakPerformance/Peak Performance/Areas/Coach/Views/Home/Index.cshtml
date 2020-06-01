@@ -1,4 +1,4 @@
-﻿@model Peak_Performance.Models.CoachProfileViewModel
+﻿ @model Peak_Performance.Models.CoachProfileViewModel
 
 @{
     ViewBag.Title = "CoachProfile";
@@ -9,6 +9,8 @@
 <div class="card">
     <div class="profileportion">
         <img src="~/Images/Avatar.png" alt="Profile Picture" style="width:300px; margin-top: 15px;" id="profilePic" />
+        <br />
+        <a href="~/Coach/Home/EditProfile">Edit Profile</a>
         <h1>@Model.coach.Person.FirstName @Model.coach.Person.LastName</h1>
         @{
             Random rnd = new Random();
