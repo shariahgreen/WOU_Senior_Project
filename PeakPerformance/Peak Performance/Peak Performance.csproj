@@ -384,6 +384,7 @@
     <Content Include="Views\ExerciseRecords\Details.cshtml" />
     <Content Include="Views\ExerciseRecords\Edit.cshtml" />
     <Content Include="Views\ExerciseRecords\Index.cshtml" />
+    <Content Include="Views\Home\Credits.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

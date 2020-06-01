@@ -179,8 +179,6 @@ h6 small {
     font-size: 100%;
 }
 
-
-
 #myDIV3 {
     display: none;
 }
@@ -200,6 +198,17 @@ h6 small {
     padding: 0px;
 }
 
-#registerA{
+#registerA {
     color: black;
+}
+
+#credits {
+    background-color: #0799ca;
+    border-radius: 15px;
+    padding: 15px;
+    border: #601cff solid 5px;
+}
+
+#creditsLink {
+    color: white;
 }
