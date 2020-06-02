@@ -115,5 +115,10 @@ namespace Peak_Performance.Controllers
         {
             return View();
         }
+
+        public ActionResult Credits()
+        {
+            return View();
+        }
     }
 }

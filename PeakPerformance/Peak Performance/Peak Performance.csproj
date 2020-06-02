@@ -302,6 +302,7 @@
     <Content Include="Areas\Coach\Views\Shared\Error.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\Error.cshtml" />
     <Content Include="Areas\Coach\Views\Home\EditProfile.cshtml" />
+    <Content Include="Areas\Athlete\Views\Home\EditAthlete.cshtml" />
     <None Include="Properties\PublishProfiles\PeakPerformance - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\peakperformancedev - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
@@ -385,6 +386,7 @@
     <Content Include="Views\ExerciseRecords\Details.cshtml" />
     <Content Include="Views\ExerciseRecords\Edit.cshtml" />
     <Content Include="Views\ExerciseRecords\Index.cshtml" />
+    <Content Include="Views\Home\Credits.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
