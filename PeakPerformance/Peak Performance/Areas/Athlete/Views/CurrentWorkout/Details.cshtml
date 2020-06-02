@@ -20,8 +20,10 @@
 
     <div>
         <h4>Workout Details</h4>
+        <a href="~/Athlete/CurrentWorkout/DownloadPDF/@Model.workout.ID" class="btn btn-primary" role="button">Download</a>
         <div class="row" id="workout" style="font-size:150%; background-color: lightgrey; border: 5px solid black; padding: 5px; margin: 5px; width: 930px;">
-            @foreach (Peak_Performance.Models.Complex comp in Model.complexes) {
+            @foreach (Peak_Performance.Models.Complex comp in Model.complexes)
+            {
                 <div class="row" style="background-color: white; border: 5px solid black; padding: 5px; margin: 5px; width: 900px;">
                     <div class="complex">
                         Complex
@@ -35,7 +37,8 @@
                                 <th style="width: 100px; padding: 5px; margin: 5px">Speed</th>
                                 <th style="width: 100px; padding: 5px; margin: 5px">Distance</th>
                             </tr>
-                            @foreach (Peak_Performance.Models.ComplexItem item in Model.exercises[comp.ID]) {
+                            @foreach (Peak_Performance.Models.ComplexItem item in Model.exercises[comp.ID])
+                            {
                                 <tr>
                                     <td>@item.Exercis.Name</td>
                                     <td>@item.ComplexReps</td>
