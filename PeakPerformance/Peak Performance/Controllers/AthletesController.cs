@@ -11,6 +11,7 @@ using Peak_Performance.Models;
 
 namespace Peak_Performance.Controllers
 {
+    [Authorize(Roles = "Coach, Admin, Athlete")]
     public class AthletesController : Controller
     {
         private PeakPerformanceContext db = new PeakPerformanceContext();
