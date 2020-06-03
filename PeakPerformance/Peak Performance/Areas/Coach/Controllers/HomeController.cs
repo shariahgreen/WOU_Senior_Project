@@ -74,7 +74,7 @@ namespace Peak_Performance.Areas.Coach.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditProfile([Bind(Include = "ID,FirstName,LastName,PreferredName,Active,ASPNetIdentityID")] Person person)
+        public ActionResult EditProfile([Bind(Include = "ID,FirstName,LastName,PreferredName,Active,ASPNetIdentityID,ProfilePic")] Person person)
         {
             if (ModelState.IsValid)
             {
