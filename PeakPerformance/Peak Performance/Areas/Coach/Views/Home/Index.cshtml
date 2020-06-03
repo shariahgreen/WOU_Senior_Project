@@ -18,6 +18,7 @@
 <div class="card">
     <div class="profileportion">
         <img src="@imgSrc" alt="Profile Picture" style="width:300px; margin-top: 15px;" id="profilePic" />
+        <br/>
         @using (Html.BeginForm("UploadPhoto", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             <input type="file" name="postedFile" />
