@@ -29,9 +29,9 @@
                 <div>
                     <h4>Past Workouts</h4>
 
+                    @if (Model.pastWorkoutLists.Count() > 0) {
                     <table class="table">
-                        @foreach (var item in Model.pastWorkoutLists)
-                        {
+                        @foreach (var item in Model.pastWorkoutLists) {
                             <tr>
                                 <td>
                                     @Html.ActionLink(item.WorkoutDate.ToString("MM-dd-yyyy"), "Details", "CurrentWorkout", new { id = item.ID }, new { area = "Athlete" })
@@ -39,6 +39,10 @@
                             </tr>
                         }
                     </table>
+                    }
+                    else { 
+                        <p>You have no past workouts yet. Go hit the gym!</p>
+                    }
                 </div>
             </div>
         </div>
@@ -47,17 +51,21 @@
                 <div>
                     <h4>Upcoming Workouts</h4>
 
-                    <table class="table">
-                        @foreach (var item in Model.upcomingWorkoutLists)
-                        {
-                            <tr>
-                                <td>
-                                    @Html.ActionLink(item.WorkoutDate.ToString("MM-dd-yyyy"), "Details", "CurrentWorkout", new { id = item.ID }, new { area = "Athlete" })
-                                </td>
-                            </tr>
-                        }
-                    </table>
-                </div>
+                    @if (Model.upcomingWorkoutLists.Count() > 0) {
+                        <table class="table">
+                            @foreach (var item in Model.upcomingWorkoutLists) {
+                                <tr>
+                                    <td>
+                                        @Html.ActionLink(item.WorkoutDate.ToString("MM-dd-yyyy"), "Details", "CurrentWorkout", new { id = item.ID }, new { area = "Athlete" })
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                    }
+                    else {
+                        <p>You have no assigned workouts yet.</p>
+                    }
+                    </div>
             </div>
         </div>
     </div>
