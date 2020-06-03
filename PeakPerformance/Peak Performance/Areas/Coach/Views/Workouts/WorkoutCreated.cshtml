@@ -29,7 +29,7 @@
                     @foreach (Peak_Performance.Models.ComplexItem item in Model.exercises[comp.ID])
                     {
                         <tr>
-                            <td>@item.Exercis.Name</td>
+                            <td>@(String.IsNullOrEmpty(item.ExerciseName) ? @item.Exercis.Name : @item.ExerciseName)</td>
                             <td>@item.ComplexReps</td>
                             <td>@item.ComplexSets</td>
                             <td>@item.LiftWeight</td>

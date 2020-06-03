@@ -59,6 +59,9 @@
     <Reference Include="reCAPTCHA.MVC, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\reCAPTCH.MVC.1.0.1\lib\net45\reCAPTCHA.MVC.dll</HintPath>
     </Reference>
+    <Reference Include="Rotativa, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Rotativa.1.7.3\lib\net461\Rotativa.dll</HintPath>
+    </Reference>
     <Reference Include="SendGrid, Version=9.13.0.0, Culture=neutral, PublicKeyToken=4f047e93159395ca, processorArchitecture=MSIL">
       <HintPath>packages\SendGrid.9.13.0\lib\net452\SendGrid.dll</HintPath>
     </Reference>
@@ -263,6 +266,10 @@
     <Content Include="Images\pushup.png" />
     <Content Include="Images\Text_Only.png" />
     <Content Include="Images\treadmill.png" />
+    <Content Include="Rotativa\help-wkhtmltoimage.txt" />
+    <Content Include="Rotativa\help-wkhtmltopdf.txt" />
+    <Content Include="Rotativa\wkhtmltoimage.exe" />
+    <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="Scripts\app.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -302,6 +309,9 @@
     <Content Include="Areas\Coach\Views\Shared\Error.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\Error.cshtml" />
     <Content Include="Areas\Coach\Views\Home\EditProfile.cshtml" />
+    <Content Include="Areas\Athlete\Views\Home\EditAthlete.cshtml" />
+    <Content Include="App_Browsers\qt.browser" />
+    <Content Include="Areas\Athlete\Views\CurrentWorkout\PDF.cshtml" />
     <None Include="Properties\PublishProfiles\PeakPerformance - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\peakperformancedev - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
@@ -385,6 +395,7 @@
     <Content Include="Views\ExerciseRecords\Details.cshtml" />
     <Content Include="Views\ExerciseRecords\Edit.cshtml" />
     <Content Include="Views\ExerciseRecords\Index.cshtml" />
+    <Content Include="Views\Home\Credits.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

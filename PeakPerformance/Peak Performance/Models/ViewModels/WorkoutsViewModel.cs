@@ -18,6 +18,7 @@ namespace Peak_Performance.Models.ViewModels
 
         public int userID { get; set; }
 
+
         public FullWorkoutViewModel(int id)
         {
             this.workout = db.Workouts.Find(id);
@@ -91,21 +92,17 @@ namespace Peak_Performance.Models.ViewModels
                         }
                         else
                         {
-                            //Peak_Performance.Models.ComplexItem item = new ComplexItem();
-                            //item.Complex = complex;
-                            //item.Exercis = db.Exercises.FirstOrDefault(e => e.Name == ex.name);
-                            //item.Name = ex.name;
-                            //item.ComplexReps = ex.reps;
-                            //item.ComplexSets = ex.sets;
-                            //item.LiftWeight = ex.weight;
-                            //item.RunDistance = ex.distance;
-                            //item.RunSpeed = ex.speed;
-                            //item.RunTime = ex.time;
-                            //complexItems.Add(item);
-                            //db.ComplexItems.Add(item);
-                            //right now we are only creating the complex item if the exercise already exists in the database
-                            //handle if we don't have the specified exercise
-                            //maybe add a name attribute to complex items, set name == name if we dont have the exercise => no link to exercise info
+                            Peak_Performance.Models.ComplexItem item = new ComplexItem();
+                            item.Complex = complex;
+                            item.ExerciseName = ex.name;
+                            item.ComplexReps = ex.reps;
+                            item.ComplexSets = ex.sets;
+                            item.LiftWeight = ex.weight;
+                            item.RunDistance = ex.distance;
+                            item.RunSpeed = ex.speed;
+                            item.RunTime = ex.time;
+                            complexItems.Add(item);
+                            db.ComplexItems.Add(item);
                         }
                     }
                     complex.ComplexItems = complexItems;

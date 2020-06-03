@@ -106,13 +106,14 @@ CREATE TABLE [dbo].[Complexes]
 CREATE TABLE [dbo].[ComplexItems]
 (
     [ID] INT NOT NULL IDENTITY(1,1),
+	[ExerciseName] NVARCHAR (100),
 	[ComplexReps] INT,
 	[ComplexSets] INT,
 	[LiftWeight] FLOAT,
 	[RunSpeed] FLOAT,
 	[RunTime] TIME,
 	[RunDistance] FLOAT,
-	[ExerciseID] INT NOT NULL,
+	[ExerciseID] INT,
     [ComplexId] INT NOT NULL,
     
 	CONSTRAINT [FK_dbo.ComplexItems_dbo.Exercises_ExerciseID] FOREIGN KEY ([ExerciseID]) REFERENCES [dbo].[Exercises] ([ID]) ON DELETE CASCADE,
