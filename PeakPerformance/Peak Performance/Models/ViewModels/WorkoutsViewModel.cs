@@ -18,6 +18,7 @@ namespace Peak_Performance.Models.ViewModels
 
         public int userID { get; set; }
 
+
         public FullWorkoutViewModel(int id)
         {
             this.workout = db.Workouts.Find(id);

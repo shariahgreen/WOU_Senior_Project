@@ -47,5 +47,41 @@ namespace Peak_Performance.Areas.Athlete.Controllers
 
             return View(viewModel);
         }
+
+        public ActionResult PDF(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+            }
+
+            string userID = User.Identity.GetUserId();
+            Person temp = db.Persons.FirstOrDefault(p => p.ASPNetIdentityID == userID);
+
+            Workout currentWorkout = db.Workouts.Find(id);
+            var completed = db.Records.Where(item => (item.WorkoutID == id) && (item.AthleteID == temp.ID)).Select(item => item.Completed);
+
+            if (currentWorkout == null)
+            {
+                return HttpNotFound();
+            }
+
+            FullWorkoutViewModel viewModel = new FullWorkoutViewModel(currentWorkout.ID);
+
+            if (db.Records.Any(m => m.WorkoutID == currentWorkout.ID))
+            {
+                Record rec = db.Records.Where(m => m.WorkoutID == currentWorkout.ID).FirstOrDefault();
+                ViewBag.Note = rec.Note;
+            }
+
+            return View(viewModel);
+        }
+
+        public ActionResult DownloadPDF(int? Id)
+        {
+            var r = new Rotativa.ActionAsPdf("PDF", new { id = Id });
+
+            return r;
+        }
     }
 }
