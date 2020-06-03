@@ -1,14 +1,29 @@
-﻿ @model Peak_Performance.Models.CoachProfileViewModel
+﻿@model Peak_Performance.Models.CoachProfileViewModel
 
 @{
     ViewBag.Title = "CoachProfile";
     Layout = "~/Areas/Coach/Views/Shared/_Layout.cshtml";
 }
 
+@{
+    var imgSrc = "~/Images/Avatar.png";
+    if (Model.ProfilePic != null)
+    {
+        var base64 = Convert.ToBase64String(Model.ProfilePic);
+        imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+    }
+}
+
 <br>
 <div class="card">
     <div class="profileportion">
-        <img src="~/Images/Avatar.png" alt="Profile Picture" style="width:300px; margin-top: 15px;" id="profilePic" />
+        <img src="@imgSrc" alt="Profile Picture" style="width:300px; margin-top: 15px;" id="profilePic" />
+        <br/>
+        @using (Html.BeginForm("UploadPhoto", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <input type="file" name="postedFile" />
+            <input type="submit" id="btnUpload" value="Upload" />
+        }
         <br />
         <a href="~/Coach/Home/EditProfile">Edit Profile</a>
         <h1>@Model.coach.Person.FirstName @Model.coach.Person.LastName</h1>

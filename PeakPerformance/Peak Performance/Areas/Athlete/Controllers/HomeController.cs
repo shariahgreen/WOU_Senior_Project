@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using System.Web;
     using System.Web.Mvc;
@@ -34,6 +35,22 @@
             Person temp = db.Persons.FirstOrDefault(p => p.ASPNetIdentityID == id);
             AthleteProfileViewModel athlete = new AthleteProfileViewModel(temp.ID);
             return View("Index", athlete);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult UploadPhoto(HttpPostedFileBase postedFile)
+        {
+            byte[] bytes;
+            using (BinaryReader br = new BinaryReader(postedFile.InputStream))
+            {
+                bytes = br.ReadBytes(postedFile.ContentLength);
+            }
+            string ID = User.Identity.GetUserId();
+            Person person = db.Persons.Where(r => r.ASPNetIdentityID == ID).FirstOrDefault();
+            person.ProfilePic = bytes;
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         [HttpPost]

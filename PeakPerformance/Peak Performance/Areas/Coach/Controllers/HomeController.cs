@@ -3,6 +3,7 @@ namespace Peak_Performance.Areas.Coach.Controllers
     using System;
     using System.Collections.Generic;
     using System.Data.Entity;
+    using System.IO;
     using System.Linq;
     using System.Web;
     using System.Web.Mvc;
@@ -21,6 +22,22 @@ namespace Peak_Performance.Areas.Coach.Controllers
             Person temp = db.Persons.FirstOrDefault(p => p.ASPNetIdentityID == id);
             CoachProfileViewModel coach = new CoachProfileViewModel(temp.ID);
             return View("Index", coach);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult UploadPhoto(HttpPostedFileBase postedFile)
+        {
+            byte[] bytes;
+            using (BinaryReader br = new BinaryReader(postedFile.InputStream))
+            {
+                bytes = br.ReadBytes(postedFile.ContentLength);
+            }
+            string ID = User.Identity.GetUserId();
+            Person person = db.Persons.Where(r => r.ASPNetIdentityID == ID).FirstOrDefault();
+            person.ProfilePic = bytes;
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         // GET: /AddAthlete
