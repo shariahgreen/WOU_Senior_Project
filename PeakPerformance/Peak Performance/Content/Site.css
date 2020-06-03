@@ -57,6 +57,7 @@ textarea {
 
 .navbar-inverse {
     background-color: #C0C0C0;
+    border-color: none !important;
 }
 
     .navbar-inverse .navbar-nav > li > a {
