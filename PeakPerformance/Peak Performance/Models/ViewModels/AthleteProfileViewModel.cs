@@ -13,7 +13,7 @@ namespace Peak_Performance.Models.ViewModels
         public AthleteProfileViewModel(int id)
         {
             athlete = db.Athletes.Find(id);
-
+            ProfilePic = athlete.Person.ProfilePic;
             int? athleteTeamID = db.Athletes.Find(id).TeamID;
 
             //select list of workout in the past
@@ -57,5 +57,6 @@ namespace Peak_Performance.Models.ViewModels
 
         public virtual IEnumerable<Workout> exerciseList { get; set; }
         public virtual List<string> exerciseNameList { get; set; }
+        public virtual Byte[] ProfilePic { get; set; }
     }
 }

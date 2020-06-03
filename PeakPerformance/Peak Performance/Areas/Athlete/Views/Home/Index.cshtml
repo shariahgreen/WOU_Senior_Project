@@ -13,11 +13,21 @@
     }
 }
 
+@{
+    var base64 = Convert.ToBase64String(Model.ProfilePic);
+    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+}
+
 <div class="container container-fluid">
     <div class="row">
         <div class="col-md-3" style="top: 0; font-size: 20px;">
             <div class="card">
-                <img src="~/Images/Avatar.png" alt="Profile Picture" style="width:300px; margin-top: 15px;" />
+                <img src="@imgSrc" alt="Profile Picture" style="width:300px; margin-top: 15px;" />
+                @using (Html.BeginForm("UploadPhoto", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <input type="file" name="postedFile" />
+                    <input type="submit" id="btnUpload" value="Upload" />
+                }
                 <h1>@Html.DisplayFor(item => item.athlete.Person.FirstName) @Html.DisplayFor(item => item.athlete.Person.LastName)</h1>
                 <p class="team">@Html.DisplayFor(item => item.athlete.Team.TeamName)</p>
                 <br />
