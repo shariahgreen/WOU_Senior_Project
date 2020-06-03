@@ -14,8 +14,12 @@
 }
 
 @{
-    var base64 = Convert.ToBase64String(Model.ProfilePic);
-    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+    var imgSrc = "~/Images/Avatar.png";
+    if (Model.ProfilePic != null)
+    {
+        var base64 = Convert.ToBase64String(Model.ProfilePic);
+        imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+    }
 }
 
 <div class="container container-fluid">
