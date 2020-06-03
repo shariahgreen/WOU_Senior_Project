@@ -58,7 +58,7 @@ namespace Peak_Performance.Areas.Athlete.Controllers
             {
                 db.Records.Add(record);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
             }
 
             return View(record);

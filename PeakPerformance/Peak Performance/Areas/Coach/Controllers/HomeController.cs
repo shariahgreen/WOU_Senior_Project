@@ -3,6 +3,7 @@ namespace Peak_Performance.Areas.Coach.Controllers
     using System;
     using System.Collections.Generic;
     using System.Data.Entity;
+    using System.IO;
     using System.Linq;
     using System.Web;
     using System.Web.Mvc;
@@ -21,6 +22,22 @@ namespace Peak_Performance.Areas.Coach.Controllers
             Person temp = db.Persons.FirstOrDefault(p => p.ASPNetIdentityID == id);
             CoachProfileViewModel coach = new CoachProfileViewModel(temp.ID);
             return View("Index", coach);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult UploadPhoto(HttpPostedFileBase postedFile)
+        {
+            byte[] bytes;
+            using (BinaryReader br = new BinaryReader(postedFile.InputStream))
+            {
+                bytes = br.ReadBytes(postedFile.ContentLength);
+            }
+            string ID = User.Identity.GetUserId();
+            Person person = db.Persons.Where(r => r.ASPNetIdentityID == ID).FirstOrDefault();
+            person.ProfilePic = bytes;
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         // GET: /AddAthlete
@@ -46,6 +63,26 @@ namespace Peak_Performance.Areas.Coach.Controllers
                 a.TeamID = vm.teamItem.ID;
                 db.SaveChanges();
                 return RedirectToAction("Index");
+        }
+
+        public ActionResult EditProfile()
+        {
+            string id = User.Identity.GetUserId();
+            Person person = db.Persons.Where(p => p.ASPNetIdentityID == id).FirstOrDefault();
+            return View(person);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditProfile([Bind(Include = "ID,FirstName,LastName,PreferredName,Active,ASPNetIdentityID,ProfilePic")] Person person)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(person).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(person);
         }
     }
 }

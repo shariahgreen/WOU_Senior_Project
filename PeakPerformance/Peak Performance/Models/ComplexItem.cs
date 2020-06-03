@@ -10,6 +10,9 @@ namespace Peak_Performance.Models
     {
         public int ID { get; set; }
 
+        [StringLength(100)]
+        public string ExerciseName { get; set; }
+
         public int? ComplexReps { get; set; }
 
         public int? ComplexSets { get; set; }
@@ -22,7 +25,7 @@ namespace Peak_Performance.Models
 
         public double? RunDistance { get; set; }
 
-        public int ExerciseID { get; set; }
+        public int? ExerciseID { get; set; }
 
         public int ComplexId { get; set; }
 

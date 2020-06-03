@@ -18,6 +18,7 @@ namespace Peak_Performance.Models
         public CoachProfileViewModel(int id)
         {
             coach = db.Coaches.Find(id);
+            ProfilePic = coach.Person.ProfilePic;
             teams = db.Teams.Where(t => t.CoachID == id).ToList();
             teamList = new SelectList(db.Teams.Where(item => item.CoachID == coach.ID), "ID", "TeamName");
             CoachProfileId = coach.ID;
@@ -46,5 +47,7 @@ namespace Peak_Performance.Models
         public Team teamItem { get; set; }
         public IEnumerable<SelectListItem> athList { get; set; }
         public Team athItem { get; set; }
+        public virtual Byte[] ProfilePic { get; set; }
+
     }
 }

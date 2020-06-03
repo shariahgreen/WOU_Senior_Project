@@ -13,11 +13,22 @@
     }
 }
 
+@{
+    var base64 = Convert.ToBase64String(Model.ProfilePic);
+    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+}
+
 <div class="container container-fluid">
     <div class="row">
         <div class="col-md-3" style="top: 0; font-size: 20px;">
             <div class="card">
-                <img src="~/Images/Avatar.png" alt="Profile Picture" style="width:300px; margin-top: 15px;" />
+                <img src="@imgSrc" alt="Profile Picture" style="width:300px; margin-top: 15px;" />
+                <br/>
+                @using (Html.BeginForm("UploadPhoto", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <input type="file" name="postedFile" />
+                    <input type="submit" id="btnUpload" value="Upload" />
+                }
                 <h1>@Html.DisplayFor(item => item.athlete.Person.FirstName) @Html.DisplayFor(item => item.athlete.Person.LastName)</h1>
                 <p class="team">@Html.DisplayFor(item => item.athlete.Team.TeamName)</p>
                 <br />
@@ -29,9 +40,9 @@
                 <div>
                     <h4>Past Workouts</h4>
 
+                    @if (Model.pastWorkoutLists.Count() > 0) {
                     <table class="table">
-                        @foreach (var item in Model.pastWorkoutLists)
-                        {
+                        @foreach (var item in Model.pastWorkoutLists) {
                             <tr>
                                 <td>
                                     @Html.ActionLink(item.WorkoutDate.ToString("MM-dd-yyyy"), "Details", "CurrentWorkout", new { id = item.ID }, new { area = "Athlete" })
@@ -39,6 +50,10 @@
                             </tr>
                         }
                     </table>
+                    }
+                    else { 
+                        <p>You have no past workouts yet. Go hit the gym!</p>
+                    }
                 </div>
             </div>
         </div>
@@ -47,17 +62,21 @@
                 <div>
                     <h4>Upcoming Workouts</h4>
 
-                    <table class="table">
-                        @foreach (var item in Model.upcomingWorkoutLists)
-                        {
-                            <tr>
-                                <td>
-                                    @Html.ActionLink(item.WorkoutDate.ToString("MM-dd-yyyy"), "Details", "CurrentWorkout", new { id = item.ID }, new { area = "Athlete" })
-                                </td>
-                            </tr>
-                        }
-                    </table>
-                </div>
+                    @if (Model.upcomingWorkoutLists.Count() > 0) {
+                        <table class="table">
+                            @foreach (var item in Model.upcomingWorkoutLists) {
+                                <tr>
+                                    <td>
+                                        @Html.ActionLink(item.WorkoutDate.ToString("MM-dd-yyyy"), "Details", "CurrentWorkout", new { id = item.ID }, new { area = "Athlete" })
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                    }
+                    else {
+                        <p>You have no assigned workouts yet.</p>
+                    }
+                    </div>
             </div>
         </div>
     </div>

@@ -24,6 +24,8 @@ namespace Peak_Performance.Models
 
         public bool? Active { get; set; }
 
+        public Byte[] ProfilePic { get; set; }
+
         [Required]
         [StringLength(128)]
         public string ASPNetIdentityID { get; set; }
