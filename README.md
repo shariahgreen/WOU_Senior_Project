@@ -47,4 +47,4 @@ For this project we are following Agile methodologies, specifically Disciplined 
 ### Tools, Configuration, and Packages
 <a href="https://github.com/jmcworth/404notfoundproj/blob/master/Milestones/Milestone5/ToolsNeeded.md">Tools</a> is a list of all the software, libraries, tools, packages, and versions used on this project. Make sure you are using the same ones to avoid any compatibility errors.
 
-An ER diagram of our final database schema can be found <a href="https://github.com/jmcworth/404notfoundproj/blob/dev/Milestones/Sprint5/Untitled.png">here</a>.
+An ER diagram of our final database schema can be found <a href="https://github.com/jmcworth/404notfoundproj/blob/dev/Milestones/Sprint6/finalERDiagram.png">here</a>.
